@@ -37,7 +37,7 @@ def vannaya():
     sl.text(B.M, y1, lw, 0.3, "Откуда рост +125 млн ₽: 4 страт-мира", size=13.0, weight=600,
             color=B.WHITE)
     sl.rect(B.M, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
-    C.hbars(sl, B.M, y1 + 0.54, lw, [
+    C.hbars(sl, B.M, y1 + 0.50, lw, [
         dict(label="ПРО · 40% · новые ЖК и зал", value=50, value_label="+50", label_color=B.GREY),
         dict(label="МП4 · 25% · сантехника в проект", value=31, value_label="+31", label_color=B.GREY,
              color=B.YELLOW_DIM),
@@ -212,15 +212,15 @@ def kuhni():
     cw = (lw - 0.16) / 2
     for i, (name, effect, color, items) in enumerate(cards):
         x = B.M + (i % 2) * (cw + 0.16)
-        y = y1 + 0.44 + (i // 2) * 1.64
-        C.panel(sl, x, y, cw, 1.52)
-        sl.rect(x, y, 0.05, 1.52, fill=color)
+        y = y1 + 0.44 + (i // 2) * 1.66
+        C.panel(sl, x, y, cw, 1.56)
+        sl.rect(x, y, 0.05, 1.56, fill=color)
         sl.text(x + 0.20, y + 0.12, cw - 1.6, 0.22, name, size=8.2, weight=700, color=color,
                 caps=True, tracking=0.7)
         sl.text(x + cw - 1.35, y + 0.10, 1.20, 0.26, effect, size=10.5, weight=700,
                 color=B.WHITE, align="r")
-        sl.bullets(x + 0.20, y + 0.40, cw - 0.36, 1.1, items, size=7.8, bullet="—",
-                   gap=0.04, line=1.2)
+        sl.bullets(x + 0.20, y + 0.38, cw - 0.36, 1.14, items, size=7.4, bullet="—",
+                   gap=0.03, line=1.18)
 
     # справа: до и после
     rx = B.M + lw + 0.34
@@ -238,18 +238,20 @@ def kuhni():
     sl.table(rx, y1 + 0.44, rw, [1.85, 0.95, 0.95], rows, size=8.4,
              aligns=["l", "r", "r"], row_h=0.22, head_h=0.26)
 
-    sl.text(rx, y1 + 2.02, rw, 0.3, "Ремоделинг: 278 → 506,8 млн ₽", size=11.0,
+    sl.text(rx, y1 + 1.98, rw, 0.3, "Ремоделинг: 278 → 506,8 млн ₽", size=11.0,
             weight=600, color=B.WHITE)
-    mini = [("5 327", "созданных сделок"), ("221 348 ₽", "средний бюджет"),
-            ("71%", "доля сделок с услугой"), ("43%", "конверсия, 2026 — 34%")]
+    mini = [("5 327", "созданных\nсделок"), ("221 348 ₽", "средний\nбюджет"),
+            ("71%", "доля сделок\nс услугой"), ("43%", "конверсия,\n2026 — 34%")]
+    C.panel(sl, rx, y1 + 2.34, rw, 0.92, fill=B.PANEL_2)
     for i, (v, lb) in enumerate(mini):
-        x = rx + (i % 2) * (rw / 2)
-        y = y1 + 2.36 + (i // 2) * 0.82
-        C.panel(sl, x, y, rw / 2 - 0.06, 0.74, fill=B.PANEL_2)
-        sl.text(x + 0.18, y + 0.10, rw / 2 - 0.42, 0.28, v, size=12.5, weight=700,
+        x = rx + 0.20 + i * ((rw - 0.40) / 4)
+        if i:
+            sl.rect(rx + 0.20 + i * ((rw - 0.40) / 4) - 0.10, y1 + 2.48, 0.012, 0.64,
+                    fill=B.LINE)
+        sl.text(x, y1 + 2.46, (rw - 0.40) / 4 - 0.16, 0.30, v, size=13.0, weight=700,
                 color=B.YELLOW)
-        sl.text(x + 0.18, y + 0.40, rw / 2 - 0.42, 0.28, lb, size=7.6, weight=400,
-                color=B.GREY, line=1.16)
+        sl.text(x, y1 + 2.78, (rw - 0.40) / 4 - 0.16, 0.40, lb, size=7.2, weight=400,
+                color=B.GREY, line=1.14)
 
     C.footnote(sl, "Источники: данные заказчика по отделу «Кухни» (GMV 2026 — 594,1 млн ₽, амбиция 2027 — "
                    "778,4 млн ₽; ремоделинг 278 → 506,8 млн ₽); BI ЛП 2026.")
@@ -277,7 +279,7 @@ def sad():
     sl.text(B.M, y1, lw, 0.3, "Стратегические подотделы в GMV отдела", size=13.0, weight=600,
             color=B.WHITE)
     sl.rect(B.M, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
-    C.hbars(sl, B.M, y1 + 0.54, lw, [
+    C.hbars(sl, B.M, y1 + 0.50, lw, [
         dict(label="Уход за садом", value=97, value_label="97 млн ₽", label_color=B.GREY),
         dict(label="Мебель", value=75, value_label="75 млн ₽", label_color=B.GREY,
              color=B.YELLOW_DIM),
@@ -285,19 +287,19 @@ def sad():
              color=B.YELLOW_SOFT),
         dict(label="Растения", value=60, value_label="60 млн ₽", label_color=B.GREY,
              color=B.PANEL_2),
-    ], row_h=0.38, label_w=1.95, bar_h=0.15, value_w=1.05, size=9.2)
+    ], row_h=0.36, label_w=1.95, bar_h=0.15, value_w=1.05, size=9.2)
 
-    cy = y1 + 2.10
+    cy = y1 + 2.00
     sl.text(B.M, cy, lw, 0.3, "Сезонный контур МП2", size=13.0, weight=600, color=B.WHITE)
     sl.rect(B.M, cy + 0.29, 0.34, 0.03, fill=B.YELLOW)
-    C.panel(sl, B.M, cy + 0.42, lw, 1.24)
+    C.panel(sl, B.M, cy + 0.40, lw, 1.24)
     stats = [("153 → 300", "GMV в сезон, млн ₽"), ("104 → 204", "лидов в сезон"),
              ("+5 ПК и 3 аутсорс", "усиление штата")]
     for i, (v, lb) in enumerate(stats):
         x = B.M + 0.24 + i * 1.92
-        sl.text(x, cy + 0.58, 1.85, 0.3, v, size=14, weight=700, color=B.YELLOW)
-        sl.text(x, cy + 0.92, 1.80, 0.5, lb, size=8.2, weight=400, color=B.GREY, line=1.2)
-    sl.text(B.M + 0.24, cy + 1.36, lw - 0.48, 0.24,
+        sl.text(x, cy + 0.54, 1.85, 0.3, v, size=13.5, weight=700, color=B.YELLOW)
+        sl.text(x, cy + 0.86, 1.80, 0.34, lb, size=8.0, weight=400, color=B.GREY, line=1.16)
+    sl.text(B.M + 0.24, cy + 1.24, lw - 0.48, 0.24,
             "За счёт усиления штата продажи в сезон растут вдвое", size=8.0, weight=400,
             color=B.GREY_2, line=1.2)
 
@@ -320,7 +322,7 @@ def sad():
                 line=1.16)
         sl.text(rx + rw * 0.42, cy + 0.08, rw * 0.58, 0.4, txt, size=8.0, weight=400,
                 color=B.GREY, line=1.2)
-        cy += 0.46
+        cy += 0.42
     sl.line(rx, cy, rx + rw, cy, B.LINE, lw=0.6)
     sl.text(rx, cy + 0.10, rw, 0.26, "Клиент покупает не SKU, а готовую задачу",
             size=8.4, weight=700, color=B.YELLOW)
@@ -719,13 +721,13 @@ def closing():
             "ПРО в торговом зале и проектный центр в одну воронку.",
             size=11.5, weight=400, color=B.GREY, line=1.4)
 
-    numbers = [("4 864", "млн ₽ — сумма шести миров 2027"),
+    numbers = [("9,1 → 14,5", "млрд ₽ GMV: 2026 → 2029"),
                ("1 012", "млн ₽ проектных продаж ПЦ"),
-               ("+29%", "рост GMV миров к 2026")]
+               ("+390", "млн ₽ эффект проекта ПОЛ")]
     for i, (v, lb) in enumerate(numbers):
         x = B.M + i * 2.85
-        sl.text(x, 6.06, 2.6, 0.36, v, size=18, weight=700, color=B.WHITE)
-        sl.text(x, 6.44, 2.55, 0.5, lb, size=8.4, weight=400, color=B.GREY, line=1.2)
+        sl.text(x, 6.06, 2.75, 0.36, v, size=17, weight=700, color=B.WHITE)
+        sl.text(x, 6.44, 2.62, 0.5, lb, size=8.4, weight=400, color=B.GREY, line=1.2)
     return sl
 
 

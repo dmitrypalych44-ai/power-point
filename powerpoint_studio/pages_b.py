@@ -92,24 +92,24 @@ def pol_summary():
              color=B.PANEL_2),
     ], row_h=0.46, label_w=2.15, bar_h=0.17, value_w=0.70, size=9.6)
 
-    C.callout(sl, rx, y1 + 2.42, rw, 0.62,
+    C.callout(sl, rx, y1 + 2.40, rw, 0.58,
               "Гросс-потенциал инициатив — 579 млн ₽; в план заложен нетто +390 млн ₽ "
-              "(коэффициент 0,67).", size=8.6)
+              "(коэф. 0,67).", size=8.4)
 
     # профиль клиента
-    C.panel(sl, B.M, 6.26, B.CW, 0.60, fill=B.PANEL_2)
-    sl.text(B.M + 0.22, 6.26 + 0.20, 2.05, 0.22, "ПРОФИЛЬ КЛИЕНТА", size=8.0, weight=700,
-            color=B.YELLOW, caps=True, tracking=0.7)
+    C.panel(sl, B.M, 6.42, B.CW, 0.48, fill=B.PANEL_2)
+    sl.text(B.M + 0.22, 6.42, 1.85, 0.48, "ПРОФИЛЬ КЛИЕНТА", size=8.0, weight=700,
+            color=B.YELLOW, caps=True, tracking=0.7, valign="m")
     seg = [("48%", "B2C «делает сам»"), ("32%", "B2C «делает бригада»"),
            ("20%", "B2B / ПРО")]
     for i, (v, lb) in enumerate(seg):
-        x = B.M + 2.28 + i * 2.05
-        sl.text(x, 6.26 + 0.04, 0.62, 0.26, v, size=12.0, weight=700, color=B.WHITE)
-        sl.text(x + 0.62, 6.26 + 0.04, 1.35, 0.4, lb, size=8.0, weight=400, color=B.GREY,
+        x = B.M + 2.24 + i * 2.10
+        sl.text(x, 6.42, 0.66, 0.48, v, size=12.0, weight=700, color=B.WHITE, valign="m")
+        sl.text(x + 0.68, 6.42, 1.32, 0.48, lb, size=7.8, weight=400, color=B.GREY,
                 line=1.15, valign="m")
-    sl.text(B.M + 8.55, 6.26 + 0.06, 3.5, 0.5,
+    sl.text(B.M + 8.80, 6.42, 3.20, 0.48,
             "Целевой клиент — B2C, который выбирает покрытие сам, а сопутку доверяет мастеру",
-            size=8.0, weight=400, color=B.GREY, line=1.22)
+            size=7.8, weight=400, color=B.GREY, line=1.2, valign="m")
 
     C.footnote(sl, "Источники: BI ЛП 2026; Досье рынка 2026–2027, магазин 75. Допущения: рынок ПОЛ 2027 — "
                    "3,0 млрд ₽; GMV магазина 75 — 9 170 млн ₽ (+12,65%). Сегментация — после 12.11.2026.")
@@ -368,13 +368,12 @@ def dveri():
                            size=8.6, head_size=8.0, row_h=0.32, head_h=0.30))
     sl.table(B.M, y1 + 0.42, lw, [2.55, 0.8, 0.8, 0.95, 0.85], rows, size=8.6,
              aligns=["l", "r", "r", "r", "r"], row_h=0.32, head_h=0.30)
-    sl.text(B.M, y1 + 0.42 + th + 0.08, lw, 0.36,
-            "Рынок — млн ₽. Конкуренты: магазины на Бородинской, Velldoris, Штыковские Двери, "
-            "Двери25, Дорхан, Стальные Двери.",
-            size=7.8, weight=400, color=B.GREY, line=1.2)
+    sl.text(B.M, y1 + 0.42 + th + 0.06, lw, 0.24,
+            "Рынок — млн ₽; конкуренты — магазины на Бородинской и специализированные сети.",
+            size=7.6, weight=400, color=B.GREY, line=1.16)
 
     # доступность
-    cy = y1 + 0.42 + th + 0.44
+    cy = y1 + 0.42 + th + 0.36
     sl.text(B.M, cy, lw, 0.3, "Доступность и путь клиента", size=13.0, weight=600, color=B.WHITE)
     sl.rect(B.M, cy + 0.29, 0.34, 0.03, fill=B.YELLOW)
     sl.bullets(B.M, cy + 0.40, lw, 1.4, [
@@ -403,8 +402,8 @@ def dveri():
         sl.text(x, y1 + 1.40, rw / 2 - 0.30, 0.22, lb, size=7.4, weight=400, color=B.GREY,
                 line=1.14)
 
-    C.panel(sl, rx, y1 + 1.80, rw, 2.02, fill=B.PANEL_2)
-    sl.text(rx + 0.20, y1 + 1.90, rw - 0.4, 0.20, "МП4 · 76,3 → 180 млн ₽", size=8.2,
+    C.panel(sl, rx, y1 + 1.74, rw, 1.84, fill=B.PANEL_2)
+    sl.text(rx + 0.20, y1 + 1.84, rw - 0.4, 0.20, "МП4 · 76,3 → 180 млн ₽", size=8.2,
             weight=700, color=B.YELLOW, caps=True, tracking=0.7)
     rows3 = [
         ["Показатель", "2026", "2027"],
@@ -414,8 +413,8 @@ def dveri():
         ["Доля сделок с услугой", "31%", "40%"],
         ["Лиды из других отделов", "—", "120 / мес"],
     ]
-    sl.table(rx + 0.18, y1 + 2.14, rw - 0.36, [1.95, 0.95, 1.05], rows3, size=8.2,
-             aligns=["l", "r", "r"], row_h=0.26, head_h=0.24,
+    sl.table(rx + 0.18, y1 + 2.04, rw - 0.36, [1.95, 0.95, 1.05], rows3, size=8.0,
+             aligns=["l", "r", "r"], row_h=0.25, head_h=0.23,
              fill=B.PANEL_2, alt="4C5456", head_fill="303738",
              text_color=B.WHITE, head_color=B.YELLOW)
 

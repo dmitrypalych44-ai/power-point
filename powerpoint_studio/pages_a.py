@@ -430,8 +430,8 @@ def stena_plan():
     sl.text(B.M, y0, lw, 0.3, "Эффект по блокам", size=13.5, weight=600, color=B.WHITE)
     sl.rect(B.M, y0 + 0.30, 0.34, 0.03, fill=B.YELLOW)
 
-    cx, cyr = B.M + 1.05, y0 + 1.28
-    C.donut(sl, cx, cyr, 0.94, 0.60, [
+    cx, cyr = B.M + 1.02, y0 + 1.18
+    C.donut(sl, cx, cyr, 0.90, 0.57, [
         dict(value=30, color=B.YELLOW),
         dict(value=22, color=B.YELLOW_DIM),
         dict(value=13, color=B.PANEL_2),
@@ -443,10 +443,10 @@ def stena_plan():
         dict(value="30", label="ПРО · 46%\nдоля ПРО в GMV 13% → 18%", color=B.YELLOW),
         dict(value="22", label="Доступность · 34%\nсрок поставки 7–10 → 1–3 дня", color=B.YELLOW_DIM),
         dict(value="13", label="МП2 · 20%\nпозиций в чеке 2,6 → 3,2", color=B.PANEL_2),
-    ], row_h=0.60, marker=0.16, size=9.2)
+    ], row_h=0.54, marker=0.15, size=9.0)
 
     # три условия успеха
-    cy = 4.34
+    cy = 4.22
     sl.text(B.M, cy, lw, 0.3, "Три условия успеха", size=13.5, weight=600, color=B.WHITE)
     sl.rect(B.M, cy + 0.30, 0.34, 0.03, fill=B.YELLOW)
     conds = [
@@ -454,13 +454,13 @@ def stena_plan():
         ("2 · Колеровка и сроки", "Контроль рецептуры, колеровка в день заказа, резерв базы, OTIF 95%."),
         ("3 · Компетенции и сопутка", "Product-школа, расчёт расхода по площади, комплект «стены под ключ»."),
     ]
-    cy += 0.46
+    cy += 0.44
     for name, txt in conds:
-        C.panel(sl, B.M, cy, lw, 0.70)
-        sl.text(B.M + 0.20, cy + 0.11, lw - 0.4, 0.22, name, size=9.6, weight=700, color=B.YELLOW)
-        sl.text(B.M + 0.20, cy + 0.34, lw - 0.4, 0.34, txt, size=8.4, weight=400,
-                color=B.WHITE, line=1.2)
-        cy += 0.76
+        C.panel(sl, B.M, cy, lw, 0.66)
+        sl.text(B.M + 0.20, cy + 0.10, lw - 0.4, 0.22, name, size=9.4, weight=700, color=B.YELLOW)
+        sl.text(B.M + 0.20, cy + 0.32, lw - 0.4, 0.32, txt, size=8.2, weight=400,
+                color=B.WHITE, line=1.18)
+        cy += 0.70
 
     # справа: план и риски
     rx = B.M + lw + 0.34
