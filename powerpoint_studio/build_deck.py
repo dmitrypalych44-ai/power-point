@@ -27,7 +27,7 @@ def build(out_dir: str = "deliverables", pdf: bool = True, png: bool = False,
     prs = PptxRenderer().build(pages).prs
     finish.set_props(prs,
                      "Стратегия Владивосток 2027 — Лемана ПРО",
-                     "Трансформация магазина 75: шесть миров, четыре рычага роста и один путь клиента",
+                     "Трансформация магазина 75: шесть миров и вайтбокс, четыре рычага роста и один путь клиента",
                      keywords="Лемана ПРО; стратегия; Владивосток; 2027; магазин 75")
     finish.set_theme_fonts(prs)
     faces = []
@@ -47,7 +47,7 @@ def build(out_dir: str = "deliverables", pdf: bool = True, png: bool = False,
         pdf_path = os.path.join(out_dir, "Лемана_ПРО_Стратегия_Владивосток_2027.pdf")
         pr.doc.set_metadata({
             "title": "Стратегия Владивосток 2027 — Лемана ПРО",
-            "subject": "Трансформация магазина 75: шесть миров, четыре рычага роста и один путь клиента",
+            "subject": "Трансформация магазина 75: шесть миров и вайтбокс, четыре рычага роста и один путь клиента",
             "author": "Лемана ПРО",
             "keywords": "Лемана ПРО, стратегия, Владивосток, 2027",
             "creator": "powerpoint_studio",
