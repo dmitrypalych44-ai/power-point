@@ -6,7 +6,10 @@ Every ``Slide`` primitive is a small dict so it can be replayed by both backends
 from __future__ import annotations
 
 import os
+
 from PIL import ImageFont
+
+from . import brand as B
 
 ASSETS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
 _FONT_FILES = {w: os.path.join(ASSETS, f"LMMain-{w}.ttf") for w in (300, 400, 600, 700)}
@@ -95,7 +98,7 @@ class Slide:
                                start=start_deg, end=end_deg, fill=fill))
 
     # -- text ------------------------------------------------------------
-    def text(self, x, y, w, h, s, size=12, weight=400, color="FFFFFF",
+    def text(self, x, y, w, h, s, size=12, weight=400, color=None,
              align="l", valign="t", line=1.22, tracking=0, caps=False,
              fit=False, min_size=7.0, opacity=1.0, space_after=0.0):
         s = str(s)
@@ -104,28 +107,31 @@ class Slide:
         if fit:
             size = fit_size(s, w, h, size, weight, min_size, line)
         self.items.append(dict(t="text", x=x, y=y, w=w, h=h, s=s, size=size,
-                               weight=weight, color=color, align=align, valign=valign,
+                               weight=weight, color=color or B.INK, align=align, valign=valign,
                                line=line, tracking=tracking, opacity=opacity,
                                space_after=space_after))
 
-    def bullets(self, x, y, w, h, items, size=10.5, weight=400, color="FFFFFF",
+    def bullets(self, x, y, w, h, items, size=10.5, weight=400, color=None,
                 bullet="—", gap=0.06, line=1.24, bullet_color=None):
         """Bulleted paragraph list; bullet is a text prefix."""
         self.items.append(dict(t="bullets", x=x, y=y, w=w, h=h, items=list(items),
-                               size=size, weight=weight, color=color, bullet=bullet,
-                               gap=gap, line=line, bullet_color=bullet_color or "FFC100"))
+                               size=size, weight=weight, color=color or B.INK, bullet=bullet,
+                               gap=gap, line=line, bullet_color=bullet_color or B.INK_3))
 
     def table(self, x, y, w, col_w, rows, header=True, size=9.5, head_size=9.0,
-              row_h=0.34, head_h=0.34, fill="FFFFFF", alt="F2F3F3",
-              head_fill="303738", head_color="FFFFFF", text_color="303738",
-              aligns=None, bold_first_col=False, line_color="FFFFFF", valign="m"):
+              row_h=0.34, head_h=0.34, fill=None, alt=None,
+              head_fill=None, head_color=None, text_color=None,
+              aligns=None, bold_first_col=False, line_color=None, valign="m"):
         self.items.append(dict(t="table", x=x, y=y, w=w, col_w=col_w, rows=rows,
                                header=header, size=size, head_size=head_size,
-                               row_h=row_h, head_h=head_h, fill=fill, alt=alt,
-                               head_fill=head_fill, head_color=head_color,
-                               text_color=text_color, aligns=aligns or ["l"],
+                               row_h=row_h, head_h=head_h,
+                               fill=fill or B.WHITE, alt=alt or B.TABLE_ALT,
+                               head_fill=head_fill or B.DARK,
+                               head_color=head_color or B.WHITE,
+                               text_color=text_color or B.INK,
+                               aligns=aligns or ["l"],
                                bold_first_col=bold_first_col,
-                               line_color=line_color, valign=valign))
+                               line_color=line_color or B.CARD_BORDER, valign=valign))
 
 
 from PIL import Image  # noqa: E402  (used by Slide.image)

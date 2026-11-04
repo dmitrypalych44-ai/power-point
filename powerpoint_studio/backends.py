@@ -92,7 +92,7 @@ class PptxRenderer:
         s = self.prs.slides.add_slide(self.blank)
         bg = s.background.fill
         bg.solid()
-        bg.fore_color.rgb = _rgb(B.DARK)
+        bg.fore_color.rgb = _rgb(B.BG)
         for it in page.items:
             getattr(self, "_" + it["t"])(s, it)
         if page.number:
@@ -103,7 +103,7 @@ class PptxRenderer:
             r.text = str(page.number)
             r.font.size = Pt(9.5)
             r.font.name = B.FONT
-            r.font.color.rgb = _rgb(B.GREY_2)
+            r.font.color.rgb = _rgb(B.INK_3)
         return s
 
     # -- primitives -------------------------------------------------------
@@ -244,7 +244,7 @@ class PdfRenderer:
     def render(self, page_model):
         page = self.doc.new_page(width=B.SLIDE_W * PT, height=B.SLIDE_H * PT)
         self.page = page
-        page.draw_rect(page.rect, color=None, fill=_pcolor(B.DARK))
+        page.draw_rect(page.rect, color=None, fill=_pcolor(B.BG))
         for it in page_model.items:
             getattr(self, "_" + it["t"])(it)
         if page_model.number:
@@ -252,7 +252,7 @@ class PdfRenderer:
             f = self._font(page, 400)
             tw = text_width(s, 9.5) * PT
             page.insert_text((page.rect.width - B.M * PT - tw, page.rect.height - 0.29 * PT),
-                             s, fontname=f, fontsize=9.5, color=_pcolor(B.GREY_2))
+                             s, fontname=f, fontsize=9.5, color=_pcolor(B.INK_3))
         return page
 
     @staticmethod

@@ -23,10 +23,10 @@ def _init_cards(sl, x, y, w, items, cols=2, card_h=1.34, gap=0.16, size=8.4,
         sl.text(cx + 0.22, cy + 0.12, cw - 1.30, 0.22, it["name"], size=8.2, weight=700,
                 color=it.get("color", B.YELLOW), caps=True, tracking=0.7)
         sl.text(cx + cw - 1.15, cy + 0.10, 0.95, 0.26, it["effect"], size=11, weight=700,
-                color=B.WHITE, align="r")
+                color=B.INK, align="r")
         if it.get("note"):
             sl.text(cx + 0.22, cy + 0.34, cw - 0.44, 0.20, it["note"], size=7.4,
-                    weight=400, color=B.GREY_2, line=1.1)
+                    weight=400, color=B.INK_3, line=1.1)
         sl.bullets(cx + 0.22, cy + 0.56, cw - 0.42, card_h - 0.66, it["items"],
                    size=size, bullet="—", gap=0.05, line=1.2)
 
@@ -34,9 +34,9 @@ def _init_cards(sl, x, y, w, items, cols=2, card_h=1.34, gap=0.16, size=8.4,
 # ---------------------------------------------------------------- 9. Пол: свод
 def pol_summary():
     sl = Slide(9)
-    C.head(sl, "Проект «Пол» · свод",
+    C.head(sl, "свод",
            "Амбиция 1 900 млн ₽ — 63% рынка ПОЛ в зоне охвата",
-           "Магазин 75, Владивосток · покрытия, плитка, клей · Катя Колпакова + Дима Терентьев")
+           "Магазин 75, Владивосток · покрытия, плитка, клей · Катя Колпакова + Дима Терентьев", project="Пол")
     y0 = B.CONTENT_Y
 
     C.kpi_row(sl, [
@@ -53,7 +53,7 @@ def pol_summary():
 
     # рынок
     lw = 5.45
-    sl.text(B.M, y1, lw, 0.3, "Рынок ПОЛ в зоне охвата", size=13.5, weight=600, color=B.WHITE)
+    sl.text(B.M, y1, lw, 0.3, "Рынок ПОЛ в зоне охвата", size=13.5, weight=600, color=B.INK)
     sl.rect(B.M, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
     rows = [
         ["Показатель", "2026", "2027", "Δ"],
@@ -67,29 +67,30 @@ def pol_summary():
              aligns=["l", "r", "r", "r"], row_h=0.34, head_h=0.32)
 
     cy = y1 + 0.46 + th + 0.20
-    sl.text(B.M, cy, lw, 0.22, "Основные конкуренты", size=8.6, weight=700, color=B.GREY,
+    sl.text(B.M, cy, lw, 0.22, "Основные конкуренты", size=8.6, weight=700, color=B.INK_2,
             caps=True, tracking=0.7)
     sl.text(B.M, cy + 0.26, lw, 0.34,
             "Красный Мамонт · Полы от Жабы · VoDvore · Шахтинская плитка · Kerama Marazzi",
-            size=8.4, weight=600, color=B.WHITE, line=1.22)
+            size=8.4, weight=600, color=B.INK, line=1.22)
     sl.text(B.M, cy + 0.60, lw, 0.34,
             "+ онлайн: Ozon, Wildberries, AliExpress забирают 42% восприятия «низкой цены»",
-            size=8.0, weight=400, color=B.GREY, line=1.2)
+            size=8.0, weight=400, color=B.INK_2, line=1.2)
 
     # откуда рост
     rx = B.M + lw + 0.38
     rw = B.SLIDE_W - B.M - rx
     sl.text(rx, y1, rw, 0.3, "Откуда рост +390 млн ₽: 4 страт-мира", size=13.5, weight=600,
-            color=B.WHITE)
+            color=B.INK)
     sl.rect(rx, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
     C.hbars(sl, rx, y1 + 0.56, rw, [
-        dict(label="ПРО · 57%", value=330, value_label="+330", label_color=B.GREY),
-        dict(label="Доступность · 17%", value=98, value_label="+98", label_color=B.GREY,
-             color=B.YELLOW_DIM),
-        dict(label="МП2 · 15%", value=88, value_label="+88", label_color=B.GREY,
-             color=B.YELLOW_SOFT),
-        dict(label="МП4 · 11%", value=63, value_label="+63", label_color=B.GREY,
-             color=B.PANEL_2),
+        dict(label="ПРО · 57%", value=330, value_label="+330", label_color=B.INK_2,
+             color=B.YELLOW),
+        dict(label="Доступность · 17%", value=98, value_label="+98", label_color=B.INK_2,
+             color=B.SERIES[1]),
+        dict(label="МП2 · 15%", value=88, value_label="+88", label_color=B.INK_2,
+             color=B.SERIES[2]),
+        dict(label="МП4 · 11%", value=63, value_label="+63", label_color=B.INK_2,
+             color=B.SERIES[3]),
     ], row_h=0.46, label_w=2.15, bar_h=0.17, value_w=0.70, size=9.6)
 
     C.callout(sl, rx, y1 + 2.40, rw, 0.58,
@@ -99,17 +100,17 @@ def pol_summary():
     # профиль клиента
     C.panel(sl, B.M, 6.42, B.CW, 0.48, fill=B.PANEL_2)
     sl.text(B.M + 0.22, 6.42, 1.85, 0.48, "ПРОФИЛЬ КЛИЕНТА", size=8.0, weight=700,
-            color=B.YELLOW, caps=True, tracking=0.7, valign="m")
+            color=B.INK, caps=True, tracking=0.7, valign="m")
     seg = [("48%", "B2C «делает сам»"), ("32%", "B2C «делает бригада»"),
            ("20%", "B2B / ПРО")]
     for i, (v, lb) in enumerate(seg):
         x = B.M + 2.24 + i * 2.10
-        sl.text(x, 6.42, 0.66, 0.48, v, size=12.0, weight=700, color=B.WHITE, valign="m")
-        sl.text(x + 0.68, 6.42, 1.32, 0.48, lb, size=7.8, weight=400, color=B.GREY,
+        sl.text(x, 6.42, 0.66, 0.48, v, size=12.0, weight=700, color=B.INK, valign="m")
+        sl.text(x + 0.68, 6.42, 1.32, 0.48, lb, size=7.8, weight=400, color=B.INK_2,
                 line=1.15, valign="m")
     sl.text(B.M + 8.80, 6.42, 3.20, 0.48,
             "Целевой клиент — B2C, который выбирает покрытие сам, а сопутку доверяет мастеру",
-            size=7.8, weight=400, color=B.GREY, line=1.2, valign="m")
+            size=7.8, weight=400, color=B.INK_2, line=1.2, valign="m")
 
     C.footnote(sl, "Источники: BI ЛП 2026; Досье рынка 2026–2027, магазин 75. Допущения: рынок ПОЛ 2027 — "
                    "3,0 млрд ₽; GMV магазина 75 — 9 170 млн ₽ (+12,65%). Сегментация — после 12.11.2026.")
@@ -119,9 +120,9 @@ def pol_summary():
 # ---------------------------------------------------------------- 10. Пол: CJM
 def pol_cjm():
     sl = Slide(10)
-    C.head(sl, "Проект «Пол» · путь клиента",
+    C.head(sl, "путь клиента",
            "Четыре разрыва и 390 млн ₽: лечим межзвенья, а не полку",
-           "Клиент уходит не из-за цены — он теряется на стыках этапов")
+           "Клиент уходит не из-за цены — он теряется на стыках этапов", project="Пол")
     y0 = B.CONTENT_Y
 
     steps = [
@@ -153,7 +154,7 @@ def pol_cjm():
         xs.append(xs[-1] + c + 0.08)
     for i, h in enumerate(heads):
         sl.text(xs[i], y0, cols[i], 0.22, h, size=7.4, weight=700,
-                color=B.GREY_2, tracking=0.7)
+                color=B.INK_3, tracking=0.7)
 
     cy = y0 + 0.26
     rh = 0.80
@@ -162,15 +163,15 @@ def pol_cjm():
         if i < 4:
             sl.rect(B.M, cy, 0.05, rh, fill=B.YELLOW)
         sl.text(xs[0] + 0.18, cy + 0.06, cols[0] - 0.22, rh - 0.12, name, size=9.4,
-                weight=700, color=B.WHITE, line=1.14, valign="m")
+                weight=700, color=B.INK, line=1.14, valign="m")
         sl.text(xs[1], cy + 0.06, cols[1] - 0.06, rh - 0.12, does, size=7.9, weight=400,
-                color="C9CDCE", line=1.2, valign="m")
+                color=B.INK_2, line=1.2, valign="m")
         sl.text(xs[2], cy + 0.06, cols[2] - 0.06, rh - 0.12, barrier, size=7.9, weight=400,
-                color=B.YELLOW_SOFT if i < 4 else B.GREY, line=1.2, valign="m")
+                color=B.INK_2, line=1.2, valign="m")
         sl.text(xs[3], cy + 0.06, cols[3] - 0.06, rh - 0.12, action, size=7.9, weight=400,
-                color=B.WHITE, line=1.2, valign="m")
+                color=B.INK, line=1.2, valign="m")
         sl.text(xs[4], cy + 0.06, cols[4], rh - 0.12, metric, size=7.9, weight=600,
-                color=B.YELLOW if i < 4 else B.GREY, line=1.2, valign="m")
+                color=B.INK if i < 4 else B.INK_3, line=1.2, valign="m")
         cy += rh + 0.06
 
     C.callout(sl, B.M, 6.30, B.CW, 0.56,
@@ -184,9 +185,9 @@ def pol_cjm():
 # ------------------------------------------------------ 11. Пол: страт-миры
 def pol_worlds():
     sl = Slide(11)
-    C.head(sl, "Проект «Пол» · страт-миры",
+    C.head(sl, "страт-миры",
            "Четыре мира: ПРО даёт 57% прироста, зал и доступность — ещё треть",
-           "Эффект на GMV проекта ПОЛ — +390 млн ₽ · магазин 75, Владивосток 2027")
+           "Эффект на GMV проекта ПОЛ — +390 млн ₽ · магазин 75, Владивосток 2027", project="Пол")
     y0 = B.CONTENT_Y
 
     worlds = [
@@ -195,17 +196,17 @@ def pol_worlds():
                     "Рефералка ПРО и Ключ-карта с кэшбэком",
                     "Спецгамма и особые условия оплаты, ЭДО, КАМ"]),
         dict(name="Доступность", effect="+98", note="17% прироста · ассортимент и сроки",
-             color=B.YELLOW_DIM,
+             color=B.INK,
              items=["+50 артикулов SPC и +200 керамогранита",
                     "1–3 дня с РЦ Хабаровск вместо 7–10",
                     "OSA топ-SKU 92% → 97%, буфер по топ-100"]),
         dict(name="МП2 · торговый зал", effect="+88", note="15% прироста · концепт отдела и стена выбора",
-             color=B.YELLOW_SOFT,
+             color=B.INK_2,
              items=["Стена выбора в 5 и 6 отделах: образцы на одном фронте",
                     "Сценарии «под бюджет» 3 × 3 и весь декор в натуре",
                     "−50% времени клиента на расчёт и оформление"]),
         dict(name="МП4 · проектный центр", effect="+63", note="11% прироста · проект и дизайн",
-             color=B.PANEL_2,
+             color=B.SERIES[3],
              items=["+2 СПП: дизайн-проект пола за 3 рабочих дня",
                     "Каждый 4-й проект — с товарами отдела",
                     "Средний чек проекта в 2,5–3 раза выше розничного"]),
@@ -215,20 +216,20 @@ def pol_worlds():
         x = B.M + i * (cw + 0.16)
         C.panel(sl, x, y0, cw, 2.86)
         sl.rect(x, y0, cw, 0.05, fill=wd.get("color", B.YELLOW))
-        hcol = B.YELLOW if i in (0, 2) else (B.YELLOW_SOFT if i == 1 else B.GREY)
+        hcol = B.INK if i in (0, 2) else B.INK_2
         sl.text(x + 0.22, y0 + 0.22, cw - 0.44, 0.22, wd["name"], size=8.2, weight=700,
                 color=hcol, caps=True, tracking=0.7)
         sl.text(x + 0.22, y0 + 0.52, cw - 0.44, 0.42, wd["effect"] + " млн ₽", size=20,
-                weight=700, color=B.WHITE, line=1.0)
+                weight=700, color=B.INK, line=1.0)
         sl.text(x + 0.22, y0 + 0.96, cw - 0.44, 0.4, wd["note"], size=8.2, weight=400,
-                color=B.GREY, line=1.22)
+                color=B.INK_2, line=1.22)
         sl.rect(x + 0.22, y0 + 1.42, cw - 0.44, 0.012, fill=B.LINE)
         sl.bullets(x + 0.22, y0 + 1.54, cw - 0.42, 1.2, wd["items"], size=8.2,
                    bullet="—", gap=0.06, line=1.24)
 
     # метрики 2027
     cy = y0 + 3.04
-    sl.text(B.M, cy, 4.0, 0.26, "Метрики проекта 2027", size=11.5, weight=600, color=B.WHITE)
+    sl.text(B.M, cy, 4.0, 0.26, "Метрики проекта 2027", size=11.5, weight=600, color=B.INK)
     sl.rect(B.M, cy + 0.28, 0.34, 0.03, fill=B.YELLOW)
     metrics = [
         ("OSA топ-SKU пола", "92% → 97%"),
@@ -241,8 +242,8 @@ def pol_worlds():
     for i, (lb, v) in enumerate(metrics):
         x = B.M + i * (mw + 0.14)
         C.panel(sl, x, cy + 0.44, mw, 0.78, fill=B.PANEL_2)
-        sl.text(x + 0.16, cy + 0.54, mw - 0.32, 0.3, v, size=11.5, weight=700, color=B.YELLOW)
-        sl.text(x + 0.16, cy + 0.86, mw - 0.32, 0.32, lb, size=7.8, weight=400, color=B.GREY,
+        sl.text(x + 0.16, cy + 0.54, mw - 0.32, 0.3, v, size=11.5, weight=700, color=B.INK)
+        sl.text(x + 0.16, cy + 0.86, mw - 0.32, 0.32, lb, size=7.8, weight=400, color=B.INK_2,
                 line=1.15)
 
     C.footnote(sl, "Источники: BI ЛП 2026; расчёт инициатив проекта ПОЛ; магазин 75. "
@@ -253,9 +254,9 @@ def pol_worlds():
 # --------------------------------------------------- 12. Пол: инициативы
 def pol_initiatives():
     sl = Slide(12)
-    C.head(sl, "Проект «Пол» · 18 инициатив",
+    C.head(sl, "18 инициатив",
            "Что конкретно делаем в каждом страт-мире",
-           "Срок и эффект в млн ₽ на 2027 год · Катя Колпакова и Дима Терентьев")
+           "Срок и эффект в млн ₽ на 2027 год · Катя Колпакова и Дима Терентьев", project="Пол")
     y0 = B.CONTENT_Y
 
     left_rows = [
@@ -287,9 +288,9 @@ def pol_initiatives():
 
     sl.rect(B.M, y0, 0.05, 0.22, fill=B.YELLOW)
     sl.text(B.M + 0.16, y0 - 0.04, lcol - 1.3, 0.24, "Доступность + МП2", size=9.2, weight=700,
-            color=B.YELLOW, caps=True, tracking=0.7)
+            color=B.INK, caps=True, tracking=0.7)
     sl.text(B.M + lcol - 1.25, y0 - 0.06, 1.25, 0.26, "+186 млн ₽", size=10.5, weight=700,
-            color=B.WHITE, align="r")
+            color=B.INK, align="r")
     th_l = table_height(dict(rows=left_rows, w=lcol, col_w=[1.15, 1.95, 2.55, 0.55, 0.35],
                              header=True, size=8.0, head_size=7.4, row_h=0.29, head_h=0.26))
     sl.table(B.M, y0 + 0.28, lcol, [1.15, 1.95, 2.55, 0.55, 0.35], left_rows, size=8.0,
@@ -297,9 +298,9 @@ def pol_initiatives():
 
     sl.rect(rx, y0, 0.05, 0.22, fill=B.YELLOW)
     sl.text(rx + 0.16, y0 - 0.04, rcol - 1.3, 0.24, "ПРО + МП4", size=9.2, weight=700,
-            color=B.YELLOW, caps=True, tracking=0.7)
+            color=B.INK, caps=True, tracking=0.7)
     sl.text(rx + rcol - 1.25, y0 - 0.06, 1.25, 0.26, "+393 млн ₽", size=10.5, weight=700,
-            color=B.WHITE, align="r")
+            color=B.INK, align="r")
     th_r = table_height(dict(rows=right_rows, w=rcol, col_w=[0.85, 1.95, 2.35, 0.5, 0.35],
                              header=True, size=8.0, head_size=7.4, row_h=0.29, head_h=0.26))
     sl.table(rx, y0 + 0.28, rcol, [0.85, 1.95, 2.35, 0.5, 0.35], right_rows, size=8.0,
@@ -309,16 +310,16 @@ def pol_initiatives():
     cy = y0 + 0.28 + th_r + 0.22
     C.panel(sl, rx, cy, rcol, 1.02, fill=B.PANEL_2)
     sl.text(rx + 0.22, cy + 0.13, 1.5, 0.22, "Итого проект", size=8.2, weight=700,
-            color=B.YELLOW, caps=True, tracking=0.7)
+            color=B.INK, caps=True, tracking=0.7)
     sl.text(rx + 0.22, cy + 0.36, 2.0, 0.36, "+390 млн ₽", size=18, weight=700,
-            color=B.YELLOW, line=1.0)
+            color=B.INK, line=1.0)
     sl.text(rx + 0.22, cy + 0.74, rcol - 0.44, 0.22,
             "18 инициатив четырёх миров к базе 2026 → 1 900 млн ₽ в 2027", size=7.8,
-            weight=400, color=B.GREY)
+            weight=400, color=B.INK_2)
 
     # метрики под левой таблицей
     cy = y0 + 0.28 + th_l + 0.22
-    sl.text(B.M, cy, lcol, 0.24, "Метрики проекта 2027", size=9.0, weight=700, color=B.GREY,
+    sl.text(B.M, cy, lcol, 0.24, "Метрики проекта 2027", size=9.0, weight=700, color=B.INK_2,
             caps=True, tracking=0.7)
     metrics = [("OSA топ-SKU", "92 → 97%"), ("Срок поставки, дни", "7–10 → 1–3"),
                ("Конверсия в покупку", "70 → 74%"), ("Доля ПРО в GMV", "20 → 26%"),
@@ -327,8 +328,8 @@ def pol_initiatives():
     for i, (lb, v) in enumerate(metrics):
         x = B.M + i * (mw + 0.12)
         C.panel(sl, x, cy + 0.28, mw, 0.66, fill=B.PANEL_2)
-        sl.text(x + 0.12, cy + 0.34, mw - 0.24, 0.26, v, size=10.0, weight=700, color=B.YELLOW)
-        sl.text(x + 0.12, cy + 0.60, mw - 0.24, 0.30, lb, size=7.0, weight=400, color=B.GREY,
+        sl.text(x + 0.12, cy + 0.34, mw - 0.24, 0.26, v, size=10.0, weight=700, color=B.INK)
+        sl.text(x + 0.12, cy + 0.60, mw - 0.24, 0.30, lb, size=7.0, weight=400, color=B.INK_2,
                 line=1.14)
 
     C.footnote(sl, "Источники: расчёт инициатив проекта ПОЛ, магазин 75; BI ЛП 2026. "
@@ -340,9 +341,9 @@ def pol_initiatives():
 # ---------------------------------------------------------------- 13. Двери
 def dveri():
     sl = Slide(13)
-    C.head(sl, "Проект «Двери» · свод",
+    C.head(sl, "свод",
            "Амбиция 356 млн ₽: +30% и 29% рынка Приморья",
-           "Входные, межкомнатные, фурнитура · Алексей Гладуненко + Дмитрий Колганов")
+           "Входные, межкомнатные, фурнитура · Алексей Гладуненко + Дмитрий Колганов", project="Двери")
     y0 = B.CONTENT_Y
 
     C.kpi_row(sl, [
@@ -355,7 +356,7 @@ def dveri():
 
     # слева: три категории
     lw = 6.05
-    sl.text(B.M, y1, lw, 0.3, "Категории и наши доли", size=13.0, weight=600, color=B.WHITE)
+    sl.text(B.M, y1, lw, 0.3, "Категории и наши доли", size=13.0, weight=600, color=B.INK)
     sl.rect(B.M, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
     rows = [
         ["Категория", "Рынок", "Доля", "GMV 2026", "Δ г-1"],
@@ -370,11 +371,11 @@ def dveri():
              aligns=["l", "r", "r", "r", "r"], row_h=0.32, head_h=0.30)
     sl.text(B.M, y1 + 0.42 + th + 0.06, lw, 0.24,
             "Рынок — млн ₽; конкуренты — магазины на Бородинской и специализированные сети.",
-            size=7.6, weight=400, color=B.GREY, line=1.16)
+            size=7.6, weight=400, color=B.INK_2, line=1.16)
 
     # доступность
     cy = y1 + 0.42 + th + 0.36
-    sl.text(B.M, cy, lw, 0.3, "Доступность и путь клиента", size=13.0, weight=600, color=B.WHITE)
+    sl.text(B.M, cy, lw, 0.3, "Доступность и путь клиента", size=13.0, weight=600, color=B.INK)
     sl.rect(B.M, cy + 0.29, 0.34, 0.03, fill=B.YELLOW)
     sl.bullets(B.M, cy + 0.40, lw, 1.4, [
         "SAR 32,7% (−0,3% г-1) → амбиция 60% (+27,3 п.п.); ДС 263 вместо 5 дней — 3 дня",
@@ -387,24 +388,24 @@ def dveri():
     rx = B.M + lw + 0.34
     rw = B.SLIDE_W - B.M - rx
     sl.text(rx, y1, rw, 0.3, "ПРО и МП4: два вектора роста", size=13.0, weight=600,
-            color=B.WHITE)
+            color=B.INK)
     sl.rect(rx, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
     C.panel(sl, rx, y1 + 0.42, rw, 1.28)
     sl.text(rx + 0.20, y1 + 0.52, rw - 0.4, 0.20, "ПРО · +10 млн ₽ в канале", size=8.2,
-            weight=700, color=B.YELLOW, caps=True, tracking=0.7)
+            weight=700, color=B.INK, caps=True, tracking=0.7)
     sl.text(rx + 0.20, y1 + 0.74, rw - 0.4, 0.5,
             "Рост — объекты, мастера-партнёры и дотация на установку за счёт скидки на дверь.",
-            size=8.2, weight=400, color=B.WHITE, line=1.24)
+            size=8.2, weight=400, color=B.INK, line=1.24)
     for i, (v, lb) in enumerate([("28 млн ₽", "GMV profi 2026, +8,2% г-1"),
                                  ("32,7 млн ₽", "GMV B2B 2026, −15% г-1")]):
         x = rx + 0.20 + i * (rw / 2 - 0.10)
-        sl.text(x, y1 + 1.14, rw / 2 - 0.30, 0.28, v, size=11.5, weight=700, color=B.WHITE)
-        sl.text(x, y1 + 1.40, rw / 2 - 0.30, 0.22, lb, size=7.4, weight=400, color=B.GREY,
+        sl.text(x, y1 + 1.14, rw / 2 - 0.30, 0.28, v, size=11.5, weight=700, color=B.INK)
+        sl.text(x, y1 + 1.40, rw / 2 - 0.30, 0.22, lb, size=7.4, weight=400, color=B.INK_2,
                 line=1.14)
 
     C.panel(sl, rx, y1 + 1.74, rw, 1.84, fill=B.PANEL_2)
     sl.text(rx + 0.20, y1 + 1.84, rw - 0.4, 0.20, "МП4 · 76,3 → 180 млн ₽", size=8.2,
-            weight=700, color=B.YELLOW, caps=True, tracking=0.7)
+            weight=700, color=B.INK, caps=True, tracking=0.7)
     rows3 = [
         ["Показатель", "2026", "2027"],
         ["GMV, млн ₽", "76,3", "180"],
@@ -415,8 +416,8 @@ def dveri():
     ]
     sl.table(rx + 0.18, y1 + 2.04, rw - 0.36, [1.95, 0.95, 1.05], rows3, size=8.0,
              aligns=["l", "r", "r"], row_h=0.25, head_h=0.23,
-             fill=B.PANEL_2, alt="4C5456", head_fill="303738",
-             text_color=B.WHITE, head_color=B.YELLOW)
+             fill=B.WHITE, alt=B.SURFACE, head_fill=B.SURFACE_2,
+             text_color=B.INK, head_color=B.INK)
 
     C.footnote(sl, "Источники: данные заказчика и BI ЛП 2026 по проекту «Двери», магазин 75. "
                    "Демарш Н. Новгород (119): GMV 279 млн ₽, 6-й ранг, +27,9% г-1.")
@@ -426,13 +427,13 @@ def dveri():
 # --------------------------------------------------- 14. Двери: метрики
 def dveri_plan():
     sl = Slide(14)
-    C.head(sl, "Проект «Двери» · метрики и план",
+    C.head(sl, "метрики и план",
            "Три рычага: срок 3 дня, услуга в чеке и лиды из других отделов",
-           "Контроль ежемесячно: SAR, конверсия СПП, доля сделок с услугой и лиды")
+           "Контроль ежемесячно: SAR, конверсия СПП, доля сделок с услугой и лиды", project="Двери")
     y0 = B.CONTENT_Y
 
     lw = 6.10
-    sl.text(B.M, y0, lw, 0.3, "Показатели и цели 2027", size=13.5, weight=600, color=B.WHITE)
+    sl.text(B.M, y0, lw, 0.3, "Показатели и цели 2027", size=13.5, weight=600, color=B.INK)
     sl.rect(B.M, y0 + 0.30, 0.34, 0.03, fill=B.YELLOW)
     rows = [
         ["Показатель", "2026", "2027", "Δ"],
@@ -450,24 +451,25 @@ def dveri_plan():
     sl.text(B.M, y0 + 0.44 + th + 0.08, lw, 0.42,
             "Демарш Хабаровск 123: SAR 66% — ориентир по доступности; Новосибирск 2 (030): "
             "GMV 160 млн ₽, 4 411 сделок, конверсия 77%.",
-            size=8.2, weight=400, color=B.GREY, line=1.26)
+            size=8.2, weight=400, color=B.INK_2, line=1.26)
 
     # механика роста МП4
     cy = y0 + 0.44 + th + 0.52
-    sl.text(B.M, cy, lw, 0.3, "Драйверы проектных продаж", size=13.5, weight=600, color=B.WHITE)
+    sl.text(B.M, cy, lw, 0.3, "Драйверы проектных продаж", size=13.5, weight=600, color=B.INK)
     sl.rect(B.M, cy + 0.30, 0.34, 0.03, fill=B.YELLOW)
     C.hbars(sl, B.M, cy + 0.46, lw, [
-        dict(label="Созданные сделки +60%", value=49, value_label="+49 млн ₽", label_color=B.GREY),
-        dict(label="Конверсия 71% → 75,2%", value=23, value_label="+23 млн ₽", label_color=B.GREY,
-             color=B.YELLOW_DIM),
-        dict(label="Средний бюджет +5%", value=12, value_label="+12 млн ₽", label_color=B.GREY,
-             color=B.YELLOW_SOFT),
+        dict(label="Созданные сделки +60%", value=49, value_label="+49 млн ₽", label_color=B.INK_2,
+             color=B.YELLOW),
+        dict(label="Конверсия 71% → 75,2%", value=23, value_label="+23 млн ₽", label_color=B.INK_2,
+             color=B.SERIES[1]),
+        dict(label="Средний бюджет +5%", value=12, value_label="+12 млн ₽", label_color=B.INK_2,
+             color=B.SERIES[2]),
     ], row_h=0.38, label_w=2.75, bar_h=0.15, size=9.0)
 
     # справа: инициативы
     rx = B.M + lw + 0.34
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y0, rw, 0.3, "Инициативы 2027", size=13.5, weight=600, color=B.WHITE)
+    sl.text(rx, y0, rw, 0.3, "Инициативы 2027", size=13.5, weight=600, color=B.INK)
     sl.rect(rx, y0 + 0.30, 0.34, 0.03, fill=B.YELLOW)
     rows2 = [
         ["Направление", "Что делаем"],

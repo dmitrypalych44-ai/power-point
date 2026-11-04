@@ -1,24 +1,44 @@
 """Brand system for Лемана ПРО (LM Pro) corporate presentations.
 
-Only the corporate palette is used:
-  core (внешнее + внутреннее):  #FFFFFF · #303738 · #FFC100
-  derived tints of the corporate grey are used for panels/separators only.
+Light theme on the same corporate palette:
+  core:      #FFFFFF (фон) · #303738 (графит: текст, акценты) · #FFC100 (жёлтый)
+  surfaces:  тинты графита только как подложки/линии (без посторонних оттенков)
 """
 
 # --- core brand colours -------------------------------------------------
 YELLOW = "FFC100"      # фирменный жёлтый
 DARK = "303738"        # фирменный графит
-WHITE = "FFFFFF"       # белый
+WHITE = "FFFFFF"       # белый — основной фон слайда
 
-# --- derived tints of the corporate palette (no foreign hues) -----------
-PANEL = "3C4446"       # graphite +6% (подложка блока)
-PANEL_2 = "454D4F"     # graphite +10% (активная подложка)
-LINE = "5A6365"        # hairline on dark
-GREY = "9AA0A1"        # вторичный текст (белый 62% на графите)
-GREY_2 = "6E7678"      # третичный текст / подписи
+# --- surfaces (light) ---------------------------------------------------
+BG = "FFFFFF"          # фон слайда
+SURFACE = "F4F5F5"     # подложка блока (графит 4%)
+SURFACE_2 = "EBECEC"   # активная подложка (графит 8%)
+SURFACE_3 = "E1E3E3"   # чипы, треки полос (графит 12%)
+TABLE_ALT = "F7F8F8"   # чётные строки таблиц
+LINE = "D3D6D6"        # hairline на светлом
+CARD_BORDER = "E4E6E6" # обводка белых карточек
+
+# --- text ---------------------------------------------------------------
+INK = "303738"         # основной текст
+INK_2 = "565D5E"       # вторичный текст
+INK_3 = "8A9091"       # подписи, сноски
 DARK_TEXT = "303738"   # текст на белых карточках
-YELLOW_DIM = "8A6A00"  # тёмный оттенок жёлтого (только для приглушённых баров)
-YELLOW_SOFT = "FFD35C" # жёлтый 70% (второй тон диаграмм)
+
+# --- accents ------------------------------------------------------------
+YELLOW_DIM = "C08F00"  # тёмный жёлтый для мелкого текста на белом (контраст)
+YELLOW_SOFT = "FFD35C" # жёлтый 70% — второй тон диаграмм
+YELLOW_FAINT = "FFF1C9"# жёлтый 20% — подложки акцентов
+YELLOW_TRACK = "F0EDE4"# трек полос
+
+# --- data series: только жёлтая шкала + графитовый трек ----------------
+SERIES = ["FFC100", "E3AC00", "F5CE6E", "D9DCDC"]
+
+# --- legacy aliases: старый код писал в тёмной теме ----------------------
+PANEL = SURFACE
+PANEL_2 = SURFACE_2
+GREY = INK_2
+GREY_2 = INK_3
 
 # --- typography ---------------------------------------------------------
 FONT = "LM Main"       # корпоративный шрифт; фолбэк — системный sans
