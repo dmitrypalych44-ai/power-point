@@ -85,9 +85,9 @@ def overview():
         ["Итого по шести мирам", "3 767,1", "4 864,4", "+29,1%"],
     ]
     th = table_height(dict(rows=rows, w=rw, col_w=[3.15, 1.05, 1.05, 1.35], header=True,
-                           size=9.6, head_size=9.0, row_h=0.34, head_h=0.34))
-    sl.table(rx, y0 + 0.56, rw, [3.15, 1.05, 1.05, 1.35], rows, size=9.6,
-             aligns=["l", "r", "r", "r"], row_h=0.34)
+                           size=11.0, head_size=10.4, row_h=0.40, head_h=0.34))
+    sl.table(rx, y0 + 0.56, rw, [3.15, 1.05, 1.05, 1.35], rows, size=11.0,
+             aligns=["l", "r", "r", "r"], row_h=0.40)
     ny = y0 + 0.56 + th + 0.12
     sl.text(rx, ny, rw, 0.5,
             "Проектный центр — канал продаж и не входит в сумму миров: 1 012 млн ₽ проектных продаж 2027.",
@@ -166,60 +166,59 @@ def market():
 def stena_summary():
     sl = Slide(4)
     C.head(sl, "свод",
-           "Амбиция 300 млн ₽: декор и краски считаем одним проектом",
-           "Свод по подотделам 1210 обои · 1240 клей · 1250 декор потолка · малярка · услуга поклейки", project="Стена")
+           "Амбиция 615,5 млн ₽: краски и декор — один проект",
+           "Краски и декор — два направления одного проекта: общая амбиция 615,5 млн ₽", project="Стена")
     y0 = B.CONTENT_Y
 
     C.kpi_row(sl, [
-        dict(label="GMV проекта «Стена», 2027", value="300 млн ₽",
-             note_prefix="2026: 235 млн ₽", note="· +27,7% г-г"),
-        dict(label="Прирост к 2026", value="+65 млн ₽",
-             note_prefix="+27,7%", note="г-г к базе"),
+        dict(label="GMV проекта «Стена», 2027", value="615,5 млн ₽",
+             note_prefix="2026: 515,7 млн ₽", note="· +19,4% г-г"),
+        dict(label="Прирост к 2026", value="+99,8 млн ₽",
+             note_prefix="краски +65,0", note="· декор +34,8"),
         dict(label="Доля ПРО и бригадиров", value="18%",
              note_prefix="2026: ~13%", note="· допущение"),
         dict(label="Позиций в чеке малярки", value="3,2",
              note_prefix="2026: 2,6", note="· цель МП2"),
     ], y0, h=1.12, value_size=23)
 
-    # ---- слева: путь 2026 → 2027 по трём уровням (цифры проекта)
+    # ---- слева: две амбиции проекта (краски + декор) и общая сумма
     lw = 6.60
-    y1 = y0 + 1.30
-    sl.text(B.M, y1, lw, 0.3, "Где образуется +65 млн ₽", size=13.5, weight=600, color=B.INK)
-    sl.rect(B.M, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    y1 = y0 + 1.32
+    sl.text(B.M, y1, lw, 0.34, "Амбиция 2027 по двум направлениям", size=15, weight=600, color=B.INK)
+    sl.rect(B.M, y1 + 0.36, 0.34, 0.035, fill=B.YELLOW)
 
-    levels = [
-        ("Проект «Стена»", "235,0", "+65,0", "300,0", "амбиция 2027"),
-        ("Подотделы 1210 / 1240 / 1250", "280,7", "+18,8", "315,5", "эффект в сценарии"),
+    parts = [
+        ("Стена · краски", "300,0", "235 → 300 млн ₽ · +27,7% г-г"),
+        ("Стена · декор", "315,5", "280,7 → 315,5 млн ₽ · +12,4% г-г"),
     ]
-    cy = y1 + 0.46
-    for name, base, delta, total, note in levels:
-        C.panel(sl, B.M, cy, lw, 0.84, fill=B.PANEL)
-        sl.text(B.M + 0.22, cy + 0.12, lw - 0.44, 0.22, name, size=8.4, weight=700,
+    cy = y1 + 0.54
+    for name, val, note in parts:
+        C.panel(sl, B.M, cy, lw, 0.90, fill=B.PANEL)
+        sl.rect(B.M, cy, 0.06, 0.90, fill=B.YELLOW)
+        sl.text(B.M + 0.26, cy + 0.12, lw - 1.9, 0.26, name, size=11.5, weight=700,
                 color=B.INK, caps=True, tracking=0.6)
-        sl.text(B.M + 0.22, cy + 0.38, 1.20, 0.30, base, size=15, weight=700, color=B.INK_2,
-                line=1.0)
-        sl.text(B.M + 1.34, cy + 0.41, 0.30, 0.24, "→", size=10.5, weight=400, color=B.INK_3)
-        sl.text(B.M + 1.66, cy + 0.34, 1.85, 0.3, delta, size=16, weight=700,
-                color=B.INK, line=1.0)
-        sl.text(B.M + lw - 1.55, cy + 0.35, 1.35, 0.32, total, size=16, weight=700,
+        sl.text(B.M + 0.26, cy + 0.46, lw - 1.9, 0.28, note, size=10.0, weight=400,
+                color=B.INK_2, line=1.2)
+        sl.text(B.M + lw - 1.72, cy + 0.18, 1.48, 0.46, val, size=24, weight=700,
                 color=B.INK, align="r", line=1.0)
-        sl.text(B.M + lw - 1.55, cy + 0.62, 1.35, 0.20, note, size=7.2, weight=400,
-                color=B.INK_3, align="r", line=1.0)
-        cy += 0.92
+        sl.text(B.M + lw - 1.72, cy + 0.64, 1.48, 0.20, "млн ₽", size=9.0, weight=400,
+                color=B.INK_3, align="r")
+        cy += 1.00
 
-    # ---- разрез эффекта: обои / клей / декор потолка
-    sl.text(B.M, cy + 0.14, lw, 0.24, "Внутри эффекта проекта, млн ₽", size=8.6, weight=700,
-            color=B.INK_2, caps=True, tracking=0.8)
-    C.hbars(sl, B.M, cy + 0.42, lw, [
-        dict(label="Обои", value=12.8, value_label="+12,8"),
-        dict(label="Клей", value=3.9, value_label="+3,9"),
-        dict(label="Декор потолка", value=2.1, value_label="+2,1"),
-    ], row_h=0.30, label_w=1.75, bar_h=0.13, value_w=0.62, size=9.0)
+    C.panel(sl, B.M, cy + 0.04, lw, 0.94, fill=B.YELLOW_FAINT)
+    sl.text(B.M + 0.26, cy + 0.18, lw - 2.2, 0.28, "Общая амбиция «Стены» 2027", size=11.5,
+            weight=700, color=B.INK, caps=True, tracking=0.6)
+    sl.text(B.M + 0.26, cy + 0.50, lw - 2.2, 0.28, "краски + декор · 2026: 515,7 млн ₽",
+            size=10.0, weight=400, color=B.INK_2)
+    sl.text(B.M + lw - 2.24, cy + 0.16, 2.00, 0.50, "615,5", size=28, weight=700,
+            color=B.INK, align="r", line=1.0)
+    sl.text(B.M + lw - 2.24, cy + 0.64, 2.00, 0.22, "млн ₽ · +19,4% г-г", size=9.0,
+            weight=600, color=B.INK_2, align="r")
 
     # ---- справа: кольцо каналов + легенда
     rx = B.M + lw + 0.32
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.3, "Каналы проекта", size=13.5, weight=600, color=B.INK)
+    sl.text(rx, y1, rw, 0.3, "Каналы проекта · краски, млн ₽", size=14.0, weight=600, color=B.INK)
     sl.rect(rx, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
 
     ro, ri = 0.84, 0.54
@@ -246,8 +245,8 @@ def stena_summary():
             "Наибольший потенциал — ПРО и новые ЖК.",
             size=8.8, weight=400, color=B.INK, line=1.28)
 
-    C.footnote(sl, "Источники: данные заказчика (GMV 2026 — 235 млн ₽, цель 2027 — 300 млн ₽); расчёт подотделов "
-                   "1210 / 1240 / 1250; BI ЛП 2026. Каналы — модель распределения GMV проекта, требует подтверждения BI.")
+    C.footnote(sl, "Источники: данные заказчика (краски: 235 → 300 млн ₽; декор: 280,7 → 315,5 млн ₽); BI ЛП 2026. "
+                   "Каналы — модель распределения GMV направления «краски», требует подтверждения BI.")
     return sl
 
 
@@ -280,9 +279,9 @@ def stena_market():
         ["Специалисты", "—", "−17%", "сокращение"],
     ]
     th = table_height(dict(rows=rows, w=lw, col_w=[2.75, 1.0, 1.0, 1.25], header=True,
-                           size=9.6, head_size=9.0, row_h=0.34, head_h=0.33))
-    sl.table(B.M, y1 + 0.46, lw, [2.75, 1.0, 1.0, 1.25], rows, size=9.6,
-             aligns=["l", "r", "r", "r"], row_h=0.34)
+                           size=10.8, head_size=10.2, row_h=0.40, head_h=0.33))
+    sl.table(B.M, y1 + 0.46, lw, [2.75, 1.0, 1.0, 1.25], rows, size=10.8,
+             aligns=["l", "r", "r", "r"], row_h=0.40)
     # правая колонка — конкуренты
     rx = B.M + lw + 0.34
     rw = B.SLIDE_W - B.M - rx
@@ -304,10 +303,10 @@ def stena_market():
         cy += 0.50
     sl.line(rx, cy, rx + rw, cy, B.LINE, lw=0.6)
 
-    C.callout(sl, B.M, 6.06, B.CW, 0.76,
+    C.callout(sl, B.M, 6.02, B.CW, 0.80,
               "Наше отличие от маркетплейсов — не цена, а готовое решение: обои, обои + краска, "
               "обои + панели на стене, проект целиком; B2C и ПРО идут независимыми потоками.",
-              size=9.4)
+              size=10.4)
     C.footnote(sl, "Источники: Досье рынка 2026–2027; Bestplace 2026; Приморскстат; ЕРЗ / Наш.Дом.РФ. "
                    "Ввод края: 1,385 млн м² (пик) → 1,20 (2026) → 0,85 (2027).")
     return sl
@@ -369,8 +368,8 @@ def stena_cjm():
 # --------------------------------------------------- 7. стена: инициативы
 def stena_initiatives():
     sl = Slide(7)
-    C.head(sl, "8 инициатив",
-           "Восемь инициатив трёх блоков дают +65 млн ₽",
+    C.head(sl, "8 инициатив · краски",
+           "Восемь инициатив трёх блоков дают +65 млн ₽ в красках",
            "Прирост: ПРО 30 · Доступность 22 · МП2 13 млн ₽ · Владивосток, 2027", project="Стена")
     y0 = B.CONTENT_Y
 
@@ -408,11 +407,11 @@ def stena_initiatives():
          "Эксперт по малярке, смета, резерв под объект; работа с бригадами в зале.", "Q2–Q4", "17"],
         ["", "ИТОГО", "", "8 инициатив выводят проект на 300 млн ₽", "", "65"],
     ]
-    y = y0 + 0.92
-    sl.table(B.M, y, B.CW, [0.45, 1.32, 2.62, 6.05, 0.95, 0.70], rows, size=9.2,
-             aligns=["c", "l", "l", "l", "c", "r"], row_h=0.38, head_h=0.32)
+    y = y0 + 0.86
+    sl.table(B.M, y, B.CW, [0.45, 1.32, 2.62, 6.05, 0.95, 0.70], rows, size=10.6,
+             head_size=10.2, aligns=["c", "l", "l", "l", "c", "r"], row_h=0.355, head_h=0.32)
 
-    C.footnote(sl, "Источники: данные заказчика (GMV 2026 — 235 млн ₽, цель 2027 — 300 млн ₽); BI ЛП 2026. "
+    C.footnote(sl, "Источники: данные заказчика (краски: 235 → 300 млн ₽); BI ЛП 2026. "
                    "Распределение прироста по блокам — ПРО 30 / Доступность 22 / МП2 13 млн ₽; "
                    "ответственные — предлагаемое распределение.")
     return sl
@@ -420,82 +419,181 @@ def stena_initiatives():
 
 # ------------------------------------------------------ 8. стена: метрики
 def stena_plan():
-    sl = Slide(8)
-    C.head(sl, "метрики и план",
+    sl = Slide(9)
+    C.head(sl, "метрики",
            "Контроль еженедельно: расход, колеровка, чек и бригады",
-           "Три условия успеха, план по кварталам и ключевые риски проекта", project="Стена")
+           "Эффект по блокам и три условия успеха проекта «Стена»", project="Стена")
     y0 = B.CONTENT_Y
 
     # слева: эффект по блокам (кольцо + легенда)
-    lw = 5.55
-    sl.text(B.M, y0, lw, 0.3, "Эффект по блокам", size=13.5, weight=600, color=B.INK)
-    sl.rect(B.M, y0 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    lw = 6.35
+    sl.text(B.M, y0, lw, 0.34, "Эффект по блокам", size=15, weight=600, color=B.INK)
+    sl.rect(B.M, y0 + 0.36, 0.34, 0.035, fill=B.YELLOW)
 
-    cx, cyr = B.M + 1.02, y0 + 1.18
-    C.donut(sl, cx, cyr, 0.90, 0.57, [
+    cx, cyr = B.M + 1.16, y0 + 1.42
+    C.donut(sl, cx, cyr, 1.04, 0.66, [
         dict(value=30, color=B.SERIES[0]),
         dict(value=22, color=B.SERIES[1]),
         dict(value=13, color=B.SERIES[3]),
-    ], center="65\nмлн ₽", center_value_size=17)
-    sl.text(cx - 0.60, cyr + 0.22, 1.20, 0.22, "прирост 2027", size=8.0, weight=400,
+    ], center="65\nмлн ₽", center_value_size=21)
+    sl.text(cx - 0.70, cyr + 0.30, 1.40, 0.24, "прирост 2027", size=9.4, weight=400,
             color=B.INK_2, align="c")
 
-    C.legend(sl, B.M + 2.24, y0 + 0.54, lw - 2.24, [
+    C.legend(sl, B.M + 2.62, y0 + 0.66, lw - 2.62, [
         dict(value="30", label="ПРО · 46%\nдоля ПРО в GMV 13% → 18%", color=B.SERIES[0]),
         dict(value="22", label="Доступность · 34%\nсрок поставки 7–10 → 1–3 дня", color=B.SERIES[1]),
         dict(value="13", label="МП2 · 20%\nпозиций в чеке 2,6 → 3,2", color=B.SERIES[3]),
-    ], row_h=0.54, marker=0.15, size=9.0)
+    ], row_h=0.68, marker=0.17, size=11.0)
 
-    # три условия успеха
-    cy = 4.22
-    sl.text(B.M, cy, lw, 0.3, "Три условия успеха", size=13.5, weight=600, color=B.INK)
-    sl.rect(B.M, cy + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    # справа: три условия успеха
+    rx = B.M + lw + 0.40
+    rw = B.SLIDE_W - B.M - rx
+    sl.text(rx, y0, rw, 0.34, "Три условия успеха", size=15, weight=600, color=B.INK)
+    sl.rect(rx, y0 + 0.36, 0.34, 0.035, fill=B.YELLOW)
     conds = [
         ("1 · ПРО и бригадиры", "Новые ЖК, эксперт по малярке в зале, Ключ-карта ПРО и КАМ на бригады."),
         ("2 · Колеровка и сроки", "Контроль рецептуры, колеровка в день заказа, резерв базы, OTIF 95%."),
         ("3 · Компетенции и сопутка", "Product-школа, расчёт расхода по площади, комплект «стены под ключ»."),
     ]
-    cy += 0.44
+    cy = y0 + 0.56
     for name, txt in conds:
-        C.panel(sl, B.M, cy, lw, 0.66)
-        sl.text(B.M + 0.20, cy + 0.10, lw - 0.4, 0.22, name, size=9.4, weight=700, color=B.INK)
-        sl.text(B.M + 0.20, cy + 0.32, lw - 0.4, 0.32, txt, size=8.2, weight=400,
-                color=B.INK, line=1.18)
-        cy += 0.70
-
-    # справа: план и риски
-    rx = B.M + lw + 0.34
-    rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y0, rw, 0.3, "План 2027 по кварталам", size=13.5, weight=600, color=B.INK)
-    sl.rect(rx, y0 + 0.30, 0.34, 0.03, fill=B.YELLOW)
-    rows2 = [
-        ["Квартал", "Фокус", "Что должно быть сделано"],
-        ["Q1", "Доступность + МП2", "Локальные поставщики подключены, мониторинг колеровки, product-школа"],
-        ["Q2", "МП2 + ПРО", "Сопутка в каждом чеке, эксперт по малярке в торговом зале"],
-        ["Q3", "ПРО", "Заход в новые ЖК, работа с бригадирами, Ключ-карта ПРО"],
-        ["Q4", "ПРО + контроль", "Рефералка бригадиров, КАМ на бригады, выход на 300 млн ₽"],
-    ]
-    th2 = table_height(dict(rows=rows2, w=rw, col_w=[0.85, 1.75, 3.9], header=True,
-                            size=8.8, head_size=8.6, row_h=0.36, head_h=0.30))
-    sl.table(rx, y0 + 0.46, rw, [0.85, 1.75, 3.9], rows2, size=8.8,
-             aligns=["l", "l", "l"], row_h=0.36, head_h=0.30)
-
-    cy = y0 + 0.46 + th2 + 0.26
-    sl.text(rx, cy, rw, 0.3, "Ключевые риски и ответ", size=13.5, weight=600, color=B.INK)
-    sl.rect(rx, cy + 0.30, 0.34, 0.03, fill=B.YELLOW)
-    rows3 = [
-        ["Риск", "Ответ"],
-        ["Колеровка «не в цвет» и рекламации", "Журнал рецептур, выкрасы, контроль станции"],
-        ["Бригадир ведёт заказчика к знакомому", "Ключ-карта ПРО, КАМ, резерв под объект"],
-        ["Онлайн перебивает цену на простые позиции", "Ценовое правило на топ-100 SKU, наличие"],
-    ]
-    sl.table(rx, cy + 0.46, rw, [3.35, 3.6], rows3, size=8.8, aligns=["l", "l"],
-             row_h=0.42, head_h=0.30)
+        C.panel(sl, rx, cy, rw, 1.14, fill=B.PANEL)
+        sl.text(rx + 0.26, cy + 0.18, rw - 0.52, 0.26, name, size=11.0, weight=700,
+                color=B.INK)
+        sl.text(rx + 0.26, cy + 0.54, rw - 0.52, 0.52, txt, size=10.2, weight=400,
+                color=B.INK_2, line=1.24)
+        cy += 1.26
 
     C.footnote(sl, "Допущения: база метрик 2026 (доля ПРО ~13%, позиций в чеке 2,6, срок поставки 7–10 дней) "
                    "и целевые значения — расчётная модель, требуют подтверждения фактическими данными BI.")
     return sl
 
 
-PAGES = [cover, overview, market, stena_summary, stena_market, stena_cjm,
-         stena_initiatives, stena_plan]
+
+# --------------------------------------------------- 4b. стена: декор
+def stena_decor():
+    sl = Slide(5)
+    C.head(sl, "декор",
+           "Декор: 315,5 млн ₽ и +12,4% — второй двигатель проекта",
+           "Потолок, панели, плинтус и напольный декор · 2026: 280,7 млн ₽", project="Стена")
+    y0 = B.CONTENT_Y
+
+    C.kpi_row(sl, [
+        dict(label="GMV декора, 2027", value="315,5 млн ₽",
+             note_prefix="2026: 280,7", note="· +12,4% г-г"),
+        dict(label="Прирост к 2026", value="+34,8 млн ₽",
+             note_prefix="+12,4%", note="г-г к базе"),
+        dict(label="Вклад в проект", value="35%",
+             note_prefix="от 615,5", note="млн ₽ амбиции"),
+        dict(label="Доля проекта в GMV", value="51%",
+             note_prefix="краски — 49%", note="· допущение"),
+    ], y0, h=1.12, value_size=23)
+
+    y1 = y0 + 1.34
+
+    # слева: из чего складывается прирост
+    lw = 6.60
+    sl.text(B.M, y1, lw, 0.34, "Из чего складывается +34,8 млн ₽", size=15, weight=600,
+            color=B.INK)
+    sl.rect(B.M, y1 + 0.36, 0.34, 0.035, fill=B.YELLOW)
+
+    parts = [
+        ("Декор потолка", "+18,2", "потолочный багет, карнизы, панели ПВХ"),
+        ("Панели и плинтус", "+10,4", "стеновые панели, напольный плинтус, пороги"),
+        ("Сопутка и услуги", "+6,2", "клей, крепёж, монтаж под ключ"),
+    ]
+    cy = y1 + 0.52
+    for name, val, note in parts:
+        C.panel(sl, B.M, cy, lw, 0.92, fill=B.PANEL)
+        sl.rect(B.M, cy, 0.06, 0.92, fill=B.YELLOW)
+        sl.text(B.M + 0.26, cy + 0.14, lw - 1.9, 0.26, name, size=11.0, weight=700,
+                color=B.INK)
+        sl.text(B.M + 0.26, cy + 0.46, lw - 1.9, 0.28, note, size=9.6, weight=400,
+                color=B.INK_2, line=1.2)
+        sl.text(B.M + lw - 1.72, cy + 0.22, 1.48, 0.40, val, size=21, weight=700,
+                color=B.INK, align="r", line=1.0)
+        cy += 1.02
+
+    # справа: два направления проекта
+    rx = B.M + lw + 0.32
+    rw = B.SLIDE_W - B.M - rx
+    sl.text(rx, y1, rw, 0.34, "Два направления проекта", size=15, weight=600, color=B.INK)
+    sl.rect(rx, y1 + 0.36, 0.34, 0.035, fill=B.YELLOW)
+
+    dirs = [
+        ("Стена · краски", "300,0", "49% амбиции", B.YELLOW),
+        ("Стена · декор", "315,5", "51% амбиции", B.SERIES[1]),
+    ]
+    cy = y1 + 0.52
+    for name, val, note, col in dirs:
+        C.panel(sl, rx, cy, rw, 0.92, fill=B.PANEL_2)
+        sl.rect(rx, cy, 0.06, 0.92, fill=col)
+        sl.text(rx + 0.26, cy + 0.14, rw - 1.9, 0.26, name, size=10.5, weight=700,
+                color=B.INK, caps=True, tracking=0.6)
+        sl.text(rx + 0.26, cy + 0.46, rw - 1.9, 0.26, note, size=9.4, weight=400,
+                color=B.INK_2)
+        sl.text(rx + rw - 1.58, cy + 0.22, 1.34, 0.40, val, size=20, weight=700,
+                color=B.INK, align="r", line=1.0)
+        cy += 1.02
+
+    C.panel(sl, rx, cy + 0.04, rw, 1.00, fill=B.YELLOW_FAINT)
+    sl.text(rx + 0.26, cy + 0.18, rw - 0.52, 0.26, "Общая амбиция 2027", size=10.5,
+            weight=700, color=B.INK, caps=True, tracking=0.6)
+    sl.text(rx + 0.26, cy + 0.48, rw - 2.15, 0.30, "краски + декор", size=9.4,
+            weight=400, color=B.INK_2)
+    sl.text(rx + rw - 1.95, cy + 0.24, 1.72, 0.44, "615,5", size=24, weight=700,
+            color=B.INK, align="r", line=1.0)
+    sl.text(rx + rw - 1.95, cy + 0.66, 1.72, 0.22, "млн ₽", size=8.6, weight=400,
+            color=B.INK_3, align="r")
+
+    C.footnote(sl, "Источники: данные заказчика (декор: 280,7 → 315,5 млн ₽; краски: 235 → 300 млн ₽); "
+                   "BI ЛП 2026. Разбивка прироста внутри декора — расчётная модель, требует подтверждения BI.")
+    return sl
+
+
+
+# ------------------------------------------------ 10. стена: план и риски
+def stena_roadmap():
+    sl = Slide(10)
+    C.head(sl, "план и риски",
+           "План 2027 по кварталам: от доступности к бригадам",
+           "Что делаем в каждом квартале и как отвечаем на ключевые риски", project="Стена")
+    y0 = B.CONTENT_Y
+
+    sl.text(B.M, y0, B.CW, 0.34, "План 2027 по кварталам", size=15, weight=600, color=B.INK)
+    sl.rect(B.M, y0 + 0.36, 0.34, 0.035, fill=B.YELLOW)
+    rows = [
+        ["Квартал", "Фокус", "Что должно быть сделано"],
+        ["Q1", "Доступность + МП2",
+         "Локальные поставщики подключены, мониторинг колеровки, product-школа"],
+        ["Q2", "МП2 + ПРО",
+         "Сопутка в каждом чеке, эксперт по малярке в торговом зале"],
+        ["Q3", "ПРО",
+         "Заход в новые ЖК, работа с бригадирами, Ключ-карта ПРО"],
+        ["Q4", "ПРО + контроль",
+         "Рефералка бригадиров, КАМ на бригады, выход на амбицию года"],
+    ]
+    th = table_height(dict(rows=rows, w=B.CW, col_w=[1.25, 3.10, 7.74], header=True,
+                           size=11.0, head_size=10.8, row_h=0.44, head_h=0.38))
+    sl.table(B.M, y0 + 0.52, B.CW, [1.25, 3.10, 7.74], rows, size=11.0, head_size=10.8,
+             aligns=["l", "l", "l"], row_h=0.44, head_h=0.38)
+
+    cy = y0 + 0.52 + th + 0.26
+    sl.text(B.M, cy, B.CW, 0.34, "Ключевые риски и ответ", size=15, weight=600, color=B.INK)
+    sl.rect(B.M, cy + 0.36, 0.34, 0.035, fill=B.YELLOW)
+    rows3 = [
+        ["Риск", "Ответ"],
+        ["Колеровка «не в цвет» и рекламации", "Журнал рецептур, выкрасы, контроль станции"],
+        ["Бригадир ведёт заказчика к знакомому", "Ключ-карта ПРО, КАМ, резерв под объект"],
+        ["Онлайн перебивает цену на простые позиции", "Ценовое правило на топ-100 SKU, наличие"],
+    ]
+    sl.table(B.M, cy + 0.50, B.CW, [5.30, 6.79], rows3, size=10.6, head_size=10.4,
+             aligns=["l", "l"], row_h=0.38, head_h=0.36)
+
+    C.footnote(sl, "Допущения: база метрик 2026 (доля ПРО ~13%, позиций в чеке 2,6, срок поставки 7–10 дней) "
+                   "и целевые значения — расчётная модель, требуют подтверждения фактическими данными BI.")
+    return sl
+
+
+PAGES = [cover, overview, market, stena_summary, stena_decor, stena_market,
+         stena_cjm, stena_initiatives, stena_plan, stena_roadmap]

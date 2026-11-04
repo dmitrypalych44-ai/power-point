@@ -253,13 +253,13 @@ def pol_worlds():
 
 # --------------------------------------------------- 12. Пол: инициативы
 def pol_initiatives():
-    sl = Slide(12)
-    C.head(sl, "18 инициатив",
-           "Что конкретно делаем в каждом страт-мире",
-           "Срок и эффект в млн ₽ на 2027 год · Катя Колпакова и Дима Терентьев", project="Пол")
+    sl = Slide(13)
+    C.head(sl, "18 инициатив · доступность и зал",
+           "Доступность и зал: 10 инициатив на +186 млн ₽",
+           "Ассортимент, сроки и стена выбора · Владивосток, 2027", project="Пол")
     y0 = B.CONTENT_Y
 
-    left_rows = [
+    rows = [
         ["Блок", "Инициатива", "Что делаем", "Срок", "₽"],
         ["Доступность", "+50 артикулов SPC", "SPC 33–43 кл., выкладка стеной, подложка", "Q1", "21"],
         ["Доступность", "+200 артикулов керамогранита", "60×60 и 120×60, мат и полированный", "Q1", "52"],
@@ -272,68 +272,69 @@ def pol_initiatives():
         ["МП2", "−50% времени на процессы", "Расчёт «пол под ключ», самовывоз 15 мин", "Q2", "12"],
         ["МП2", "Штат МК: +4 и +2", "Пики, выходные, эксперт по полу", "Q1–Q2", "22"],
     ]
-    right_rows = [
+    sl.rect(B.M, y0, 0.05, 0.26, fill=B.YELLOW)
+    sl.text(B.M + 0.18, y0 - 0.02, 6.0, 0.28, "Доступность + МП2", size=12.0, weight=700,
+            color=B.INK, caps=True, tracking=0.7)
+    sl.text(B.M + B.CW - 2.10, y0 - 0.02, 2.10, 0.32, "+186 млн ₽", size=15.0, weight=700,
+            color=B.INK, align="r")
+
+    sl.table(B.M, y0 + 0.40, B.CW, [1.55, 3.05, 5.45, 1.00, 1.04], rows, size=10.6,
+             head_size=10.4, aligns=["l", "l", "l", "c", "r"], row_h=0.355, head_h=0.34)
+
+    C.callout(sl, B.M, 6.46, B.CW, 0.46,
+              "Эти 10 инициатив дают +186 млн ₽ — половину эффекта проекта «Пол».",
+              size=10.0)
+    C.footnote(sl, "Источники: расчёт инициатив проекта ПОЛ, магазин 75; BI ЛП 2026. "
+                   "Эффект — вклад инициативы в прирост GMV 2027, млн ₽.")
+    return sl
+
+
+# ------------------------------------------- 14. Пол: инициативы ПРО и МП4
+def pol_initiatives_pro():
+    sl = Slide(14)
+    C.head(sl, "18 инициатив · ПРО и проекты",
+           "ПРО и проектный мир: 8 инициатив на +393 млн ₽",
+           "Профи в зале, комплекты с клеем и проект пола за 3 дня · 2027", project="Пол")
+    y0 = B.CONTENT_Y
+
+    rows = [
         ["Блок", "Инициатива", "Что делаем", "Срок", "₽"],
-        ["ПРО", "МП5 · напольные покрытия", "Профи в зале: эксперт, смета, резерв", "1П", "80"],
+        ["ПРО", "МП5 · напольные покрытия", "Профи в зале: эксперт, смета, резерв под объект", "1П", "80"],
         ["ПРО", "МП5 · плитка", "Керамогранит и плитка, комплект с клеем", "1П", "92"],
         ["ПРО", "МП3 · напольные покрытия", "Ламинат, SPC, ковролин под бюджет", "2П", "72"],
         ["ПРО", "МП3 · плитка", "Крупный формат под новостройки и КРТ", "2П", "86"],
         ["МП4", "+2 СПП на проект «Пол»", "Проект пола за 3 рабочих дня", "Q1", "40"],
         ["МП4", "Каждый 4-й проект с полом", "Проникновение в проектный мир", "Q2", "23"],
     ]
-
-    lcol = 6.55
-    rcol = B.CW - lcol - 0.34
-    rx = B.M + lcol + 0.34
-
-    sl.rect(B.M, y0, 0.05, 0.22, fill=B.YELLOW)
-    sl.text(B.M + 0.16, y0 - 0.04, lcol - 1.3, 0.24, "Доступность + МП2", size=9.2, weight=700,
+    sl.rect(B.M, y0, 0.05, 0.26, fill=B.YELLOW)
+    sl.text(B.M + 0.18, y0 - 0.02, 6.0, 0.28, "ПРО + МП4", size=12.0, weight=700,
             color=B.INK, caps=True, tracking=0.7)
-    sl.text(B.M + lcol - 1.25, y0 - 0.06, 1.25, 0.26, "+186 млн ₽", size=10.5, weight=700,
+    sl.text(B.M + B.CW - 2.10, y0 - 0.02, 2.10, 0.32, "+393 млн ₽", size=15.0, weight=700,
             color=B.INK, align="r")
-    th_l = table_height(dict(rows=left_rows, w=lcol, col_w=[1.15, 1.95, 2.55, 0.55, 0.35],
-                             header=True, size=8.0, head_size=7.4, row_h=0.29, head_h=0.26))
-    sl.table(B.M, y0 + 0.28, lcol, [1.15, 1.95, 2.55, 0.55, 0.35], left_rows, size=8.0,
-             head_size=7.4, aligns=["l", "l", "l", "c", "r"], row_h=0.29, head_h=0.26)
 
-    sl.rect(rx, y0, 0.05, 0.22, fill=B.YELLOW)
-    sl.text(rx + 0.16, y0 - 0.04, rcol - 1.3, 0.24, "ПРО + МП4", size=9.2, weight=700,
+    th = table_height(dict(rows=rows, w=B.CW, col_w=[1.35, 3.55, 5.35, 0.95, 0.89],
+                           header=True, size=11.0, head_size=10.6, row_h=0.46,
+                           head_h=0.38))
+    sl.table(B.M, y0 + 0.40, B.CW, [1.35, 3.55, 5.35, 0.95, 0.89], rows, size=11.0,
+             head_size=10.6, aligns=["l", "l", "l", "c", "r"], row_h=0.46, head_h=0.38)
+
+    # итог проекта
+    cy = y0 + 0.40 + th + 0.34
+    C.panel(sl, B.M, cy, 5.85, 1.14, fill=B.YELLOW_FAINT)
+    sl.text(B.M + 0.26, cy + 0.16, 3.2, 0.26, "Итого проект «Пол»", size=10.0, weight=700,
             color=B.INK, caps=True, tracking=0.7)
-    sl.text(rx + rcol - 1.25, y0 - 0.06, 1.25, 0.26, "+393 млн ₽", size=10.5, weight=700,
-            color=B.INK, align="r")
-    th_r = table_height(dict(rows=right_rows, w=rcol, col_w=[0.85, 1.95, 2.35, 0.5, 0.35],
-                             header=True, size=8.0, head_size=7.4, row_h=0.29, head_h=0.26))
-    sl.table(rx, y0 + 0.28, rcol, [0.85, 1.95, 2.35, 0.5, 0.35], right_rows, size=8.0,
-             head_size=7.4, aligns=["l", "l", "l", "c", "r"], row_h=0.29, head_h=0.26)
+    sl.text(B.M + 0.26, cy + 0.48, 3.4, 0.46, "+390 млн ₽", size=22, weight=700, color=B.INK)
+    sl.text(B.M + 0.26, cy + 0.90, 5.3, 0.22, "нетто к базе 2026 → 1 900 млн ₽ в 2027",
+            size=9.2, weight=400, color=B.INK_2)
 
-    # итог по проекту под правой таблицей
-    cy = y0 + 0.28 + th_r + 0.22
-    C.panel(sl, rx, cy, rcol, 1.02, fill=B.PANEL_2)
-    sl.text(rx + 0.22, cy + 0.13, 1.5, 0.22, "Итого проект", size=8.2, weight=700,
-            color=B.INK, caps=True, tracking=0.7)
-    sl.text(rx + 0.22, cy + 0.36, 2.0, 0.36, "+390 млн ₽", size=18, weight=700,
-            color=B.INK, line=1.0)
-    sl.text(rx + 0.22, cy + 0.74, rcol - 0.44, 0.22,
-            "18 инициатив четырёх миров к базе 2026 → 1 900 млн ₽ в 2027", size=7.8,
-            weight=400, color=B.INK_2)
-
-    # метрики под левой таблицей
-    cy = y0 + 0.28 + th_l + 0.22
-    sl.text(B.M, cy, lcol, 0.24, "Метрики проекта 2027", size=9.0, weight=700, color=B.INK_2,
-            caps=True, tracking=0.7)
-    metrics = [("OSA топ-SKU", "92 → 97%"), ("Срок поставки, дни", "7–10 → 1–3"),
-               ("Конверсия в покупку", "70 → 74%"), ("Доля ПРО в GMV", "20 → 26%"),
-               ("Проект «Пол» в ПМ", "17 → 25%")]
-    mw = (lcol - 4 * 0.12) / 5
-    for i, (lb, v) in enumerate(metrics):
-        x = B.M + i * (mw + 0.12)
-        C.panel(sl, x, cy + 0.28, mw, 0.66, fill=B.PANEL_2)
-        sl.text(x + 0.12, cy + 0.34, mw - 0.24, 0.26, v, size=10.0, weight=700, color=B.INK)
-        sl.text(x + 0.12, cy + 0.60, mw - 0.24, 0.30, lb, size=7.0, weight=400, color=B.INK_2,
-                line=1.14)
+    C.panel(sl, B.M + 6.05, cy, B.CW - 6.05, 1.14, fill=B.PANEL)
+    sl.text(B.M + 6.31, cy + 0.16, 5.0, 0.26, "18 инициатив четырёх миров", size=10.0,
+            weight=700, color=B.INK, caps=True, tracking=0.7)
+    sl.text(B.M + 6.31, cy + 0.50, B.CW - 6.55, 0.50,
+            "Гросс-потенциал 579 млн ₽; в план заложено нетто 390 млн ₽ (коэф. 0,67).",
+            size=9.6, weight=400, color=B.INK_2, line=1.24)
 
     C.footnote(sl, "Источники: расчёт инициатив проекта ПОЛ, магазин 75; BI ЛП 2026. "
-                   "Эффект — вклад инициативы в прирост GMV 2027, млн ₽. "
                    "ПРО 330 + Доступность 98 + МП2 88 + МП4 63 = 579 млн ₽ гросс, в план — нетто 390 млн ₽.")
     return sl
 
@@ -366,23 +367,19 @@ def dveri():
         ["Итого проект «Двери»", "1 250", "22%", "228,0", "+19,0%"],
     ]
     th = table_height(dict(rows=rows, w=lw, col_w=[2.55, 0.8, 0.8, 0.95, 0.85], header=True,
-                           size=8.6, head_size=8.0, row_h=0.32, head_h=0.30))
-    sl.table(B.M, y1 + 0.42, lw, [2.55, 0.8, 0.8, 0.95, 0.85], rows, size=8.6,
-             aligns=["l", "r", "r", "r", "r"], row_h=0.32, head_h=0.30)
-    sl.text(B.M, y1 + 0.42 + th + 0.06, lw, 0.24,
-            "Рынок — млн ₽; конкуренты — магазины на Бородинской и специализированные сети.",
-            size=7.6, weight=400, color=B.INK_2, line=1.16)
-
+                           size=10.0, head_size=9.4, row_h=0.38, head_h=0.32))
+    sl.table(B.M, y1 + 0.42, lw, [2.55, 0.8, 0.8, 0.95, 0.85], rows, size=10.0,
+             aligns=["l", "r", "r", "r", "r"], row_h=0.38, head_h=0.32)
     # доступность
-    cy = y1 + 0.42 + th + 0.36
+    cy = y1 + 0.42 + th + 0.30
     sl.text(B.M, cy, lw, 0.3, "Доступность и путь клиента", size=13.0, weight=600, color=B.INK)
     sl.rect(B.M, cy + 0.29, 0.34, 0.03, fill=B.YELLOW)
-    sl.bullets(B.M, cy + 0.40, lw, 1.4, [
+    sl.bullets(B.M, cy + 0.38, lw, 1.4, [
         "SAR 32,7% (−0,3% г-1) → амбиция 60% (+27,3 п.п.); ДС 263 вместо 5 дней — 3 дня",
         "На ДС 263 — 52 коллекции, +2 согласованы; на ДС Новосибирск — 25 коллекций",
         "Ручки и фурнитуру кладём на сток ДС: заказы с ноября 2026, продажи с января 2027",
         "Оформление товарной группы по КЛИ и Букам, проектный мониторинг раз в месяц",
-    ], size=8.2, bullet="—", gap=0.05, line=1.22)
+    ], size=8.0, bullet="—", gap=0.02, line=1.2)
 
     # справа: два вектора
     rx = B.M + lw + 0.34
@@ -414,12 +411,13 @@ def dveri():
         ["Доля сделок с услугой", "31%", "40%"],
         ["Лиды из других отделов", "—", "120 / мес"],
     ]
-    sl.table(rx + 0.18, y1 + 2.04, rw - 0.36, [1.95, 0.95, 1.05], rows3, size=8.0,
-             aligns=["l", "r", "r"], row_h=0.25, head_h=0.23,
+    sl.table(rx + 0.18, y1 + 2.04, rw - 0.36, [1.95, 0.95, 1.05], rows3, size=9.2,
+             aligns=["l", "r", "r"], row_h=0.255, head_h=0.24,
              fill=B.WHITE, alt=B.SURFACE, head_fill=B.SURFACE_2,
              text_color=B.INK, head_color=B.INK)
 
-    C.footnote(sl, "Источники: данные заказчика и BI ЛП 2026 по проекту «Двери», магазин 75. "
+    C.footnote(sl, "Рынок — млн ₽; конкуренты — магазины на Бородинской и специализированные сети. "
+                   "Источники: данные заказчика и BI ЛП 2026 по проекту «Двери», магазин 75. "
                    "Демарш Н. Новгород (119): GMV 279 млн ₽, 6-й ранг, +27,9% г-1.")
     return sl
 
@@ -445,9 +443,9 @@ def dveri_plan():
         ["Штат СПП", "—", "6", "+2 в ПЦ ВЛД"],
     ]
     th = table_height(dict(rows=rows, w=lw, col_w=[3.1, 1.0, 1.0, 1.15], header=True,
-                           size=9.0, head_size=8.6, row_h=0.31, head_h=0.30))
-    sl.table(B.M, y0 + 0.44, lw, [3.1, 1.0, 1.0, 1.15], rows, size=9.0,
-             aligns=["l", "r", "r", "r"], row_h=0.31, head_h=0.30)
+                           size=10.4, head_size=9.8, row_h=0.37, head_h=0.32))
+    sl.table(B.M, y0 + 0.44, lw, [3.1, 1.0, 1.0, 1.15], rows, size=10.4,
+             aligns=["l", "r", "r", "r"], row_h=0.37, head_h=0.32)
     sl.text(B.M, y0 + 0.44 + th + 0.08, lw, 0.42,
             "Демарш Хабаровск 123: SAR 66% — ориентир по доступности; Новосибирск 2 (030): "
             "GMV 160 млн ₽, 4 411 сделок, конверсия 77%.",
@@ -479,10 +477,10 @@ def dveri_plan():
         ["Зал", "Посты продаж в шоуруме (СПП), активные продажи в ТЗ, выгонять с ПЦ"],
         ["Команда", "СПП ведут проекты, где участие влияет на решение и GMV"],
     ]
-    th2 = table_height(dict(rows=rows2, w=rw, col_w=[1.55, 4.7], header=True, size=8.6,
-                            head_size=8.4, row_h=0.44, head_h=0.30))
-    sl.table(rx, y0 + 0.46, rw, [1.55, 4.7], rows2, size=8.6, aligns=["l", "l"],
-             row_h=0.44, head_h=0.30)
+    th2 = table_height(dict(rows=rows2, w=rw, col_w=[1.55, 4.7], header=True, size=10.0,
+                            head_size=9.4, row_h=0.50, head_h=0.32))
+    sl.table(rx, y0 + 0.46, rw, [1.55, 4.7], rows2, size=10.0, aligns=["l", "l"],
+             row_h=0.50, head_h=0.32)
 
     cy2 = y0 + 0.46 + th2 + 0.28
     C.callout(sl, rx, cy2, rw, 0.94,
@@ -494,4 +492,5 @@ def dveri_plan():
     return sl
 
 
-PAGES = [pol_summary, pol_cjm, pol_worlds, pol_initiatives, dveri, dveri_plan]
+PAGES = [pol_summary, pol_cjm, pol_worlds, pol_initiatives, pol_initiatives_pro,
+         dveri, dveri_plan]
