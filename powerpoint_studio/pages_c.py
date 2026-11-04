@@ -9,7 +9,7 @@ from .backends import table_height
 from .primitives import Slide, text_width
 
 A = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
-LOGO = os.path.join(A, "logo_white.png")
+LOGO = os.path.join(A, "logo_white_2x.png")
 
 
 # ---------------------------------------------------------------- 15. Ванная
