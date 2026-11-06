@@ -1,6 +1,7 @@
 """Two renderers for a list of ``Slide`` primitives: PPTX (deliverable) and PDF (proof)."""
 from __future__ import annotations
 
+import re
 import math
 import os
 
@@ -224,9 +225,16 @@ class PptxRenderer:
                 color = it["head_color"] if ri < nhead else it["text_color"]
                 weight = 600 if (ri < nhead or (it["bold_first_col"] and ci == 0)) else 400
                 size = it["head_size"] if ri < nhead else it["size"]
+                if ri > 0 and align == "l" and len(str(cell)) > 2:
+                    weight = max(weight, 600)   # подпись строки читается как заголовок
                 pad = 0.10
+                cell = str(cell)
+                if ri > 0 and align == "r" and re.match(r"^[+\-−]?[\d\s.,]+\s*[%₽pk]?$", cell):
+                    size = it["size"] + 1.2
+                    weight = 700
+                    color = it.get("num_color") or B.INK
                 self._text(s, dict(x=cx + pad, y=cy + 0.02, w=cw - 2 * pad, h=h - 0.04,
-                                   s=str(cell), size=size, weight=weight, color=color,
+                                   s=cell, size=size, weight=weight, color=color,
                                    align=align, valign=it["valign"], line=1.16))
                 cx += cw
             cy += h
@@ -358,9 +366,14 @@ class PdfRenderer:
                 color = it["head_color"] if ri < nhead else it["text_color"]
                 weight = 600 if (ri < nhead or (it["bold_first_col"] and ci == 0)) else 400
                 size = it["head_size"] if ri < nhead else it["size"]
+                if ri > 0 and align == "l" and len(str(cell)) > 2:
+                    weight = max(weight, 600)   # подпись строки читается как заголовок
                 pad = 0.10
+                cell = str(cell)
+                if ri > 0 and align in ("r", "c") and re.match(r"^[+\-−]?[\d\s.,]+\s*[%₽pk]?", cell):
+                    color = it["text_color"] if cell else color
                 self._text(dict(x=cx + pad, y=cy + 0.02, w=cw - 2 * pad, h=h - 0.04,
-                                s=str(cell), size=size, weight=weight, color=color,
+                                s=cell, size=size, weight=weight, color=color,
                                 align=align, valign=it["valign"], line=1.16))
                 cx += cw
             cy += h
