@@ -21,7 +21,9 @@ def build(out_dir: str = "deliverables", pdf: bool = True, png: bool = False,
     for i, p in enumerate(pages, start=1):
         p.number = i
         # на обложке и финале стоит полный логотип — отдельный домик не нужен
-        if i not in (1, len(pages)):
+        if i in (1, len(pages)):
+            backdrop.paper(p)
+        else:
             backdrop.prepare(p, i, len(pages))
             backdrop.frame(p, i, len(pages))
             house_mark(p)

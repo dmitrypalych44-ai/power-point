@@ -20,7 +20,7 @@ def cover():
     px = 7.90
     sl.image(STORE, px, 0, B.SLIDE_W - px, B.SLIDE_H)
     # фирменный срез угла фотографии: графитовая кромка + жёлтый треугольник
-    sl.polygon([(px, 0), (px + 2.55, 0), (px, 2.55)], B.BG)
+    sl.polygon([(px, 0), (px + 2.55, 0), (px, 2.55)], B.PAPER)
     sl.polygon([(px + 0.42, 0), (px + 2.55, 0), (px, 2.55)], B.DARK)
     sl.polygon([(B.SLIDE_W - 2.62, 0), (B.SLIDE_W, 0), (B.SLIDE_W, 2.62)], B.YELLOW)
     sl.image(LOGO, B.M, 0.62, 2.05)
