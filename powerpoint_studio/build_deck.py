@@ -17,10 +17,13 @@ def build(out_dir: str = "deliverables", pdf: bool = True, png: bool = False,
     pages = [f() for f in pages_a.PAGES + pages_b.PAGES + pages_c.PAGES]
     # page numbers come from the deck order; фирменный домик — на каждом слайде
     from powerpoint_studio.components import house_mark
+    from powerpoint_studio import backdrop
     for i, p in enumerate(pages, start=1):
         p.number = i
         # на обложке и финале стоит полный логотип — отдельный домик не нужен
         if i not in (1, len(pages)):
+            backdrop.prepare(p, i, len(pages))
+            backdrop.frame(p, i, len(pages))
             house_mark(p)
     print("pages:", len(pages))
     pptx_path = os.path.join(out_dir, "Лемана_ПРО_Стратегия_Владивосток_2027.pptx")

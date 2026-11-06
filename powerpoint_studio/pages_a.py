@@ -55,8 +55,7 @@ def overview():
         ("МП4 · проектные продажи", "Проектный центр: прорисовка за 3 дня, пять миров в воронку."),
     ]
     lw = 5.05
-    sl.text(B.M, y0, lw, 0.3, "Четыре рычага роста", size=14.5, weight=600, color=B.INK)
-    sl.rect(B.M, y0 + 0.33, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, B.M, y0, lw, "Четыре рычага роста", size=14.5)
     cy = y0 + 0.54
     for i, (name, desc) in enumerate(pillars):
         C.panel(sl, B.M, cy, lw, 0.78)
@@ -72,9 +71,7 @@ def overview():
     # правая колонка — мировые амбиции карточками с полосами
     rx = B.M + lw + 0.34
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y0, rw, 0.3, "Амбиция миров 2027, млн ₽", size=14.5, weight=600,
-            color=B.INK)
-    sl.rect(rx, y0 + 0.33, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, rx, y0, rw, "Амбиция миров 2027, млн ₽", size=14.5)
 
     worlds = [
         ("Вайтбокс · отдельный мир", "White Box + инженерка", "306*", "550", 0.64, B.SERIES[3], "+80%"),
@@ -152,8 +149,7 @@ def market():
 
     # средний ряд — спрос
     y1 = y0 + 1.42
-    sl.text(B.M, y1, 6.0, 0.3, "Структура спроса", size=13.5, weight=600, color=B.INK)
-    sl.rect(B.M, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, 6.0, "Структура спроса", size=13.5)
     blocks = [
         ("МКД", "Запуски новых проектов −50% г-1. Распроданность к стройготовности: 50% — 2026, 34% — 2027. "
                 "Рынок завоевали федеральные девелоперы, преобладает комфорт-класс с отделкой WB."),
@@ -173,8 +169,7 @@ def market():
     # правая колонка — конкуренты
     rx = B.M + 7.55 + 0.32
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.3, "Конкурентное поле", size=13.5, weight=600, color=B.INK)
-    sl.rect(rx, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "Конкурентное поле", size=13.5)
     C.panel(sl, rx, y1 + 0.46, rw, 1.92)
     rows = [
         ("Онлайн", "WB — 256 ПВЗ · Ozon — 324 ПВЗ", "забирают простые позиции и цену"),
@@ -221,8 +216,7 @@ def stena_summary():
     # ---- слева: три направления проекта
     lw = 6.60
     y1 = y0 + 1.30
-    sl.text(B.M, y1, lw, 0.34, "Три части проекта, млн ₽", size=15, weight=600, color=B.INK)
-    sl.rect(B.M, y1 + 0.36, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, lw, "Три части проекта, млн ₽", size=15)
 
     parts = [
         ("Стена · краски", "300,0", "235 → 300 млн ₽ · +27,7% г-г", "39%"),
@@ -256,8 +250,7 @@ def stena_summary():
     # ---- справа: структура амбиции и клиент
     rx = B.M + lw + 0.32
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.3, "Доли частей в амбиции 2027", size=13.5, weight=600, color=B.INK)
-    sl.rect(rx, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "Доли частей в амбиции 2027", size=13.5)
 
     C.hbars(sl, rx, y1 + 0.46, rw, [
         dict(label="Краски", value=39, value_label="39%", color=B.SERIES[0]),
@@ -548,8 +541,7 @@ def stena_market():
 
     y1 = y0 + 1.40
     lw = 6.24
-    sl.text(B.M, y1, lw, 0.3, "Доли рынка 2026 → 2027", size=13.5, weight=600, color=B.INK)
-    sl.rect(B.M, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, lw, "Доли рынка 2026 → 2027", size=13.5)
     sl.text(B.M + lw - 2.60, y1 + 0.03, 2.60, 0.22,
             "полоса — 2027 · засечка — 2026", size=7.6, weight=400,
             color=B.INK_3, align="r")
@@ -569,8 +561,7 @@ def stena_market():
     # правая колонка — конкуренты
     rx = B.M + lw + 0.34
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.3, "Ключевые конкуренты", size=13.5, weight=600, color=B.INK)
-    sl.rect(rx, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "Ключевые конкуренты", size=13.5)
     comp = [
         ("Красный Мамонт", "588,3 млн ₽ выручки · −16,4% г-1"),
         ("Ковчег-Приморье", "207,8 млн ₽ выручки"),
@@ -712,9 +703,7 @@ def stena_plan():
 
     # слева: вклад трёх отделов в прирост
     lw = 5.60
-    sl.text(B.M, y0, lw, 0.34, "Прирост 2027 по отделам, млн ₽", size=13.5, weight=600,
-            color=B.INK)
-    sl.rect(B.M, y0 + 0.35, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, B.M, y0, lw, "Прирост 2027 по отделам, млн ₽", size=13.5)
 
     cx, cyr = B.M + 1.16, y0 + 1.46
     C.donut(sl, cx, cyr, 1.02, 0.64, [
@@ -734,8 +723,7 @@ def stena_plan():
     # справа: метрики контроля плитками
     rx = B.M + lw + 0.44
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y0, rw, 0.34, "Метрики контроля", size=13.5, weight=600, color=B.INK)
-    sl.rect(rx, y0 + 0.35, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, rx, y0, rw, "Метрики контроля", size=13.5)
     C.stat_cards(sl, rx, y0 + 0.54, rw, [
         dict(label="Срок с ДС", value="5 → 3 дня", note="обещание",
              pct=0.75, accent=B.SERIES[0], value_size=13.5),
@@ -757,8 +745,7 @@ def stena_plan():
 
     # три условия успеха — одним блоком во всю ширину
     cy = y0 + 3.06
-    sl.text(B.M, cy, B.CW, 0.34, "Три условия успеха", size=14.5, weight=600, color=B.INK)
-    sl.rect(B.M, cy + 0.35, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, B.M, cy, B.CW, "Три условия успеха", size=14.5)
     conds = [
         ("1 · Гамма и полка", "Бамбук, квадро и шумоизоляция, 30 проектов на стоке, СК 913 наполнен."),
         ("2 · Срок и сервис", "Обещание 3 дня по ДС 263, услуга отделки панелями, поклейка в чеке."),
@@ -804,9 +791,7 @@ def stena_decor():
 
     # слева: три подотдела
     lw = 6.60
-    sl.text(B.M, y1, lw, 0.34, "Три подотдела: 280,7 → 315,5 млн ₽", size=15, weight=600,
-            color=B.INK)
-    sl.rect(B.M, y1 + 0.36, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, lw, "Три подотдела: 280,7 → 315,5 млн ₽", size=15)
 
     parts = [
         ("Обои · 1210", "+26,8", "243,8 → 270,6 млн ₽ · из них +12,8 от проекта"),
@@ -829,9 +814,7 @@ def stena_decor():
     # справа: место декора в проекте
     rx = B.M + lw + 0.32
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.34, "Место декора в проекте «Стена»", size=15, weight=600,
-            color=B.INK)
-    sl.rect(rx, y1 + 0.36, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "Место декора в проекте «Стена»", size=15)
 
     dirs = [
         ("Краски", "300,0", "39% амбиции", B.SERIES[0]),
@@ -891,8 +874,7 @@ def whitebox_summary():
 
     # ---- слева: кластеры клиентов
     lw = 5.55
-    sl.text(B.M, y1, lw, 0.34, "Кластеры клиентов White Box", size=15, weight=600, color=B.INK)
-    sl.rect(B.M, y1 + 0.36, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, lw, "Кластеры клиентов White Box", size=15)
 
     clusters = [
         ("Все типы клиентов", "550", "весь страт-мир 2027", B.SERIES[0], 1.0),
@@ -917,8 +899,7 @@ def whitebox_summary():
     # ---- справа: рынок и ограничение
     rx = B.M + lw + 0.34
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.34, "Откуда амбиция", size=15, weight=600, color=B.INK)
-    sl.rect(rx, y1 + 0.36, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "Откуда амбиция", size=15)
 
     sl.text(rx, y1 + 0.52, rw, 0.30, "13 050 сданных + 22 475 к сдаче квартир в зоне охвата",
             size=9.6, weight=400, color=B.INK_2, line=1.2)
@@ -1012,8 +993,7 @@ def stena_roadmap():
            "Что делаем в каждом квартале и как отвечаем на ключевые риски", project="Стена")
     y0 = B.CONTENT_Y
 
-    sl.text(B.M, y0, B.CW, 0.34, "План 2027 по кварталам", size=15, weight=600, color=B.INK)
-    sl.rect(B.M, y0 + 0.36, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, B.M, y0, B.CW, "План 2027 по кварталам", size=15)
     rows = [
         ["Квартал", "Фокус", "Что должно быть сделано"],
         ["Q1", "Доступность + МП2",
@@ -1031,8 +1011,7 @@ def stena_roadmap():
              aligns=["l", "l", "l"], row_h=0.44, head_h=0.38)
 
     cy = y0 + 0.52 + th + 0.26
-    sl.text(B.M, cy, B.CW, 0.34, "Ключевые риски и ответ", size=15, weight=600, color=B.INK)
-    sl.rect(B.M, cy + 0.36, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, B.M, cy, B.CW, "Ключевые риски и ответ", size=15)
     rows3 = [
         ["Риск", "Ответ"],
         ["Колеровка «не в цвет» и рекламации", "Журнал рецептур, выкрасы, контроль станции"],

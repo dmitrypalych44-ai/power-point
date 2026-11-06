@@ -53,8 +53,7 @@ def pol_summary():
 
     # рынок
     lw = 5.45
-    sl.text(B.M, y1, lw, 0.3, "Рынок ПОЛ в зоне охвата", size=13.5, weight=600, color=B.INK)
-    sl.rect(B.M, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, lw, "Рынок ПОЛ в зоне охвата", size=13.5)
     C.data_row(sl, B.M, y1 + 0.46, lw, [
         dict(label="Рынок ПОЛ, млрд ₽", **{"from": "2,70"}, to="3,00", delta="+11%",
              accent=B.SERIES[0], value_size=14),
@@ -77,9 +76,7 @@ def pol_summary():
     # откуда рост
     rx = B.M + lw + 0.38
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.3, "Откуда рост +390 млн ₽: 4 страт-мира", size=13.5, weight=600,
-            color=B.INK)
-    sl.rect(rx, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "Откуда рост +390 млн ₽: 4 страт-мира", size=13.5)
     C.hbars(sl, rx, y1 + 0.56, rw, [
         dict(label="ПРО · 57%", value=330, value_label="+330", label_color=B.INK_2,
              color=B.YELLOW),
@@ -227,8 +224,7 @@ def pol_worlds():
 
     # метрики 2027
     cy = y0 + 3.04
-    sl.text(B.M, cy, 4.0, 0.26, "Метрики проекта 2027", size=11.5, weight=600, color=B.INK)
-    sl.rect(B.M, cy + 0.28, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, cy, 4.0, "Метрики проекта 2027", size=11.5)
     metrics = [
         ("OSA топ-SKU пола", "92% → 97%"),
         ("Срок поставки с РЦ", "7–10 → 1–3 дня"),
@@ -389,8 +385,7 @@ def dveri():
 
     # слева: три категории
     lw = 6.05
-    sl.text(B.M, y1, lw, 0.3, "Категории и наши доли", size=13.0, weight=600, color=B.INK)
-    sl.rect(B.M, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, lw, "Категории и наши доли", size=13.0)
     C.priority_columns(sl, B.M, y1 + 0.42, lw, [
         dict(title="225 · Межкомнатные", value="159,7", note="млн ₽ · рынок 800 млн ₽",
              text="Доля 20% · +25,7% г-1. Ядро проекта — 70% GMV.", h=1.62,
@@ -408,8 +403,7 @@ def dveri():
 
     # доступность
     cy = y1 + 2.24
-    sl.text(B.M, cy, lw, 0.3, "Доступность и путь клиента", size=13.0, weight=600, color=B.INK)
-    sl.rect(B.M, cy + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, cy, lw, "Доступность и путь клиента", size=13.0)
     sl.bullets(B.M, cy + 0.38, lw, 1.4, [
         "SAR 32,7% (−0,3 п.п.) → амбиция 60% (+27,3 п.п.); ДС 263 вместо 5 дней — 3 дня",
         "На ДС 263 — 52 коллекции, +2 согласованы; на ДС Новосибирск — 25 коллекций",
@@ -420,9 +414,7 @@ def dveri():
     # справа: два вектора
     rx = B.M + lw + 0.34
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.3, "ПРО и МП4: два вектора роста", size=13.0, weight=600,
-            color=B.INK)
-    sl.rect(rx, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "ПРО и МП4: два вектора роста", size=13.0)
     C.panel(sl, rx, y1 + 0.42, rw, 1.16)
     sl.text(rx + 0.20, y1 + 0.52, rw - 0.4, 0.20, "ПРО · 61,7 → 100 млн ₽ в канале", size=8.4,
             weight=700, color=B.INK, caps=True, tracking=0.6)
@@ -467,8 +459,7 @@ def dveri_plan():
 
     # ---- слева: показатели
     lw = 6.20
-    sl.text(B.M, y0, lw, 0.30, "Показатели и цели 2027", size=13.5, weight=600, color=B.INK)
-    sl.rect(B.M, y0 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, y0, lw, "Показатели и цели 2027", size=13.5)
     C.metrics_list(sl, B.M, y0 + 0.44, lw, [
         dict(label="SAR · доступность на полке", value="32,7% → 60%"),
         dict(label="Срок получения товара с ДС", value="5 → 3 дня"),
@@ -492,8 +483,7 @@ def dveri_plan():
     # ---- справа: инициативы
     rx = B.M + lw + 0.32
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y0, rw, 0.30, "Инициативы 2027", size=13.5, weight=600, color=B.INK)
-    sl.rect(rx, y0 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y0, rw, "Инициативы 2027", size=13.5)
     C.action_list(sl, rx, y0 + 0.44, rw, [
         dict(title="Доступность",
              text="ДС 263: 52 коллекции +2; Новосибирск — 25 коллекций; 5 коллекций СТМ дают "

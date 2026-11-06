@@ -93,8 +93,29 @@ def subtitle(sl, text, x=B.M, y=B.HEAD_SUB, w=B.CW, size=12.5, color=B.INK_2):
     sl.text(x, y, w, 0.3, text, size=size, weight=400, color=color, line=1.2)
 
 
-def rule(sl, x=B.M, y=B.RULE_Y, w=1.55, color=B.YELLOW, h=0.045):
+def marker(sl, x, y, w=0.34, h=0.035, color=B.YELLOW):
+    """Метка подзаголовка: жёлтый отрезок со скошенным правым концом."""
+    sl.polygon([(x, y), (x + w, y), (x + w + h * 1.4, y + h), (x, y + h)], color)
+
+
+def rule(sl, x=B.M, y=B.RULE_Y, w=1.55, color=B.YELLOW, h=0.045, tail=True):
+    """Заголовочная линейка: плотный жёлтый отрезок + волосяное продолжение."""
     sl.rect(x, y, w, h, fill=color)
+    if tail:
+        sl.rect(x + w + 0.16, y + h / 2 - 0.004, B.CW - w - 1.28, 0.008, fill=B.LINE)
+
+
+def section_head(sl, x, y, w, text, size=13.5, color=B.INK, tail=None):
+    """Подзаголовок блока: жёлтый домик-маркер и волосяная линия под ним.
+
+    Приём корпоративного шаблона: домик работает как маркер пункта.
+    """
+    house_shape(sl, x, y + 0.015, 0.24, 0.22, B.YELLOW)
+    tx = x + 0.37
+    sl.text(tx, y - 0.02, w - 0.40, 0.32, text, size=size, weight=600, color=color,
+            fit=True, min_size=size - 2.0)
+    sl.rect(x, y + 0.36, w, 0.010, fill=B.LINE)
+    return tx
 
 
 def _sent_case(t: str) -> str:
@@ -503,9 +524,12 @@ def action_list(sl, x, y, w, items, row_h=0.66, gap=0.09, size=8.6,
     for i, it in enumerate(items):
         panel(sl, x, cy, w, row_h, fill=B.SURFACE if i % 2 == 0 else B.SURFACE_2)
         sl.rect(x, cy, 0.05, row_h, fill=it.get("accent", B.YELLOW))
-        sl.text(x + 0.20, cy + 0.13, num_w, 0.24, "%02d" % (i + num_start),
-                size=9.2, weight=700,
-                color=B.YELLOW_DIM)
+        # номер в фирменном домике — приём нумерации корпоративного шаблона
+        num = "%02d" % (i + num_start)
+        house_shape(sl, x + 0.19, cy + 0.10, 0.27, 0.25,
+                    it.get("num_fill", B.DARK))
+        sl.text(x + 0.19, cy + 0.115, 0.27, 0.23, num, size=7.6, weight=700,
+                color=B.WHITE, align="c", valign="m", fit=True, min_size=5.6)
         tw = w - num_w - right_w - 0.50
         sl.text(x + 0.20 + num_w, cy + 0.10, tw, 0.24, it["title"], size=9.6,
                 weight=700, color=B.INK, line=1.05, fit=True, min_size=7.8)

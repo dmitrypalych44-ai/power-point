@@ -35,9 +35,7 @@ def vannaya():
 
     # слева: откуда рост
     lw = 6.05
-    sl.text(B.M, y1, lw, 0.3, "Откуда рост +125 млн ₽: 4 страт-мира", size=13.0, weight=600,
-            color=B.INK)
-    sl.rect(B.M, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, lw, "Откуда рост +125 млн ₽: 4 страт-мира", size=13.0)
     C.hbars(sl, B.M, y1 + 0.50, lw, [
         dict(label="ПРО · 40% · новые ЖК и зал", value=50, value_label="+50", label_color=B.INK_2,
              color=B.YELLOW),
@@ -51,9 +49,7 @@ def vannaya():
 
     # путь клиента — короткой полосой
     cy = y1 + 2.16
-    sl.text(B.M, cy, lw, 0.3, "Путь клиента: 5 этапов, 4 разрыва", size=13.0, weight=600,
-            color=B.INK)
-    sl.rect(B.M, cy + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, cy, lw, "Путь клиента: 5 этапов, 4 разрыва", size=13.0)
     stages = [
         ("1", "Потребность", "Нет плана, сметы и срока"),
         ("2", "Поиск", "Сантехника отдельно от плитки"),
@@ -74,8 +70,7 @@ def vannaya():
     # справа: конкуренты и разрыв
     rx = B.M + lw + 0.34
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.3, "Конкуренты проекта", size=13.0, weight=600, color=B.INK)
-    sl.rect(rx, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "Конкуренты проекта", size=13.0)
     chips = ["Мистер Т", "Аквастор", "Ozon", "Прогрессстрой", "14 слон"]
     cx, cy2 = rx, y1 + 0.52
     for ch in chips:
@@ -91,9 +86,7 @@ def vannaya():
             "экспертизу, подбор под объект и наличие сантехники.",
             size=9.4, weight=400, color=B.INK_2, line=1.24)
 
-    sl.text(rx, y1 + 2.02, rw, 0.3, "Профиль клиента по GMV", size=13.5, weight=600,
-            color=B.INK)
-    sl.rect(rx, y1 + 2.31, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y1 + 2.02, rw, "Профиль клиента по GMV", size=13.5)
     C.legend(sl, rx, y1 + 2.52, rw, [
         dict(value="48%", label="B2C «делает сам» · выбирает плитку", color=B.SERIES[0]),
         dict(value="32%", label="B2C «делает бригада» · закупка у мастера", color=B.SERIES[1]),
@@ -184,8 +177,7 @@ def kuhni():
 
     # слева: четыре мира
     lw = 6.55
-    sl.text(B.M, y1, lw, 0.3, "Четыре страт-мира проекта", size=13.0, weight=600, color=B.INK)
-    sl.rect(B.M, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, lw, "Четыре страт-мира проекта", size=13.0)
     cards = [
         ("Доступность", "+9,4 млн ₽", B.YELLOW_DIM, [
             "Столешницы и стеновые 300 см, выдвижные аксессуары на ДС",
@@ -227,8 +219,7 @@ def kuhni():
     # справа: до и после
     rx = B.M + lw + 0.34
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.32, "Кухни: 2026 → 2027", size=14.0, weight=600, color=B.INK)
-    sl.rect(rx, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "Кухни: 2026 → 2027", size=14.0)
     C.metrics_list(sl, rx, y1 + 0.46, rw, [
         dict(label="GMV, млн ₽", value="74 → 144"),
         dict(label="Консультации в час", value="0,73 → 1,44"),
@@ -264,9 +255,7 @@ def kuhni_remodeling():
 
     y1 = y0 + 1.40
 
-    sl.text(B.M, y1, B.CW, 0.34, "Что даёт рост ремоделинга", size=15, weight=600,
-            color=B.INK)
-    sl.rect(B.M, y1 + 0.36, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, B.CW, "Что даёт рост ремоделинга", size=15)
     lw = 8.85
     rx = B.M + lw + 0.30
     rw = B.CW - lw - 0.30
@@ -323,9 +312,7 @@ def sad():
 
     # слева: подотделы
     lw = 6.05
-    sl.text(B.M, y1, lw, 0.3, "Стратегические подотделы в GMV отдела", size=13.0, weight=600,
-            color=B.INK)
-    sl.rect(B.M, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, lw, "Стратегические подотделы в GMV отдела", size=13.0)
     C.hbars(sl, B.M, y1 + 0.50, lw, [
         dict(label="Уход за садом", value=97, value_label="97 млн ₽", label_color=B.INK_2,
              color=B.YELLOW),
@@ -338,8 +325,7 @@ def sad():
     ], row_h=0.36, label_w=1.95, bar_h=0.15, value_w=1.05, size=9.2)
 
     cy = y1 + 2.00
-    sl.text(B.M, cy, lw, 0.3, "Сезонный контур МП2", size=13.0, weight=600, color=B.INK)
-    sl.rect(B.M, cy + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, cy, lw, "Сезонный контур МП2", size=13.0)
     C.panel(sl, B.M, cy + 0.40, lw, 1.24)
     stats = [("153 → 300", "GMV в сезон, млн ₽"), ("104 → 204", "лидов в сезон"),
              ("+5 ПК и 3 аутсорс", "усиление штата")]
@@ -354,8 +340,7 @@ def sad():
     # справа: профиль клиента
     rx = B.M + lw + 0.34
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.3, "Профиль клиента", size=13.5, weight=600, color=B.INK)
-    sl.rect(rx, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "Профиль клиента", size=13.5)
     clients = [
         ("Дачник выходного дня", "цена, скорость, всё в одном месте"),
         ("Владелец дома / ИЖС", "проектные покупки, доставка, надёжность"),
@@ -399,8 +384,7 @@ def sad_market():
 
     y1 = y0 + 1.28
 
-    sl.text(B.M, y1, B.CW, 0.34, "Города и население", size=15, weight=600, color=B.INK)
-    sl.rect(B.M, y1 + 0.36, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, B.CW, "Города и население", size=15)
     cities = [
         ("Владивосток", "608–613 тыс. чел.", "миграционный приток",
          "«Дальневосточный квартал» — новые ЖК в зоне охвата"),
@@ -422,8 +406,7 @@ def sad_market():
                 color=B.INK_2, line=1.2)
 
     cy = y1 + 1.96
-    sl.text(B.M, cy, B.CW, 0.34, "Драйверы 2027", size=15, weight=600, color=B.INK)
-    sl.rect(B.M, cy + 0.36, 0.34, 0.035, fill=B.YELLOW)
+    C.section_head(sl, B.M, cy, B.CW, "Драйверы 2027", size=15)
     drivers = [
         ("Ключевая ставка", "Снижение возвращает спрос на загородные покупки и ремонт"),
         ("Инфраструктура", "Дороги и сети: новые ИЖС-посёлки в зоне охвата"),
@@ -462,8 +445,7 @@ def project_center():
 
     # слева: пять миров
     lw = 6.15
-    sl.text(B.M, y1, lw, 0.3, "Пять миров в одну воронку", size=13.0, weight=600, color=B.INK)
-    sl.rect(B.M, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, lw, "Пять миров в одну воронку", size=13.0)
     worlds = [
         ("Ванная", "21,5–23%", "драйвер проектных продаж", "67%"),
         ("Кухня", "63%", "прибыли ПЦ", "45%"),
@@ -487,8 +469,7 @@ def project_center():
     # правая колонка — экономика
     rx = B.M + lw + 0.34
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.3, "Экономика запуска", size=13.0, weight=600, color=B.INK)
-    sl.rect(rx, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "Экономика запуска", size=13.0)
     C.metrics_list(sl, rx, y1 + 0.42, rw, [
         dict(label="CAPEX проекта", value="14,6 млн ₽"),
         dict(label="OPEX, в т. ч.:", value="127,6 млн ₽"),
@@ -543,8 +524,7 @@ def project_center_init():
     ], row_h=0.54, gap=0.055, size=8.6, right_w=1.28, effect_size=9.6, term_size=7.8)
 
     plan_y = y0 + 3.60
-    sl.text(B.M, plan_y, lw, 0.3, "План запуска", size=13.5, weight=600, color=B.INK)
-    sl.rect(B.M, plan_y + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, plan_y, lw, "План запуска", size=13.5)
     plan = [
         ("10.01.2027", "Активы", "дата в расчётной модели"),
         ("февраль", "Открытие ПЦ", "5 миров, 8 АРМ и 2 дизайнера"),
@@ -566,8 +546,7 @@ def project_center_init():
     # правая колонка — риски и условия
     rx = B.M + lw + 0.30
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y0 - 0.06, rw, 0.3, "Три условия успеха", size=14.0, weight=600, color=B.INK)
-    sl.rect(rx, y0 + 0.24, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y0 - 0.06, rw, "Три условия успеха", size=14.0)
     conds = [
         ("Поток клиентов", "508 прорисовок/мес — 47% потока магазина. Норма 65/чел/мес по кухне "
                            "выше факта 30–40: маркетинг кухонь приоритетен."),
@@ -630,8 +609,7 @@ def logistics():
 
     # три шага пути заказа
     cy = y1 + 1.50
-    sl.text(B.M, cy, 6.0, 0.3, "LT-поток: путь заказа", size=13.5, weight=600, color=B.INK)
-    sl.rect(B.M, cy + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, cy, 6.0, "LT-поток: путь заказа", size=13.5)
     steps = [
         ("ШАГ 1 · ДАРКСТОР", "800+ артикулов добавляется · отделы 2, 5, 6, 7, 14, 15"),
         ("ШАГ 2 · 3PL", "Партнёрская обработка и доставка — снимаем нагрузку с магазина"),
@@ -649,8 +627,7 @@ def logistics():
     # эффект 3PL
     rx = B.M + 7.70 + 0.32
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, cy, rw, 0.3, "Эффект 3PL", size=13.0, weight=600, color=B.INK)
-    sl.rect(rx, cy + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, cy, rw, "Эффект 3PL", size=13.0)
     eff = [("+18%", "прогноз GMV LT-отгрузок к 2027"),
            ("9 520 ч", "возвращаем магазину в год"),
            ("58 FTE", "снимаем с магазина на весь год")]
@@ -683,8 +660,7 @@ def team():
 
     # слева: 2026
     lw = 6.05
-    sl.text(B.M, y1, lw, 0.3, "Развитие компетенций 2026", size=13.0, weight=600, color=B.INK)
-    sl.rect(B.M, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, lw, "Развитие компетенций 2026", size=13.0)
     C.metrics_list(sl, B.M, y1 + 0.46, lw, [
         dict(label="Доля Осс+ 77%", value="+3 п.п. к г-1"),
         dict(label="СПП: 66,7% ПС", value="+21,2 п.п. к г-1"),
@@ -693,8 +669,7 @@ def team():
         dict(label="Внутренние назначения", value="100% · рост 75%"),
     ], row_h=0.36, size=9.2, value_size=9.4, fill=B.SURFACE)
 
-    sl.text(B.M, y1 + 2.46, lw, 0.3, "Что тормозит", size=13.0, weight=600, color=B.INK)
-    sl.rect(B.M, y1 + 2.75, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1 + 2.46, lw, "Что тормозит", size=13.0)
     sl.bullets(B.M, y1 + 2.92, lw, 1.1, [
         "14 незакрытых вакансий по линейному персоналу и 4 в ЦПМ",
         "Сложности с закрытием вакансий в продающие команды",
@@ -704,8 +679,7 @@ def team():
     # справа: 2027
     rx = B.M + lw + 0.34
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.3, "Приоритеты 2027", size=13.0, weight=600, color=B.INK)
-    sl.rect(rx, y1 + 0.29, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "Приоритеты 2027", size=13.0)
     C.stat_cards(sl, rx, y1 + 0.44, rw, [
         dict(label="Штат · укомплектованность", value="380 чел. · ≥ 95%",
              note="рост команды", pct=0.75, accent=B.SERIES[0], value_size=12.5),
@@ -762,8 +736,7 @@ def pro_summary():
 
     # слева: три канала
     lw = 6.55
-    sl.text(B.M, y1, lw, 0.30, "Три канала ПРО, млн ₽", size=13.5, weight=600, color=B.INK)
-    sl.rect(B.M, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, lw, "Три канала ПРО, млн ₽", size=13.5)
     C.metrics_list(sl, B.M, y1 + 0.46, lw, [
         dict(label="Входящий поток · лиды · доля 22%", value="568 → 650 · +14,4%"),
         dict(label="Торговый зал · МП1 и МП2 · доля 50%", value="1 200 → 1 500 · +25,0%"),
@@ -795,8 +768,7 @@ def pro_summary():
     # справа: опора амбиции
     rx = B.M + lw + 0.32
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.30, "Опора амбиции", size=13.5, weight=600, color=B.INK)
-    sl.rect(rx, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "Опора амбиции", size=13.5)
     facts = [
         ("30,7 млрд ₽", "объём рынка ПРО Владивостока"),
         ("7%", "доля Лемана ПРО на рынке ПРО"),
@@ -842,9 +814,7 @@ def pro_market():
 
     # слева: сегменты базы
     lw = 6.45
-    sl.text(B.M, y1, lw, 0.30, "База B2B по сегментам A / B / C", size=13.5, weight=600,
-            color=B.INK)
-    sl.rect(B.M, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, lw, "База B2B по сегментам A / B / C", size=13.5)
     segs = [
         ("A · крупные", "161", "143", "88,8%", "2 922,8", 0.888, B.SERIES[0]),
         ("B · средние", "1 501", "998", "66,5%", "12 598,6", 0.665, B.SERIES[1]),
@@ -888,9 +858,7 @@ def pro_market():
     # справа: потенциал по типам клиентов
     rx = B.M + lw + 0.32
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.30, "Потенциал по типам, млн ₽", size=13.5, weight=600,
-            color=B.INK)
-    sl.rect(rx, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "Потенциал по типам, млн ₽", size=13.5)
     C.hbars(sl, rx, y1 + 0.48, rw, [
         dict(label="Строительные компании", value=11647, value_label="11 647",
              color=B.SERIES[0]),
@@ -986,8 +954,7 @@ def pro_metrics():
 
     # слева: метрики
     lw = 6.20
-    sl.text(B.M, y1, lw, 0.30, "Метрики 2026 → 2027", size=13.5, weight=600, color=B.INK)
-    sl.rect(B.M, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, B.M, y1, lw, "Метрики 2026 → 2027", size=13.5)
     C.metrics_list(sl, B.M, y1 + 0.46, lw, [
         dict(label="GMV ПРО, млн ₽", value="2 350 → 3 000", color=B.INK),
         dict(label="RO, млн ₽ · 15% GMV", value="353,5 → 450", color=B.INK),
@@ -1008,8 +975,7 @@ def pro_metrics():
     # справа: УТП
     rx = B.M + lw + 0.34
     rw = B.SLIDE_W - B.M - rx
-    sl.text(rx, y1, rw, 0.30, "УТП ПРО: восемь причин", size=13.5, weight=600, color=B.INK)
-    sl.rect(rx, y1 + 0.30, 0.34, 0.03, fill=B.YELLOW)
+    C.section_head(sl, rx, y1, rw, "УТП ПРО: восемь причин", size=13.5)
     utp = [
         "Персональный менеджер",
         "Контроль КП от конкурента",
