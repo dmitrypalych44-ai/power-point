@@ -863,10 +863,11 @@ def market_construction():
 
     # слева: графитовая колонка приоритетов
     lw = 3.32
-    C.panel(sl, B.M, y0, lw, 4.14, fill=B.DARK, radius=0.02)
-    sl.text(B.M + 0.26, y0 + 0.22, lw - 0.52, 0.26, "Приоритеты 2027", size=9.2,
+    dark_h = 4.86
+    C.panel(sl, B.M, y0, lw, dark_h, fill=B.DARK, radius=0.02)
+    sl.text(B.M + 0.26, y0 + 0.18, lw - 0.52, 0.26, "Приоритеты 2027", size=9.2,
             weight=700, color=B.YELLOW, caps=True, tracking=0.8)
-    sl.text(B.M + 0.26, y0 + 0.54, lw - 0.52, 0.52,
+    sl.text(B.M + 0.26, y0 + 0.50, lw - 0.52, 0.52,
             "Путь клиента новосёла и бригадира", size=12.6, weight=400,
             color=B.WHITE, line=1.14)
     items = [
@@ -882,7 +883,7 @@ def market_construction():
     tw = lw - 0.90
     used = sum(len(_wrap(t, tw, 8.2, 400)) * 8.2 * 1.22 / 72 for t in items)
     step = 0.10
-    free = (y0 + 4.14 - 0.24) - (y0 + 1.22) - used
+    free = (y0 + dark_h - 0.26) - (y0 + 1.22) - used
     step = max(0.08, min(0.22, free / max(1, len(items) - 1)))
     cy = y0 + 1.22
     for txt in items:
@@ -896,20 +897,21 @@ def market_construction():
     # середина: два показателя
     cx = B.M + lw + 0.22
     cw = 1.86
+    ch = (dark_h - 0.16) / 2.0
     for i, (name, value, pct) in enumerate([("МКД", "1 016", "50%"),
                                             ("ИЖС", "1 000", "25%")]):
-        cy = y0 + i * 2.10
-        C.panel(sl, cx, cy, cw, 1.98, fill=B.SURFACE)
-        sl.text(cx, cy + 0.20, cw, 0.30, name, size=11.5, weight=400, color=B.INK_2,
+        cy = y0 + i * (ch + 0.16)
+        C.panel(sl, cx, cy, cw, ch, fill=B.SURFACE)
+        sl.text(cx, cy + 0.32, cw, 0.30, name, size=11.5, weight=400, color=B.INK_2,
                 align="c", caps=True, tracking=1.2)
-        sl.text(cx, cy + 0.56, cw, 0.74, value, size=40, weight=700, color=B.DARK,
-                align="c", line=1.0, fit=True, min_size=22)
-        sl.text(cx, cy + 1.32, cw, 0.26, "тыс. м²", size=10.0, weight=400,
+        sl.text(cx, cy + 0.68, cw, 0.78, value, size=44, weight=700, color=B.DARK,
+                align="c", line=1.0, fit=True, min_size=24)
+        sl.text(cx, cy + 1.52, cw, 0.26, "тыс. м²", size=10.0, weight=400,
                 color=B.INK_2, align="c")
-        sl.rect(cx + 0.18, cy + 1.66, cw - 0.36, 0.045, fill=B.SURFACE_3)
-        sl.rect(cx + 0.18, cy + 1.66, (cw - 0.36) * (0.5 if pct == "50%" else 0.25),
-                0.045, fill=B.YELLOW)
-        sl.text(cx, cy + 1.72, cw, 0.24, pct + " в зоне охвата", size=7.8, weight=600,
+        sl.rect(cx + 0.18, cy + ch - 0.32, cw - 0.36, 0.05, fill=B.SURFACE_3)
+        sl.rect(cx + 0.18, cy + ch - 0.32, (cw - 0.36) * (0.5 if pct == "50%" else 0.25),
+                0.05, fill=B.YELLOW)
+        sl.text(cx, cy + ch - 0.26, cw, 0.24, pct + " в зоне охвата", size=7.8, weight=600,
                 color=B.YELLOW_DIM, align="c")
 
     # справа: график-блок и два списка
@@ -919,7 +921,7 @@ def market_construction():
     # верхняя полоса — график и выводы по МКД
     half = (rw - 0.24) / 2.0
     C.section_head(sl, rx, y0, half, "Плановые сроки ввода МКД, тыс. м²", size=10.6)
-    C.column_chart(sl, rx + 0.10, y0 + 0.62, half - 0.20, 1.12, [
+    C.column_chart(sl, rx + 0.10, y0 + 0.80, half - 0.20, 0.94, [
         dict(label="2026", value=520, color=B.SERIES[3]),
         dict(label="2027", value=1030, highlight=True),
         dict(label="2028", value=610, color=B.SERIES[3]),
@@ -927,13 +929,13 @@ def market_construction():
         dict(label="2030", value=40, color=B.SERIES[2]),
     ], gap=0.14, bar_max_w=0.40, label_size=7.0, values=False,
         ticks=(0, 500, 1000), tick_fmt=lambda v: "1 000" if v == 1000 else "%g" % v)
-    sl.text(rx + 0.06, y0 + 2.08, half - 0.12, 0.30,
+    sl.text(rx + 0.06, y0 + 2.10, half - 0.12, 0.26,
             "2027 — пик ввода. Масштаб — тыс. м².", size=7.0, weight=400,
             color=B.INK_3, line=1.12)
 
     mx = rx + half + 0.24
     C.section_head(sl, mx, y0, half, "251 МКД до 2030 года", size=10.6)
-    sl.bullets(mx, y0 + 0.56, half, 1.62, [
+    sl.bullets(mx, y0 + 0.74, half, 1.62, [
         "Запуски новых проектов снижаются: −50% г-1",
         "Распроданность относительно стройготовности: 50% — 2026, 34% — 2027",
         "Рынок завоевали федеральные девелоперы",
@@ -942,7 +944,7 @@ def market_construction():
     ], size=7.7, bullet="—", gap=0.06, line=1.16)
 
     # нижняя полоса — ИЖС
-    y2 = y0 + 2.46
+    y2 = y0 + 2.44
     C.section_head(sl, rx, y2, rw, "ИЖС: около 9 000 домов, +25% сдачи в эксплуатацию",
                    size=10.6)
     qw = (rw - 3 * 0.16) / 4
@@ -954,16 +956,34 @@ def market_construction():
     ]
     for i, (v, lb) in enumerate(facts):
         x = rx + i * (qw + 0.16)
-        C.panel(sl, x, y2 + 0.50, qw, 0.96, fill=B.SURFACE)
-        sl.rect(x, y2 + 0.50, 0.05, 0.96, fill=B.YELLOW)
-        sl.text(x + 0.20, y2 + 0.60, qw - 0.34, 0.34, v, size=16, weight=700,
+        C.panel(sl, x, y2 + 0.42, qw, 0.86, fill=B.SURFACE)
+        sl.rect(x, y2 + 0.42, 0.05, 0.86, fill=B.YELLOW)
+        sl.text(x + 0.20, y2 + 0.50, qw - 0.34, 0.30, v, size=15.0, weight=700,
                 color=B.INK, line=1.0, fit=True, min_size=11)
-        sl.text(x + 0.20, y2 + 0.98, qw - 0.34, 0.44, lb, size=7.4, weight=400,
-                color=B.INK_2, line=1.15, fit=True, min_size=6.6)
-    sl.text(rx, y2 + 1.58, rw, 0.26,
-            "Преобладают деревянные, каркасные дома и дома из газобетонных блоков; "
-            "кровля — металлочерепица, фасады — сайдинг.",
-            size=7.6, weight=400, color=B.INK_3, line=1.15)
+        sl.text(x + 0.20, y2 + 0.82, qw - 0.34, 0.40, lb, size=7.2, weight=400,
+                color=B.INK_2, line=1.15, fit=True, min_size=6.4)
+    sl.text(rx, y2 + 1.32, rw, 0.22,
+            "Каркасные и газобетонные дома; кровля — металлочерепица, фасады — сайдинг.",
+            size=7.6, weight=400, color=B.INK_3, line=1.10)
+
+    # полоса «что это значит для магазина» — связка рынка с планом 2027
+    y3 = y2 + 1.64
+    C.panel(sl, rx, y3, rw, 0.86, fill=B.SURFACE)
+    sl.rect(rx, y3, 0.05, 0.86, fill=B.YELLOW)
+    sl.text(rx + 0.22, y3 + 0.10, rw - 0.44, 0.22, "Что это значит для магазина 75",
+            size=7.8, weight=700, color=B.INK, caps=True, tracking=0.6)
+    points = [
+        ("Клиент", "новосёл входит в ремонт в 2026–2027 — берём комплектом"),
+        ("Застройщик", "251 МКД и ≈9 000 домов ИЖС — канал проектных продаж"),
+        ("Запас", "прогноз по кварталам под пик ввода 2027"),
+    ]
+    pw = (rw - 0.44 - 0.30) / 3
+    for i, (lead, body) in enumerate(points):
+        px = rx + 0.22 + i * (pw + 0.15)
+        sl.text(px, y3 + 0.34, pw, 0.18, lead, size=7.4, weight=700, color=B.YELLOW_DIM,
+                caps=True, tracking=0.5)
+        sl.text(px, y3 + 0.52, pw, 0.28, body, size=7.2, weight=400, color=B.INK_2,
+                line=1.12, fit=True, min_size=6.4)
 
     C.footnote(sl, "Источники: данные заказчика по рынку застройки Владивостока и Артёма; "
                    "ЕРЗ / Наш.Дом.РФ, Приморскстат; BI ЛП 2026. Плановые сроки ввода МКД — "
