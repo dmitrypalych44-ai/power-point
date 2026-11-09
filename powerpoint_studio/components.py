@@ -213,7 +213,7 @@ def section_label(sl, text, x, y, w, color=B.INK, size=14.5, weight=600):
 
 # ------------------------------------------------------------------ KPI card
 def kpi(sl, x, y, w, h, label, value, note=None, value_size=27, accent=B.YELLOW,
-        note_color=None, note_prefix=None, label_size=9.5, cut=0.20):
+        note_color=None, note_prefix=None, label_size=9.5, cut=0.20, note_lines=None):
     """KPI-карточка со срезанным правым верхним углом и жёлтой кромкой."""
     sl.polygon([(x, y), (x + w - cut, y), (x + w, y + cut), (x + w, y + h), (x, y + h)],
                fill=B.WHITE, line=B.CARD_BORDER, lw=0.75)
@@ -222,9 +222,24 @@ def kpi(sl, x, y, w, h, label, value, note=None, value_size=27, accent=B.YELLOW,
     sl.rect(x, y + 0.055, 0.055, h - 0.055, fill=accent)
     sl.text(x + 0.22, y + 0.22, w - 0.44, 0.24, label, size=label_size, weight=400,
             color=B.INK_3, line=1.12)
-    sl.text(x + 0.22, y + 0.42, w - 0.44, 0.38, value, size=value_size, weight=700,
+    sl.text(x + 0.22, y + 0.42, w - 0.44,
+            0.34 if note_lines else 0.38, value, size=value_size, weight=700,
             color=B.DARK_TEXT, line=1.0, fit=True, min_size=13)
-    if note:
+    if note_lines:
+        ly = max(y + 0.84, y + h - 0.20 - 0.21 * len(note_lines))
+        for entry in note_lines:
+            if isinstance(entry, (tuple, list)):
+                pre, rest = entry
+                pw = text_width(pre, 8.2, 600)
+                sl.text(x + 0.22, ly, pw + 0.04, 0.24, pre, size=8.2, weight=600,
+                        color=B.YELLOW_DIM, line=1.05)
+                sl.text(x + 0.22 + pw + 0.06, ly, w - 0.44 - pw - 0.06, 0.24, rest,
+                        size=8.2, weight=400, color=B.INK_2, line=1.05)
+            else:
+                sl.text(x + 0.22, ly, w - 0.44, 0.24, entry, size=8.2, weight=400,
+                        color=B.INK_2, line=1.05)
+            ly += 0.21
+    elif note:
         ny = y + h - 0.38
         if note_prefix:
             pw = text_width(note_prefix, 8.6, 600)
@@ -288,8 +303,9 @@ KPI_H = 1.16          # единая высота KPI-карточек
 KPI_VALUE = 24.0      # единый кегль значения
 
 
-def kpi_row(sl, cards, y, h=None, gap=0.20, x=B.M, w=B.CW, value_size=None):
-    h = KPI_H
+def kpi_row(sl, cards, y, h=None, gap=0.20, x=B.M, w=B.CW, value_size=None,
+            height=None):
+    h = height or KPI_H
     n = len(cards)
     # кегль значения зависит только от числа карточек — одинаково во всех слайдах
     value_size = KPI_VALUE if n <= 4 else (20.0 if n == 5 else 18.0)
@@ -298,7 +314,7 @@ def kpi_row(sl, cards, y, h=None, gap=0.20, x=B.M, w=B.CW, value_size=None):
         kpi(sl, x + i * (cw + gap), y, cw, h, c["label"], c["value"],
             c.get("note"), value_size=value_size,
             note_prefix=c.get("note_prefix"), note_color=c.get("note_color"),
-            label_size=c.get("label_size", 9.5))
+            label_size=c.get("label_size", 9.5), note_lines=c.get("note_lines"))
     return y + h
 
 
@@ -652,7 +668,7 @@ def action_list(sl, x, y, w, items, row_h=0.66, gap=0.09, size=8.6,
         rx = x + w - right_w - 0.12
         if it.get("term"):
             sl.text(rx, cy + 0.10, right_w, 0.24, it["term"], size=term_size,
-                    weight=600, color=B.INK_3, align="r")
+                    weight=600, color=B.INK_3, align="r", fit=True, min_size=6.4)
         if it.get("effect"):
             sl.text(rx, cy + 0.32, right_w, 0.26, it["effect"], size=effect_size,
                     weight=700,
