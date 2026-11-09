@@ -140,10 +140,11 @@ def _sent_case(t: str) -> str:
 
 
 def head(sl, kick_text, title_text, sub_text=None, rule_w=1.55, title_size=15.5,
-         title_w=None, sub_size=10.5, project=None, kick_size=31.0, picto=True):
+         title_w=None, sub_size=10.5, project=None, kick_size=31.0, picto=True,
+         raw=False):
     """Шапка: главное — проект и раздел, ниже — короткое описание содержания слайда."""
     avail_full = B.CW - HEAD_RIGHT
-    section = _sent_case(kick_text)
+    section = kick_text if raw else _sent_case(kick_text)
     x0 = B.M
     if project and picto:
         x0 = head_picto(sl, project)
@@ -157,18 +158,25 @@ def head(sl, kick_text, title_text, sub_text=None, rule_w=1.55, title_size=15.5,
     if project:
         p_str = project
         p_w = text_width(p_str, kick_size, 700)
-        sep_w = text_width(" · ", kick_size, 300)
+        sep_w = text_width(" · ", kick_size, 300) if section else 0.0
         sec_size = kick_size
-        while sec_size > 17 and x0 + p_w + sep_w + text_width(section, sec_size, 300) > B.M + avail_full:
-            sec_size -= 1.0
+        if section:
+            while sec_size > 17 and x0 + p_w + sep_w + text_width(section, sec_size, 300) > B.M + avail_full:
+                sec_size -= 1.0
         sl.text(x0, B.HEAD_KICKER - 0.06, p_w + 0.10, h1_h + 0.06, p_str,
                 size=kick_size, weight=700, color=B.INK, line=1.0)
-        sl.text(x0 + p_w + sep_w * 0.5, B.HEAD_KICKER - 0.02,
-                B.M + avail_full - (x0 + p_w + sep_w), h1_h + 0.06, section,
-                size=sec_size, weight=300, color=B.INK_2, line=1.0)
+        if section:
+            sl.text(x0 + p_w + sep_w * 0.5, B.HEAD_KICKER - 0.02,
+                    B.M + avail_full - (x0 + p_w + sep_w), h1_h + 0.06, section,
+                    size=sec_size, weight=300, color=B.INK_2, line=1.0)
     else:
+        # без пиктограммы: кегль подбираем, чтобы кегль остался 31 pt там, где влезает
+        ksz = kick_size
+        while ksz > 20 and text_width(section, ksz, 700) > avail_full:
+            ksz -= 0.5
         sl.text(x0, B.HEAD_KICKER - 0.06, avail_full, h1_h + 0.06, section,
-                size=kick_size, weight=700, color=B.INK, line=1.0)
+                size=round(ksz, 1), weight=700, color=B.INK, line=1.0,
+                fit=True, min_size=20)
 
     w = title_w or avail_full
     desc_size = title_size

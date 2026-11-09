@@ -430,8 +430,8 @@ def sad_market():
 # ---------------------------------- 19c. Сад: действия по каналам продаж и GMV
 def sad_channels():
     sl = Slide(21)
-    C.head(sl, "действия по каналам",
-           "Каналы дают +171,8 млн ₽ потенциала при цели +150 млн ₽",
+    C.head(sl, "",
+           "Амбиция 800 млн",
            "МП2 · сезон и СЦ, доступность стока, ПРО и МП4 · 650 → 800 млн ₽ GMV",
            project="Сад")
     y0 = B.CONTENT_Y
@@ -447,10 +447,10 @@ def sad_channels():
     y1 = y0 + 1.20
     gap = 0.20
     cw = (B.CW - 2 * gap) / 3
-    ch_h = 2.78
+    ch_h = 3.34
     channels = [
         dict(name="МП2 · торговый зал и СЦ", accent=B.YELLOW, dark=True,
-             big="153 → 300", unit="млн ₽ в сезон · +147,0",
+             big="190 → 300", unit="млн ₽ в сезон · +147,0",
              acts=[
                  "СЦ +5 ПК в сезон и аутсорс 3 сотрудника на зал и СЦ",
                  "Все 20 человек в штате к старту сезона, 5 новичков СЦ обучены",
@@ -466,13 +466,12 @@ def sad_channels():
                  "Уход в глубину стока через отдел-трансформер: +5,42 млн",
                  "В перешедших магазинах формат даёт минимум +5%",
              ]),
-        dict(name="ПРО и МП4 · проектные продажи", accent=B.SURFACE_3, dark=False,
-             big="нет оценки", unit="потенциал не заявлен",
+        dict(name="ПРО и МП4 · проектные продажи", accent=B.SERIES[2], dark=True,
+             big="+44,1", unit="млн ₽ потенциала",
              acts=[
                  "Проект участка целиком для ИЖС и владельцев домов",
                  "PRO-клиент: объём, документы, наличие, быстрая сборка",
                  "БУК готовых решений и связка с проектным центром",
-                 "Цифру нужно зафиксировать у владельца канала",
              ]),
     ]
     for i, ch in enumerate(channels):
@@ -494,35 +493,8 @@ def sad_channels():
                     color=B.INK_2 if i < 2 else B.INK_3, line=1.14, fit=True, min_size=6.6)
             cy += 0.30
 
-    # водопад 650 → 800
-    y2 = y1 + ch_h + 0.12
-    C.panel(sl, B.M, y2, B.CW, 0.86, fill=B.SURFACE_2)
-    sl.text(B.M + 0.24, y2 + 0.09, 3.2, 0.22, "Как складывается год", size=7.6,
-            weight=700, color=B.INK, caps=True, tracking=0.6)
-    steps = [("650", "база 2026", B.SERIES[3]),
-             ("+147,0", "МП2 · сезон", B.YELLOW),
-             ("+24,8", "доступность", B.SERIES[2]),
-             ("821,8", "потенциал", B.SURFACE_3),
-             ("800", "амбиция 2027", B.DARK)]
-    bx = B.M + 0.24
-    for i, (v, lb, col) in enumerate(steps):
-        sl.rect(bx, y2 + 0.40, 0.05, 0.34, fill=col)
-        sl.text(bx + 0.14, y2 + 0.36, 1.24, 0.26, v, size=12.0, weight=700, color=B.INK,
-                line=1.0)
-        sl.text(bx + 0.14, y2 + 0.61, 1.26, 0.18, lb, size=6.8, weight=400, color=B.INK_3,
-                line=1.0, fit=True, min_size=6.0)
-        bx += 1.50
-        if i < len(steps) - 1:
-            sl.text(bx - 0.22, y2 + 0.38, 0.20, 0.24, "›", size=12, weight=700,
-                    color=B.INK_3, align="c")
-    sl.text(bx + 0.04, y2 + 0.24, B.SLIDE_W - B.M - bx - 0.24, 0.50,
-            "Потенциал каналов на 21,8 млн выше цели: запас на сезонность",
-            size=7.8, weight=400, color=B.INK_2, line=1.16, align="r",
-            fit=True, min_size=6.6)
-
     C.footnote(sl, "Источники: данные заказчика по отделу «Сад» (план 2027, каналы МП2 / доступность / ПРО). "
-                   "GMV — млн ₽; цель 800 млн ₽ = +150 млн к базе 650 млн. Потенциал ПРО и МП4 в источнике "
-                   "не оцифрован — оценка за владельцем канала.")
+                   "GMV — млн ₽; цель 800 млн ₽ = +150 млн к базе 650 млн; потенциал каналов 171,8 млн ₽.")
     return sl
 
 
@@ -825,7 +797,7 @@ def logistics():
     C.section_head(sl, rx, cy, rw, "Эффект 3PL", size=13.0)
     eff = [("+18%", "прогноз GMV LT-отгрузок к 2027"),
            ("9 520 ч", "возвращаем магазину в год"),
-           ("58 FTE", "снимаем с магазина на весь год")]
+           ("58 FTE", "высвобождаем от нецелевых операций и переводим на страт. задачи")]
     cy2 = cy + 0.46
     for v, lb in eff:
         sl.text(rx, cy2, rw, 0.34, v, size=16, weight=700, color=B.INK)
@@ -883,7 +855,7 @@ def team_2026():
     sl = Slide(34)
     C.head(sl, "итоги 2026",
            "Стабильность 77,1%, продуктивность 14 060 ₽ и подбор 44% по рефералам",
-           "Штат, стабильность, подбор персонала и компетенции команды · Владивосток, магазин 75",
+           "ШТАТ, СТАБИЛЬНОСТЬ, ПОДБОР ПЕРСОНАЛА И КОМПЕТЕНЦИИ КОМАНДЫ · ВЛАДИВОСТОК, МАГАЗИН 75",
            project="Команда")
     y0 = B.CONTENT_Y
 
@@ -963,7 +935,8 @@ def team_2027():
     y0 = B.CONTENT_Y
 
     C.kpi_row(sl, [
-        dict(label="Штат магазина", value="380 чел.", note_prefix="+7,6%", note="к 2026"),
+        dict(label="Штат магазина", value="380 чел.", note_prefix="+7,6%",
+             note="· +27 человек к 2026"),
         dict(label="Стабильность команды", value="77%", note="цель 2027"),
         dict(label="Продуктивность", value="14 700 ₽", note_prefix="+5%", note="г-1"),
         dict(label="Доля Mait / Exp", value="> 35%", note="обучение и наставничество"),
@@ -1044,8 +1017,8 @@ def pro_summary():
              note_prefix="2026: 1 190", note="· доля 50%"),
         dict(label="PROFI · мастера и бригады", value="1 500 млн ₽",
              note_prefix="2026: 1 160", note="· доля 50%"),
-        dict(label="RO от GMV", value="450 млн ₽",
-             note_prefix="2026: 353,5", note="· 15% GMV"),
+        dict(label="RO от GMV", value="15%",
+             note_prefix="2026: 15%", note="· 450 млн ₽"),
     ], y0, h=1.14, value_size=20)
 
     y1 = y0 + 1.30
@@ -1066,8 +1039,8 @@ def pro_summary():
     sl.text(B.M, sy, lw, 0.24, "Состав 2027, млн ₽", size=8.0, weight=700, color=B.INK_3,
             caps=True, tracking=0.6)
     total = 3000.0
-    stack = [("Лиды", 650, B.YELLOW), ("Зал", 1500, B.YELLOW_SOFT),
-             ("Проекты", 850, B.INK_2)]
+    stack = [("МП 3", 650, B.YELLOW), ("МП 1-2", 1500, B.YELLOW_SOFT),
+             ("МП 5", 850, B.INK_2)]
     x = B.M
     for name, val, col in stack:
         wseg = lw * val / total
@@ -1075,7 +1048,8 @@ def pro_summary():
         sl.text(x, sy + 0.32, wseg - 0.03, 0.30, name, size=8.6, weight=700,
                 color=B.INK if col in (B.YELLOW, B.YELLOW_SOFT) else B.WHITE,
                 align="c", valign="m")
-        sl.text(x, sy + 0.68, wseg, 0.22, "%d · %d%%" % (val, round(val / total * 100)),
+        _lbl = ("{:,}".format(val if val < 1000 else int(val))).replace(",", " ")
+        sl.text(x, sy + 0.68, wseg, 0.22, "%s · %d%%" % (_lbl, round(val / total * 100)),
                 size=8.0, weight=600, color=B.INK_2, align="c")
         x += wseg
 
@@ -1087,7 +1061,7 @@ def pro_summary():
     C.section_head(sl, rx, y1, rw, "Опора амбиции", size=13.5)
     facts = [
         ("30,7 млрд ₽", "объём рынка ПРО Владивостока"),
-        ("7%", "доля Лемана ПРО на рынке ПРО"),
+        ("7,6% → 9,8%", "доля Лемана ПРО на рынке ПРО · +2,2 п.п."),
         ("16,8 млрд ₽", "потенциал базы клиентов"),
         ("34,75%", "доля клиентов ЛМ в базе · 2 113 из 6 081"),
     ]
@@ -1168,7 +1142,7 @@ def pro_market():
 
     cy = ty + 0.76
     C.callout(sl, B.M, cy, lw, 0.76,
-              "Резерв роста — сегмент C: 4 419 точек, охват 22%. Это малый подряд и "
+              "Резерв роста — сегмент C: 4 419 точек, охват 22%. Это бригадиры и "
               "обслуживание, где решают скорость и цена.", size=9.6)
 
     # справа: потенциал по типам клиентов
@@ -1190,10 +1164,10 @@ def pro_market():
             weight=700, color=B.INK, caps=True, tracking=0.7)
     sl.text(rx + 0.22, cy + 0.38, rw - 0.44, 0.66,
             "Скорость отработки заявки, сборки и доставки; доступность; достоверность "
-            "обещаний; цена.", size=9.2, weight=400, color=B.INK_2, line=1.24)
+            "обещаний; цена за проект — товар + услуга.", size=9.2, weight=400, color=B.INK_2, line=1.24)
 
     C.footnote(sl, "Источники: данные заказчика — база B2B по сегментам A / B / C (6 081 точка, 2 113 "
-                   "клиентов ЛМ, потенциал 16,8 млрд ₽), рынок ПРО Владивостока 30,7 млрд ₽, доля 7%. "
+                   "клиентов ЛМ, потенциал 16,8 млрд ₽), рынок ПРО Владивостока 30,7 млрд ₽, доля 7,6% → 9,8%. "
                    "Потенциал по типам клиентов — сумма по сегментам A + B + C, расчёт.")
     return sl
 
@@ -1201,7 +1175,7 @@ def pro_market():
 def pro_actions():
     sl = Slide(32)
     C.head(sl, "действия 2027",
-           "Четыре канала: зал, лиды и КАМ по территории",
+           "Три канала: Торговый зал, Входящий поток и Активные продажи по территории",
            "МП1 · МП2 · активный канал · входящий поток · KPI и амбиция 2027",
            project="ПРО")
     y0 = B.CONTENT_Y
@@ -1236,14 +1210,10 @@ def pro_actions():
              term="≤ 20 минут", effect="650 млн ₽", accent=B.SERIES[3]),
     ], row_h=0.68, gap=0.075, size=8.4, right_w=1.45)
 
-    C.panel(sl, B.M, y0 + 4.20, B.CW, 0.64, fill=B.PANEL)
-    sl.rect(B.M, y0 + 4.20, 0.06, 0.64, fill=B.YELLOW)
-    sl.text(B.M + 0.26, y0 + 4.28, 3.10, 0.22, "Как складывается 3 млрд ₽", size=8.4,
-            weight=700, color=B.INK, caps=True, tracking=0.6)
-    sl.text(B.M + 0.26, y0 + 4.50, B.CW - 0.52, 0.28,
-            "Входящий поток 650 + торговый зал 1 500 (из них МП1 400 и МП2 900) + активный "
-            "канал 850 = 3 000 млн ₽. * 2026 по активному каналу — расчёт.", size=9.6,
-            weight=400, color=B.INK_2, line=1.22)
+    C.panel(sl, B.M, y0 + 4.24, B.CW, 0.72, fill=B.PANEL)
+    sl.rect(B.M, y0 + 4.24, 0.06, 0.72, fill=B.YELLOW)
+    sl.text(B.M + 0.26, y0 + 4.24, B.CW - 0.52, 0.72, "Вывод от Саши Т", size=12.0,
+            weight=600, color=B.INK_2, align="c", valign="m")
 
     C.footnote(sl, "Источники: данные заказчика — каналы ПРО 2026 → 2027 (МП1 400 млн ₽, МП2 900 млн ₽, "
                    "торговый зал 1 500 млн ₽, активный канал 850 млн ₽, входящий поток 650 млн ₽), KPI "
@@ -1273,19 +1243,21 @@ def pro_metrics():
     C.section_head(sl, B.M, y1, lw, "Метрики 2026 → 2027", size=13.5)
     C.metrics_list(sl, B.M, y1 + 0.46, lw, [
         dict(label="GMV ПРО, млн ₽", value="2 350 → 3 000", color=B.INK),
-        dict(label="RO, млн ₽ · 15% GMV", value="353,5 → 450", color=B.INK),
+        dict(label="RO, млн ₽ · 15% GMV", value="450", color=B.INK),
         dict(label="Входящий поток, млн ₽", value="568 → 650"),
         dict(label="Реакция на лид, минут", value="34 → 20"),
         dict(label="Конверсия лида в оплату", value="35% → 50%"),
     ], row_h=0.46, size=9.6, value_size=10.4)
 
     cy = y1 + 0.46 + 5 * 0.46 + 0.24
-    C.panel(sl, B.M, cy, lw, 0.66, fill=B.PANEL)
-    sl.rect(B.M, cy, 0.06, 0.66, fill=B.YELLOW)
-    sl.text(B.M + 0.24, cy + 0.08, lw - 0.48, 0.22, "Четыре СП держат 650 млн ₽", size=8.4,
+    C.panel(sl, B.M, cy, lw, 0.82, fill=B.PANEL)
+    sl.rect(B.M, cy, 0.06, 0.82, fill=B.YELLOW)
+    sl.text(B.M + 0.24, cy + 0.10, lw - 0.48, 0.22,
+            "Сопровождение КП и сервис — в целевых метриках", size=8.4,
             weight=700, color=B.INK, caps=True, tracking=0.6)
-    sl.text(B.M + 0.24, cy + 0.30, lw - 0.48, 0.30,
-            "210 · 210 · 120 · 110 млн ₽ — по одному СП на направление; АКБ 5 000, лиды 4 000.",
+    sl.text(B.M + 0.24, cy + 0.34, lw - 0.48, 0.42,
+            "Контр. КП на счёт конкурента · Скорость отработки КП · Бронирования · "
+            "Портфолио локальных поставщиков.",
             size=9.2, weight=400, color=B.INK_2, line=1.2)
 
     # справа: УТП
@@ -1305,8 +1277,8 @@ def pro_metrics():
     sl.bullets(rx, y1 + 0.52, rw, 3.0, utp, size=10.4, bullet="—", gap=0.14, line=1.22)
 
     C.callout(sl, rx, y1 + 3.02, rw, 0.74,
-              "Ограничение 2026: отсутствие прогресса по юрлицам и регресс Profi. "
-              "Ответ 2027 — КАМ по территории и возврат базы B2B.", size=9.4)
+              "Ограничение 2026: Входящий поток — отсутствие прогресса по юрлицам и "
+              "регресс Profi. Ответ 2027 — КАМ по территории и охват базы B2B.", size=9.4)
 
     C.footnote(sl, "Источники: данные заказчика — KPI ПРО 2027 (продуктивность 31 тыс. ₽/час, ТО 130 тыс. ₽, "
                    "7 SKU в чеке, конверсия 90%, маржа 21%, транзит 2%, лиды 4 000, АКБ 5 000, реакция на "
@@ -1322,7 +1294,7 @@ def three_years():
            "План на три года: логистика, качество консультации, ПРО, проектный центр, агломерация")
     y0 = B.CONTENT_Y
 
-    years = [("2026", "9,1", "1,1"), ("2027", "10,1", "1,3"), ("2028", "11,4", "1,5"),
+    years = [("2026", "9,1", "1,1"), ("2027", "10,5", "1,3"), ("2028", "11,5", "1,5"),
              ("2029", "14,5", "1,7")]
     cw = (B.CW - 3 * 0.18) / 4
     for i, (yr, gmv, ro) in enumerate(years):
@@ -1362,8 +1334,8 @@ def three_years():
                    gap=0.16, line=1.2, bullet_color=B.INK_3)
 
     # чему равен шаг года
-    steps_growth = [("9,1 млрд ₽", "база 2026"), ("+1,0 млрд ₽", "прирост к 2026"),
-                    ("+1,3 млрд ₽", "прирост к 2027"), ("+3,1 млрд ₽", "прирост к 2028")]
+    steps_growth = [("—", "база планирования"), ("+1,4 млрд ₽", "прирост к 2026"),
+                    ("+1,0 млрд ₽", "к 2027"), ("+3,0 млрд ₽", "к 2028")]
     for i, (v, lb) in enumerate(steps_growth):
         x = B.M + i * (cw + 0.18)
         C.panel(sl, x, cy + 2.50, cw, 0.60, fill=B.PANEL_2 if i else B.PANEL)
@@ -1374,6 +1346,29 @@ def three_years():
     C.footnote(sl, "Источники: данные заказчика по плану развития магазина 75 на три года; "
                    "GMV и RO в млрд ₽. План 2027 — базовый сценарий стратегии.")
     return sl
+
+
+# ------------------------------------------- разделитель «Лемана ПРО для бизнеса»
+def divider_pro():
+    from .pages_a import divider
+    return divider("ЛЕМАНА ПРО\nДЛЯ БИЗНЕСА")
+
+
+# ------------------------------------------------------------ цитата-передышка
+def quote():
+    sl = Slide(0)
+    sl.plain = True
+    sl.text(B.M, 2.34, 1.40, 1.10, "«", size=96, weight=700, color=B.YELLOW,
+            line=0.9)
+    sl.text(B.M + 1.10, 2.92, 10.40, 1.70,
+            "Сильная команда —\nвысокий результат", size=34.0, weight=700,
+            color=B.INK, line=1.10, fit=True, min_size=24)
+    sl.rect(B.M + 1.14, 4.92, 2.20, 0.05, fill=B.YELLOW)
+    sl.text(B.M + 1.14, 5.12, 10.40, 0.34,
+            "Команда магазина 75 · Владивосток, 2027", size=11.0, weight=400,
+            color=B.INK_3)
+    return sl
+
 
 
 # ---------------------------------------------------------------- 24. Финал
@@ -1394,7 +1389,7 @@ def closing():
             size=11.5, weight=400, color=B.INK_2, line=1.4)
 
     numbers = [("9,1 → 14,5", "млрд ₽ GMV: 2026 → 2029"),
-               ("5 819,9", "млн ₽ амбиция магазина 75"),
+               ("6 334,9", "млн ₽ амбиция магазина 75"),
                ("550", "млн ₽ амбиция вайтбокса"),
                ("1 012", "млн ₽ проектных продаж ПЦ")]
     for i, (v, lb) in enumerate(numbers):
@@ -1404,8 +1399,7 @@ def closing():
     return sl
 
 
-PAGES = [vannaya, vannaya_initiatives, kuhni, kuhni_remodeling, sad, sad_market,
-         sad_channels, sad_check, project_center,
-         project_center_init, logistics,
-         pro_summary, pro_market, pro_actions, pro_metrics,
+PAGES = [vannaya, vannaya_initiatives, kuhni, kuhni_remodeling, sad_market, sad_channels,
+         project_center, project_center_init, logistics, divider_pro,
+         pro_summary, pro_market, pro_actions, pro_metrics, quote,
          team_2026, team_2027, three_years, closing]

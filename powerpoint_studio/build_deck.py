@@ -11,18 +11,29 @@ from powerpoint_studio import pages_a, pages_b, pages_c
 from powerpoint_studio import finish
 
 
+PLAIN = set()          # номера «чистых» слайдов: разделители и цитата
+
+
 def build(out_dir: str = "deliverables", pdf: bool = True, png: bool = False,
           embed_fonts: bool = False):
     os.makedirs(out_dir, exist_ok=True)
     pages = [f() for f in pages_a.PAGES + pages_b.PAGES + pages_c.PAGES]
+    PLAIN.clear()
+    for idx, page in enumerate(pages, start=1):
+        if page.__class__.__name__ == "Slide" and getattr(page, "plain", False):
+            PLAIN.add(idx)
     # page numbers come from the deck order; фирменный домик — на каждом слайде
     from powerpoint_studio.components import house_mark
     from powerpoint_studio import backdrop
     for i, p in enumerate(pages, start=1):
         p.number = i
-        # на обложке и финале стоит полный логотип — отдельный домик не нужен
+        # на обложке и финале стоит полный логотип — отдельный домик не нужен;
+        # разделители и цитата живут на чистом фоне без шапки
         if i in (1, len(pages)):
             backdrop.paper(p)
+        elif i in PLAIN:
+            backdrop.paper(p)
+            house_mark(p)
         else:
             backdrop.prepare(p, i, len(pages))
             backdrop.frame(p, i, len(pages))
