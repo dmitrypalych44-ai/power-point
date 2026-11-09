@@ -1071,8 +1071,8 @@ def cjm():
     gap = 0.26
     bw = (B.CW - gap) / 2
     top_y = y0 + 1.14
-    bot_y = top_y + 1.74
-    heights = (1.66, 1.78)
+    bot_y = top_y + 1.88
+    heights = (1.80, 1.86)
     for i, (name, sub, body, metrics, accent) in enumerate(blocks):
         col, row = i % 2, i // 2
         x = B.M + col * (bw + gap)
