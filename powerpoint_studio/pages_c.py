@@ -425,6 +425,199 @@ def sad_market():
     return sl
 
 
+# ---------------------------------- 19c. Сад: действия по каналам продаж и GMV
+def sad_channels():
+    sl = Slide(21)
+    C.head(sl, "действия по каналам",
+           "Каналы дают +171,8 млн ₽ потенциала при цели +150 млн ₽",
+           "МП2 · сезон и СЦ, доступность стока, ПРО и МП4 · 650 → 800 млн ₽ GMV",
+           project="Сад")
+    y0 = B.CONTENT_Y
+
+    C.kpi_row(sl, [
+        dict(label="GMV 2026", value="650 млн ₽", note="факт и прогноз года"),
+        dict(label="Амбиция 2027", value="800 млн ₽", note_prefix="+150 млн", note="· +23,1% г-г"),
+        dict(label="Потенциал инициатив", value="+171,8", note="МП2 +147,0 · доступность +24,8"),
+        dict(label="Запас плана", value="21,8 млн ₽", note="13% к цели — буфер сезонности"),
+    ], y0, h=1.08, value_size=20)
+
+    # три канала
+    y1 = y0 + 1.20
+    gap = 0.20
+    cw = (B.CW - 2 * gap) / 3
+    ch_h = 2.78
+    channels = [
+        dict(name="МП2 · торговый зал и СЦ", accent=B.YELLOW, dark=True,
+             big="153 → 300", unit="млн ₽ в сезон · +147,0",
+             acts=[
+                 "СЦ +5 ПК в сезон и аутсорс 3 сотрудника на зал и СЦ",
+                 "Все 20 человек в штате к старту сезона, 5 новичков СЦ обучены",
+                 "План продуктивности спущен до каждого ПК",
+                 "Лиды 104 → 204, продуктивность ≥ 15,3 млн ₽/чел",
+                 "Финиш сезона — GMV ≥ 300 млн ₽",
+             ]),
+        dict(name="Доступность · наличие и сток", accent=B.YELLOW, dark=False,
+             big="+24,8", unit="млн ₽ потенциала",
+             acts=[
+                 "2 новых договора с питомниками: +4,8 млн (25% продаж по договору)",
+                 "Сток мебели на ДС-хаб, запас к сезону +20%: +14,6 млн",
+                 "Уход в глубину стока через отдел-трансформер: +5,42 млн",
+                 "В перешедших магазинах формат даёт минимум +5%",
+             ]),
+        dict(name="ПРО и МП4 · проектные продажи", accent=B.SURFACE_3, dark=False,
+             big="нет оценки", unit="потенциал не заявлен",
+             acts=[
+                 "Проект участка целиком для ИЖС и владельцев домов",
+                 "PRO-клиент: объём, документы, наличие, быстрая сборка",
+                 "БУК готовых решений и связка с проектным центром",
+                 "Цифру нужно зафиксировать у владельца канала",
+             ]),
+    ]
+    for i, ch in enumerate(channels):
+        x = B.M + i * (cw + gap)
+        fill = B.YELLOW_FAINT if i == 0 else B.SURFACE
+        C.panel(sl, x, y1, cw, ch_h, fill=fill)
+        sl.rect(x, y1, cw, 0.05, fill=ch["accent"])
+        sl.text(x + 0.22, y1 + 0.18, cw - 0.44, 0.24, ch["name"], size=9.4, weight=700,
+                color=B.INK, caps=True, tracking=0.5, fit=True, min_size=7.6)
+        sl.text(x + 0.22, y1 + 0.48, cw - 0.44, 0.40, ch["big"], size=20, weight=700,
+                color=B.DARK if i < 2 else B.INK_3, line=1.0, fit=True, min_size=13)
+        sl.text(x + 0.22, y1 + 0.86, cw - 0.44, 0.22, ch["unit"], size=7.6, weight=600,
+                color=B.YELLOW_DIM if i < 2 else B.INK_3, fit=True, min_size=6.4)
+        sl.line(x + 0.22, y1 + 1.14, x + cw - 0.22, y1 + 1.14, B.LINE, lw=0.6)
+        cy = y1 + 1.22
+        for a in ch["acts"]:
+            sl.rect(x + 0.22, cy + 0.08, 0.14, 0.022, fill=ch["accent"] if i < 2 else B.LINE)
+            sl.text(x + 0.44, cy, cw - 0.68, 0.38, a, size=7.9, weight=400,
+                    color=B.INK_2 if i < 2 else B.INK_3, line=1.14, fit=True, min_size=6.6)
+            cy += 0.30
+
+    # водопад 650 → 800
+    y2 = y1 + ch_h + 0.12
+    C.panel(sl, B.M, y2, B.CW, 0.86, fill=B.SURFACE_2)
+    sl.text(B.M + 0.24, y2 + 0.09, 3.2, 0.22, "Как складывается год", size=7.6,
+            weight=700, color=B.INK, caps=True, tracking=0.6)
+    steps = [("650", "база 2026", B.SERIES[3]),
+             ("+147,0", "МП2 · сезон", B.YELLOW),
+             ("+24,8", "доступность", B.SERIES[2]),
+             ("821,8", "потенциал", B.SURFACE_3),
+             ("800", "амбиция 2027", B.DARK)]
+    bx = B.M + 0.24
+    for i, (v, lb, col) in enumerate(steps):
+        sl.rect(bx, y2 + 0.40, 0.05, 0.34, fill=col)
+        sl.text(bx + 0.14, y2 + 0.36, 1.24, 0.26, v, size=12.0, weight=700, color=B.INK,
+                line=1.0)
+        sl.text(bx + 0.14, y2 + 0.61, 1.26, 0.18, lb, size=6.8, weight=400, color=B.INK_3,
+                line=1.0, fit=True, min_size=6.0)
+        bx += 1.50
+        if i < len(steps) - 1:
+            sl.text(bx - 0.22, y2 + 0.38, 0.20, 0.24, "›", size=12, weight=700,
+                    color=B.INK_3, align="c")
+    sl.text(bx + 0.04, y2 + 0.24, B.SLIDE_W - B.M - bx - 0.24, 0.50,
+            "Потенциал каналов на 21,8 млн выше цели: запас на сезонность",
+            size=7.8, weight=400, color=B.INK_2, line=1.16, align="r",
+            fit=True, min_size=6.6)
+
+    C.footnote(sl, "Источники: данные заказчика по отделу «Сад» (план 2027, каналы МП2 / доступность / ПРО). "
+                   "GMV — млн ₽; цель 800 млн ₽ = +150 млн к базе 650 млн. Потенциал ПРО и МП4 в источнике "
+                   "не оцифрован — оценка за владельцем канала.")
+    return sl
+
+
+# ----------------------------------------------- 19d. Сад: сверка цифр и контроль
+def sad_check():
+    sl = Slide(22)
+    C.head(sl, "сверка цифр",
+           "Семь проверок плана: пять сходятся, две метрики нужно уточнить",
+           "Арифметика базы, подотделов, каналов и метрик сезона · до защиты плана",
+           project="Сад")
+    y0 = B.CONTENT_Y
+
+    C.kpi_row(sl, [
+        dict(label="Проверено позиций", value="7", note="база, доли, каналы, метрики"),
+        dict(label="Сходится", value="5", note="расхождения в пределах округления"),
+        dict(label="Уточнить", value="2", note="GMV с лида и продуктивность"),
+    ], y0, h=1.04, value_size=19, w=6.05)
+    C.panel(sl, B.M + 6.30, y0, B.CW - 6.30, 1.04, fill=B.YELLOW_FAINT)
+    sl.rect(B.M + 6.30, y0, B.CW - 6.30, 0.05, fill=B.YELLOW)
+    sl.text(B.M + 6.52, y0 + 0.16, B.CW - 6.74, 0.22, "Вывод", size=7.6, weight=700,
+            color=B.INK, caps=True, tracking=0.6)
+    sl.text(B.M + 6.52, y0 + 0.40, B.CW - 6.74, 0.56,
+            "План по GMV и каналам арифметически цел. Две метрики в источнике "
+            "противоречат друг другу — фиксируем до защиты.",
+            size=8.4, weight=400, color=B.INK_2, line=1.18, fit=True, min_size=7.0)
+
+    y1 = y0 + 1.18
+    rows = [
+        ("650 → 800 млн ₽", "+150,0 млн = +23,1% г-г — сходится", True),
+        ("Подотделы 305 млн ₽", "75 + 60 + 73 + 97 = 305 млн = 47% GMV 650 — сходится", True),
+        ("Доли 0,14 / 0,11 / 0,13 / 0,18",
+         "Считаются от 545 млн (5% рынка 10,9 млрд), а не от 650: 13,8 / 11,0 / 13,4 / 17,8%",
+         True),
+        ("МП2 ×1,96 и «×1,5»",
+         "Канал +96% при штате +33% (15 → 20): продуктивность ×1,47 ≈ ×1,5 — сходится",
+         True),
+        ("Доля рынка 5% → 7,3%",
+         "650 / 10 900 = 6,0%; 800 / 10 900 = 7,3%; 5% — по контуру 545 млн — сходится", True),
+        ("GMV с лида ≥ 48 тыс. ₽",
+         "300 млн / 204 лида = 1,47 млн ₽ на лид (2026: 153 / 104 = 1,47) — 48 тыс. ₽ "
+         "не сходится, похоже на средний чек", False),
+        ("Продуктивность ≥ 15,3 млн ₽/чел",
+         "300 / 20 = 15,0 при 20 ставках: на 15,3 нужно 306 млн GMV или 19,6 ставки", False),
+    ]
+    lw = 7.55
+    cy = y1
+    for name, note, ok in rows:
+        hh = 0.50
+        C.panel(sl, B.M, cy, lw, hh, fill=B.SURFACE if ok else B.YELLOW_FAINT)
+        sl.rect(B.M, cy, 0.05, hh, fill=B.YELLOW if ok else B.DARK)
+        sl.text(B.M + 0.20, cy + 0.07, lw - 2.30, 0.20, name, size=8.2, weight=700,
+                color=B.INK, fit=True, min_size=6.8)
+        sl.text(B.M + 0.20, cy + 0.26, lw - 2.30, 0.20, note, size=7.0, weight=400,
+                color=B.INK_2, line=1.10, fit=True, min_size=6.0)
+        chip_w = 0.92
+        chip_x = B.M + lw - chip_w - 0.16
+        sl.rect(chip_x, cy + 0.13, chip_w, 0.24, fill=B.YELLOW if ok else B.DARK)
+        sl.text(chip_x, cy + 0.13, chip_w, 0.24, "сходится" if ok else "уточнить",
+                size=7.0, weight=700, color=B.INK if ok else B.WHITE, align="c",
+                valign="m", fit=True, min_size=6.2)
+        cy += hh + 0.04
+
+    # справа: контроль сезона
+    rx = B.M + lw + 0.26
+    rw = B.SLIDE_W - B.M - rx
+    C.section_head(sl, rx, y1 - 0.02, rw, "Контроль сезона 2027", size=12.0)
+    checks = [
+        ("GMV сезона", "≥ 300 млн ₽", "финиш сезона"),
+        ("Лиды в сезон", "≥ 204", "было 104"),
+        ("Продуктивность", "≥ 15,3", "млн ₽ на человека"),
+        ("Договоры с питомниками", "2", "+4,8 млн ₽"),
+        ("Сток мебели на ДС-хаб", "+20%", "+14,6 млн ₽"),
+        ("Доля рынка", "7,3%", "было 6,0%"),
+    ]
+    cy = y1 + 0.42
+    for name, val, note in checks:
+        sl.line(rx, cy, rx + rw, cy, B.LINE, lw=0.6)
+        sl.text(rx, cy + 0.08, rw * 0.52, 0.22, name, size=8.0, weight=400, color=B.INK_2,
+                fit=True, min_size=6.6)
+        sl.text(rx + rw * 0.50, cy + 0.06, rw * 0.28, 0.26, val, size=9.6, weight=700,
+                color=B.INK, align="r", fit=True, min_size=7.4)
+        sl.text(rx + rw * 0.80, cy + 0.08, rw * 0.20, 0.22, note, size=7.0, weight=400,
+                color=B.INK_3, align="r", fit=True, min_size=6.0)
+        cy += 0.40
+    sl.line(rx, cy, rx + rw, cy, B.LINE, lw=0.6)
+    sl.text(rx, cy + 0.12, rw, 0.52,
+            "Проверка — по данным заказчика: база 650 млн, план 800 млн, каналы МП2 и доступности",
+            size=7.2, weight=400, color=B.INK_3, line=1.16, fit=True, min_size=6.2)
+
+    C.footnote(sl, "Источники: план отдела «Сад» 2027 (данные заказчика); расчёт сверки — "
+                   "арифметика по заявленным цифрам: 650 + 147,0 + 24,8 = 821,8 млн ₽ потенциала "
+                   "против цели 800 млн ₽ (запас 21,8 млн ₽). Две метрики требуют подтверждения "
+                   "владельца канала.")
+    return sl
+
+
+
 # ------------------------------------------------------- 21. Проектный центр
 def project_center():
     sl = Slide(19)
@@ -1211,7 +1404,8 @@ def closing():
     return sl
 
 
-PAGES = [vannaya, vannaya_initiatives, kuhni, kuhni_remodeling, sad, sad_market, project_center,
+PAGES = [vannaya, vannaya_initiatives, kuhni, kuhni_remodeling, sad, sad_market,
+         sad_channels, sad_check, project_center,
          project_center_init, logistics,
          pro_summary, pro_market, pro_actions, pro_metrics,
          team_2026, team_2027, three_years, closing]
