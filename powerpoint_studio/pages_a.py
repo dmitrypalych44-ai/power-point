@@ -851,6 +851,210 @@ def stena_decor():
 
 
 # ============================================ 4. Whitebox: свод
+
+# ---------------------------------------------------------------- 3а. Рынок застройки
+def market_construction():
+    sl = Slide(4)
+    C.head(sl, "Рынок · Застройка",
+           "1 016 тыс. м² МКД и 1 000 тыс. м² ИЖС до 2030 года",
+           "Приоритеты на пути клиента новосёла и бригадира: оффер, наличие, "
+           "работа с ЦО и застройщиками")
+    y0 = B.CONTENT_Y
+
+    # слева: графитовая колонка приоритетов
+    lw = 3.32
+    C.panel(sl, B.M, y0, lw, 4.14, fill=B.DARK, radius=0.02)
+    sl.text(B.M + 0.26, y0 + 0.22, lw - 0.52, 0.26, "Приоритеты 2027", size=9.2,
+            weight=700, color=B.YELLOW, caps=True, tracking=0.8)
+    sl.text(B.M + 0.26, y0 + 0.54, lw - 0.52, 0.52,
+            "Путь клиента новосёла и бригадира", size=12.6, weight=400,
+            color=B.WHITE, line=1.14)
+    items = [
+        "Приоритет на путь клиента новосёла и бригадира",
+        "Оффер по доставке",
+        "Совместная работа с командой ЦО по посёлкам",
+        "Работа с отделами продаж ЖК и застройщиками (ПРО + B2C)",
+        "Готовые решения для застройщиков: БУК готовых проектов под ключевые ЖК "
+        "в проектных мирах",
+        "Работа с товарным запасом, прогноз на каждый квартал по стратегическим мирам",
+    ]
+    from .primitives import wrap as _wrap
+    tw = lw - 0.90
+    used = sum(len(_wrap(t, tw, 8.2, 400)) * 8.2 * 1.22 / 72 for t in items)
+    step = 0.10
+    free = (y0 + 4.14 - 0.24) - (y0 + 1.22) - used
+    step = max(0.08, min(0.22, free / max(1, len(items) - 1)))
+    cy = y0 + 1.22
+    for txt in items:
+        lines = len(_wrap(txt, tw, 8.2, 400))
+        hh = lines * 8.2 * 1.22 / 72
+        sl.rect(B.M + 0.26, cy + 0.075, 0.24, 0.028, fill=B.YELLOW)
+        sl.text(B.M + 0.62, cy, tw, hh + 0.04, txt, size=8.2, weight=400,
+                color=B.WHITE, line=1.22, fit=True, min_size=6.8)
+        cy += hh + step
+
+    # середина: два показателя
+    cx = B.M + lw + 0.22
+    cw = 1.86
+    for i, (name, value, pct) in enumerate([("МКД", "1 016", "50%"),
+                                            ("ИЖС", "1 000", "25%")]):
+        cy = y0 + i * 2.10
+        C.panel(sl, cx, cy, cw, 1.98, fill=B.SURFACE)
+        sl.text(cx, cy + 0.20, cw, 0.30, name, size=11.5, weight=400, color=B.INK_2,
+                align="c", caps=True, tracking=1.2)
+        sl.text(cx, cy + 0.56, cw, 0.74, value, size=40, weight=700, color=B.DARK,
+                align="c", line=1.0, fit=True, min_size=22)
+        sl.text(cx, cy + 1.32, cw, 0.26, "тыс. м²", size=10.0, weight=400,
+                color=B.INK_2, align="c")
+        sl.rect(cx + 0.18, cy + 1.66, cw - 0.36, 0.045, fill=B.SURFACE_3)
+        sl.rect(cx + 0.18, cy + 1.66, (cw - 0.36) * (0.5 if pct == "50%" else 0.25),
+                0.045, fill=B.YELLOW)
+        sl.text(cx, cy + 1.72, cw, 0.24, pct + " в зоне охвата", size=7.8, weight=600,
+                color=B.YELLOW_DIM, align="c")
+
+    # справа: график-блок и два списка
+    rx = cx + cw + 0.26
+    rw = B.SLIDE_W - B.M - rx          # ≈ 6.55
+
+    # верхняя полоса — график и выводы по МКД
+    half = (rw - 0.24) / 2.0
+    C.section_head(sl, rx, y0, half, "Плановые сроки ввода МКД, тыс. м²", size=10.6)
+    C.column_chart(sl, rx + 0.10, y0 + 0.62, half - 0.20, 1.12, [
+        dict(label="2026", value=520, color=B.SERIES[3]),
+        dict(label="2027", value=1030, highlight=True),
+        dict(label="2028", value=610, color=B.SERIES[3]),
+        dict(label="2029", value=140, color=B.SERIES[2]),
+        dict(label="2030", value=40, color=B.SERIES[2]),
+    ], gap=0.14, bar_max_w=0.40, label_size=7.0, values=False,
+        ticks=(0, 500, 1000), tick_fmt=lambda v: "1 000" if v == 1000 else "%g" % v)
+    sl.text(rx + 0.06, y0 + 2.08, half - 0.12, 0.30,
+            "2027 — пик ввода. Масштаб — тыс. м².", size=7.0, weight=400,
+            color=B.INK_3, line=1.12)
+
+    mx = rx + half + 0.24
+    C.section_head(sl, mx, y0, half, "251 МКД до 2030 года", size=10.6)
+    sl.bullets(mx, y0 + 0.56, half, 1.62, [
+        "Запуски новых проектов снижаются: −50% г-1",
+        "Распроданность относительно стройготовности: 50% — 2026, 34% — 2027",
+        "Рынок завоевали федеральные девелоперы",
+        "Преобладают проекты комфорт-класса с отделкой WB и чистовой отделкой",
+        "65% — 40 м², 23% — 53 м², 10% — более 65 м²",
+    ], size=7.7, bullet="—", gap=0.06, line=1.16)
+
+    # нижняя полоса — ИЖС
+    y2 = y0 + 2.46
+    C.section_head(sl, rx, y2, rw, "ИЖС: около 9 000 домов, +25% сдачи в эксплуатацию",
+                   size=10.6)
+    qw = (rw - 3 * 0.16) / 4
+    facts = [
+        ("≈ 9 000", "домов ИЖС в зоне охвата"),
+        ("110 м²", "средняя площадь дома"),
+        ("+25%", "рост объёма сдачи в эксплуатацию"),
+        ("25%", "доля в зоне охвата магазина 75"),
+    ]
+    for i, (v, lb) in enumerate(facts):
+        x = rx + i * (qw + 0.16)
+        C.panel(sl, x, y2 + 0.50, qw, 0.96, fill=B.SURFACE)
+        sl.rect(x, y2 + 0.50, 0.05, 0.96, fill=B.YELLOW)
+        sl.text(x + 0.20, y2 + 0.60, qw - 0.34, 0.34, v, size=16, weight=700,
+                color=B.INK, line=1.0, fit=True, min_size=11)
+        sl.text(x + 0.20, y2 + 0.98, qw - 0.34, 0.44, lb, size=7.4, weight=400,
+                color=B.INK_2, line=1.15, fit=True, min_size=6.6)
+    sl.text(rx, y2 + 1.58, rw, 0.26,
+            "Преобладают деревянные, каркасные дома и дома из газобетонных блоков; "
+            "кровля — металлочерепица, фасады — сайдинг.",
+            size=7.6, weight=400, color=B.INK_3, line=1.15)
+
+    C.footnote(sl, "Источники: данные заказчика по рынку застройки Владивостока и Артёма; "
+                   "ЕРЗ / Наш.Дом.РФ, Приморскстат; BI ЛП 2026. Плановые сроки ввода МКД — "
+                   "по годам, тыс. м²; 50% и 25% — доля в зоне охвата магазина 75.")
+    return sl
+
+
+# ---------------------------------------------------------------- 3б. CJM
+def cjm():
+    sl = Slide(5)
+    C.head(sl, "CJM · Доступность, страт-миры, NPS",
+           "Путь клиента: 8 шагов и 4 ключевых точки роста в 2027",
+           "Формирование потребности → развитие вовлечения и лояльности: "
+           "где работают страт-миры, новосёлы и доставка")
+    y0 = B.CONTENT_Y
+
+    steps = [
+        dict(label="Формирование потребности"),
+        dict(label="Поиск и выбор решения", star=True),
+        dict(label="Оформление и покупка", star=True),
+        dict(label="Оплата"),
+        dict(label="Коммуникации и сопровождение"),
+        dict(label="Получение товара / услуги", star=True),
+        dict(label="Отмены / возвраты"),
+        dict(label="Развитие вовлечения и лояльности", star=True),
+    ]
+    C.cjm_flow(sl, B.M, y0 + 0.12, B.CW, 0.92, steps, label_w=0.60, gap=0.05, size=8.0)
+
+    # три блока: страт-миры, новосёлы и бригадиры, доставка
+    y1 = y0 + 1.30
+    bw = (B.CW - 2 * 0.26) / 3
+    cards = [
+        ("Страт-миры", "Доступность, продажи",
+         ["WB, Стена, Двери, Сад, Пол, Мебель для жизни"],
+         ["Какой GMV (+г-1%)"], False),
+        ("Новосёлы + бригадиры", "Увеличить охват клиентов",
+         ["Рост продажи проектов на 1 кл. на ***% ×4"],
+         ["Кол-во партнёров (цель)", "Кол-во проектов на клиента",
+          "Рост CP.TO (+г-1%)"], True),
+        ("Доставка", "Оффер, сервис",
+         ["Трансформация логистики", "Доставка за 1 ₽",
+          "CSAT как инструмент развития сервиса"],
+         ["Кол-во партнёров"], False),
+    ]
+    # расчёт высоты карточек: подпись + абзацы + метрики (общая высота для трёх)
+    from .primitives import wrap as _wrap
+    bw_in = bw - 0.48
+    heights = []
+    for name, sub, body, metrics, accent in cards:
+        hh = 0.86
+        for t in body:
+            hh += len(_wrap(t, bw_in, 9.0, 600)) * 9.0 * 1.20 / 72 + 0.10
+        hh += 0.30 + len(metrics) * 0.26 + 0.16
+        heights.append(hh)
+    card_h = max(heights)
+
+    for i, (name, sub, body, metrics, accent) in enumerate(cards):
+        x = B.M + i * (bw + 0.26)
+        fill = B.YELLOW_FAINT if accent else B.SURFACE
+        C.panel(sl, x, y1, bw, card_h, fill=fill)
+        sl.rect(x, y1, bw, 0.05, fill=B.YELLOW if accent else B.SURFACE_3)
+        sl.text(x + 0.24, y1 + 0.22, bw - 0.48, 0.26, name, size=12.0, weight=700,
+                color=B.INK, caps=True, tracking=0.5, fit=True, min_size=9.0)
+        sl.text(x + 0.24, y1 + 0.50, bw - 0.48, 0.24, sub, size=8.6, weight=400,
+                color=B.INK_2, fit=True, min_size=7.4)
+        cy = y1 + 0.86
+        for t in body:
+            lines = len(_wrap(t, bw_in, 9.0, 600))
+            sl.text(x + 0.24, cy, bw_in, lines * 9.0 * 1.20 / 72 + 0.06, t, size=9.0,
+                    weight=600, color=B.INK, line=1.20, fit=True, min_size=7.4)
+            cy += lines * 9.0 * 1.20 / 72 + 0.10
+        cy = y1 + card_h - 0.16 - 0.26 * len(metrics) - 0.22
+        sl.text(x + 0.24, cy, bw - 0.48, 0.22, "Метрики шага", size=7.4, weight=700,
+                color=B.INK_3, caps=True, tracking=0.6)
+        cy += 0.24
+        for m in metrics:
+            sl.rect(x + 0.24, cy + 0.09, 0.16, 0.022, fill=B.YELLOW)
+            sl.text(x + 0.48, cy, bw - 0.72, 0.26, m, size=8.2, weight=400,
+                    color=B.INK_2, line=1.16, fit=True, min_size=7.0)
+            cy += 0.26
+
+    C.callout(sl, B.M, 5.82, B.CW, 0.66,
+              "Ключевые шаги 2027 — поиск и выбор, оформление и покупка, получение "
+              "товара и развитие лояльности: здесь растут страт-миры, проектные продажи "
+              "и NPS.", size=9.4)
+    C.footnote(sl, "Источник: CJM магазина 75 (данные заказчика). Звёздочкой отмечены "
+                   "ключевые шаги 2027; *** — целевой прирост продаж проектов, требует "
+                   "подтверждения владельца метрики.")
+    return sl
+
+
 def whitebox_summary():
     sl = Slide(4)
     C.head(sl, "свод",
@@ -1026,6 +1230,6 @@ def stena_roadmap():
     return sl
 
 
-PAGES = [cover, overview, market, whitebox_summary, whitebox_initiatives, stena_summary,
+PAGES = [cover, market_construction, cjm, overview, market, whitebox_summary, whitebox_initiatives, stena_summary,
          stena_actions_stolyarka, stena_actions_kraski, stena_actions_decor,
          stena_market, stena_cjm, stena_plan, stena_actions_all]

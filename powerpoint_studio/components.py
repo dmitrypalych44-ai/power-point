@@ -369,6 +369,84 @@ def roadmap(sl, x, y, w, columns, rows, col_w=None, row_h=0.62, head_h=0.42,
         ry += row_h + 0.10
 
 
+def column_chart(sl, x, y, w, h, items, gap=0.22, bar_max_w=0.86, labels=True,
+                 label_size=7.6, values=True, ticks=None, axis_w=0.52,
+                 tick_size=6.8, tick_fmt=None):
+    """Столбчатая диаграмма в фирменной палитре (замена вставленному графику).
+
+    items — [dict(label=..., value=..., color=..., highlight=True)]
+    ticks — значения засечек по оси Y; подписи рисуются справа налево от оси.
+    """
+    vals = [it["value"] for it in items]
+    mx = max(vals) or 1
+    if ticks:
+        mx = max(mx, max(ticks))
+    band = w / len(items)
+    bar_w = min(bar_max_w, band - gap)
+    base = y + h
+    ax = x + axis_w
+    # засечки сетки и подписи шкалы
+    for tv in (ticks or [0, mx / 2.0, mx]):
+        gy = base - h * tv / mx
+        is_zero = (tv == 0)
+        sl.line(ax, gy, x + w, gy, B.SURFACE_3 if is_zero else B.LINE, lw=1.0 if is_zero else 0.5)
+        txt = (tick_fmt or (lambda v: ("%g" % v)))(tv)
+        sl.text(x - 0.04, gy - 0.09, axis_w - 0.06, 0.18, txt, size=tick_size,
+                weight=400, color=B.INK_3, align="r", line=1.0)
+    for i, it in enumerate(items):
+        cx = ax + i * band + (band - bar_w) / 2
+        bh = max(0.02, h * it["value"] / mx)
+        col = it.get("color") or (B.YELLOW if it.get("highlight") else B.SURFACE_3)
+        sl.rect(cx, base - bh, bar_w, bh, fill=col)
+        if values:
+            vy = base - bh - 0.24
+            sl.text(cx - 0.16, vy, bar_w + 0.32, 0.22,
+                    it.get("value_label", "%g" % it["value"]), size=8.4, weight=700,
+                    color=B.INK, align="c", line=1.0)
+        if labels:
+            sl.text(cx - 0.20, base + 0.08, bar_w + 0.40, 0.22, it["label"], size=label_size,
+                    weight=600, color=B.INK if it.get("highlight") else B.INK_2,
+                    align="c", line=1.0)
+    sl.line(ax, base, x + w, base, B.INK_3, lw=0.9)
+
+
+def cjm_flow(sl, x, y, w, h, steps, label_w=0.62, gap=0.05, size=8.4):
+    """Полоса этапов пути клиента: стрелки-«шевроны», звёздочные шаги — акцентом.
+
+    steps — [dict(label=..., star=True/False)]
+    """
+    n = len(steps)
+    lw = label_w
+    sw = (w - lw - gap * n) / n
+    sl.rect(x, y, lw, h, fill=B.YELLOW)
+    sl.text(x, y, lw, h, "Шаг", size=8.6, weight=700, color=B.INK, align="c",
+            valign="m", caps=True, tracking=0.6)
+    cx = x + lw + gap
+    for i, st in enumerate(steps):
+        star = st.get("star")
+        fill = B.YELLOW if star else B.SURFACE
+        pts = [(cx, y), (cx + sw - 0.14, y), (cx + sw, y + h / 2),
+               (cx + sw - 0.14, y + h), (cx, y + h), (cx + 0.14, y + h / 2)]
+        sl.polygon(pts, fill)
+        sl.text(cx + 0.24, y, sw - 0.46, h, st["label"], size=size,
+                weight=600 if star else 400, color=B.INK, align="c", valign="m",
+                line=1.10, fit=True, min_size=6.6)
+        if star:
+            _star(sl, cx + sw / 2, y - 0.01, 0.125, B.YELLOW_DIM)
+        cx += sw + gap
+
+
+def _star(sl, cx, cy, r, color):
+    """Пятиконечная звезда — маркер ключевых шагов пути клиента."""
+    import math
+    pts = []
+    for k in range(10):
+        ang = -math.pi / 2 + k * math.pi / 5
+        rr = r if k % 2 == 0 else r * 0.45
+        pts.append((cx + rr * math.cos(ang), cy + rr * math.sin(ang)))
+    sl.polygon(pts, color, line=B.WHITE, lw=1.0)
+
+
 def priority_columns(sl, x, y, w, items, col_gap=0.16, head_h=0.50, size=9.2,
                      body_fill=B.SURFACE):
     """Карточки-столбцы: тёмная шапка, крупная цифра, текст. Заменяет строки таблицы."""
