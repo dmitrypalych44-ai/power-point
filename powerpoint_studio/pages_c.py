@@ -63,7 +63,7 @@ def vannaya():
         C.panel(sl, x, cy + 0.40, sw, 1.10, fill=B.PANEL_2 if i < 4 else B.PANEL)
         sl.text(x + 0.14, cy + 0.48, sw - 0.2, 0.22, n, size=8.6, weight=700, color=B.INK)
         sl.text(x + 0.14, cy + 0.70, sw - 0.22, 0.24, name, size=9.0, weight=700,
-                color=B.INK, caps=True, tracking=0.3)
+                color=B.INK, caps=True, tracking=0.3, fit=True, min_size=7.4)
         sl.text(x + 0.14, cy + 0.94, sw - 0.22, 0.52, txt, size=8.2, weight=400, color=B.INK_2,
                 line=1.16)
 
@@ -325,17 +325,17 @@ def sad():
     ], row_h=0.36, label_w=1.95, bar_h=0.15, value_w=1.05, size=9.2)
 
     cy = y1 + 2.00
-    C.section_head(sl, B.M, cy, lw, "Сезонный контур МП2", size=13.0)
-    C.panel(sl, B.M, cy + 0.40, lw, 1.24)
+    C.section_head(sl, B.M, cy, lw, "Сезонный контур МП2")
+    C.panel(sl, B.M, cy + 0.44, lw, 1.34)
     stats = [("153 → 300", "GMV в сезон, млн ₽"), ("104 → 204", "лидов в сезон"),
              ("+5 ПК и 3 аутсорс", "усиление штата")]
     for i, (v, lb) in enumerate(stats):
         x = B.M + 0.24 + i * 1.92
-        sl.text(x, cy + 0.54, 1.85, 0.3, v, size=13.5, weight=700, color=B.INK)
-        sl.text(x, cy + 0.86, 1.80, 0.34, lb, size=8.0, weight=400, color=B.INK_2, line=1.16)
-    sl.text(B.M + 0.24, cy + 1.24, lw - 0.48, 0.24,
+        sl.text(x, cy + 0.58, 1.85, 0.30, v, size=13.5, weight=700, color=B.INK)
+        sl.text(x, cy + 0.88, 1.80, 0.24, lb, size=8.0, weight=400, color=B.INK_2, line=1.14)
+    sl.text(B.M + 0.24, cy + 1.34, lw - 0.48, 0.22,
             "За счёт усиления штата продажи в сезон растут вдвое", size=8.0, weight=400,
-            color=B.INK_3, line=1.2)
+            color=B.INK_3, line=1.15)
 
     # справа: профиль клиента
     rx = B.M + lw + 0.34
@@ -347,14 +347,16 @@ def sad():
         ("Городской клиент", "балкон, терраса, эстетика, компактные решения"),
         ("PRO-клиент", "объём, документы, наличие, быстрая сборка"),
     ]
+    from .primitives import wrap as _wrap
     cy = y1 + 0.46
     for name, txt in clients:
         sl.line(rx, cy, rx + rw, cy, B.LINE, lw=0.6)
         sl.text(rx, cy + 0.10, rw * 0.46, 0.28, name, size=10.4, weight=700, color=B.INK,
                 line=1.14)
+        nlines = len(_wrap(txt, rw * 0.54, 9.4, 400))
         sl.text(rx + rw * 0.46, cy + 0.10, rw * 0.54, 0.40, txt, size=9.4, weight=400,
-                color=B.INK_2, line=1.2)
-        cy += 0.54
+                color=B.INK_2, line=1.18)
+        cy += 0.34 + nlines * 9.4 * 1.18 / 72
     sl.line(rx, cy, rx + rw, cy, B.LINE, lw=0.6)
 
     C.callout(sl, rx, cy + 0.18, rw, 0.72,
@@ -927,10 +929,8 @@ def team_2026():
     ], row_h=0.34, size=8.8, value_size=9.4, fill=B.SURFACE)
 
     cy = y1 + 0.44 + 4 * 0.34 + 0.12      # подраздел строго под списком
-    sl.text(rx, cy, rw, 0.24, "Продающая команда", size=9.4, weight=700, color=B.INK,
-            caps=True, tracking=0.6)
-    C.marker(sl, rx, cy + 0.26)
-    C.stat_cards(sl, rx, cy + 0.40, rw, [
+    C.section_head(sl, rx, cy, rw, "Продающая команда")
+    C.stat_cards(sl, rx, cy + 0.50, rw, [
         dict(label="Осс+", value="71%", pct=0.71, accent=B.SERIES[0], value_size=14),
         dict(label="Закрепление", value="81%", pct=0.81, accent=B.SERIES[1],
              value_size=14),
@@ -940,7 +940,7 @@ def team_2026():
         dict(label="EXI", value="75", pct=0.75, accent=B.SERIES[0], value_size=14),
     ], per_row=5, gap=0.10, h=0.66, value_size=14)
 
-    C.callout(sl, rx, cy + 1.20, rw, 0.60,
+    C.callout(sl, rx, cy + 1.26, rw, 0.58,
               "Подбор — сильная сторона 2026: рефералы 44% при цели 25–35%, "
               "молодёжь 26% при цели 15%, 70% наймов закрыты быстро.",
               size=8.8)
@@ -1354,16 +1354,16 @@ def three_years():
         x = B.M + i * (sw + 0.16)
         sl.line(x, cy, x, cy + 2.34, B.LINE, lw=0.6)
         sl.rect(x, cy, 0.06, 0.44, fill=B.YELLOW if i < 3 else B.YELLOW_SOFT)
-        sl.text(x + 0.16, cy, sw - 1.0, 0.46, name, size=8.4, weight=700,
-                color=B.INK, line=1.16, caps=True, tracking=0.5)
-        sl.text(x + 0.16, cy + 0.02, sw - 0.20, 0.22, year, size=8.0, weight=700,
-                color=B.YELLOW_DIM, align="r")
-        sl.bullets(x + 0.16, cy + 0.56, sw - 0.22, 1.8, items, size=8.6, bullet="—",
+        sl.text(x + 0.16, cy, sw - 0.34, 0.44, name, size=8.4, weight=700,
+                color=B.INK, line=1.14, caps=True, tracking=0.5, fit=True, min_size=7.0)
+        sl.text(x + 0.16, cy + 0.44, sw - 0.34, 0.20, year, size=7.6, weight=700,
+                color=B.YELLOW_DIM, tracking=0.4)
+        sl.bullets(x + 0.16, cy + 0.72, sw - 0.22, 1.6, items, size=8.6, bullet="—",
                    gap=0.16, line=1.2, bullet_color=B.INK_3)
 
     # чему равен шаг года
-    steps_growth = [("—", "база планирования"), ("+1,0 млрд ₽", "прирост GMV к 2026"),
-                    ("+1,3 млрд ₽", "к 2027"), ("+3,1 млрд ₽", "к 2028")]
+    steps_growth = [("9,1 млрд ₽", "база 2026"), ("+1,0 млрд ₽", "прирост к 2026"),
+                    ("+1,3 млрд ₽", "прирост к 2027"), ("+3,1 млрд ₽", "прирост к 2028")]
     for i, (v, lb) in enumerate(steps_growth):
         x = B.M + i * (cw + 0.18)
         C.panel(sl, x, cy + 2.50, cw, 0.60, fill=B.PANEL_2 if i else B.PANEL)

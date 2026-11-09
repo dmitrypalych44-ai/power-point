@@ -105,15 +105,23 @@ def rule(sl, x=B.M, y=B.RULE_Y, w=1.55, color=B.YELLOW, h=0.045, tail=True):
         sl.rect(x + w + 0.16, y + h / 2 - 0.004, B.CW - w - 1.28, 0.008, fill=B.LINE)
 
 
-def section_head(sl, x, y, w, text, size=13.5, color=B.INK, tail=None):
+SEC_HEAD_SIZE = 12.6          # единый кегль подзаголовков на всех слайдах
+
+
+def section_head(sl, x, y, w, text, size=None, color=B.INK, tail=None):
     """Подзаголовок блока: жёлтый домик-маркер и волосяная линия под ним.
 
-    Приём корпоративного шаблона: домик работает как маркер пункта.
+    Кегль зафиксирован (SEC_HEAD_SIZE), чтобы все блоки во всех слайдах
+    стояли на одной типографической сетке.
     """
+    size = SEC_HEAD_SIZE
+    # подзаголовок обязан остаться в одну строку: кегль подбираем под ширину
+    while size > 9.4 and len(wrap(text, w - 0.40, size, 600)) > 1:
+        size -= 0.2
     house_shape(sl, x, y + 0.015, 0.24, 0.22, B.YELLOW)
     tx = x + 0.37
-    sl.text(tx, y - 0.02, w - 0.40, 0.32, text, size=size, weight=600, color=color,
-            fit=True, min_size=size - 2.0)
+    sl.text(tx, y - 0.02, w - 0.40, 0.32, text, size=round(size, 1), weight=600,
+            color=color, fit=True, min_size=8.4)
     sl.rect(x, y + 0.36, w, 0.010, fill=B.LINE)
     return tx
 
@@ -177,9 +185,17 @@ def head(sl, kick_text, title_text, sub_text=None, rule_w=1.55, title_size=15.5,
     rule(sl, y=1.86, w=rule_w)
 
 
-def footnote(sl, text, y=B.FOOTNOTE_Y, size=6.8, color=B.INK_3, w=None, x=B.M):
-    sl.text(x, y, w or (B.CW - 0.9), 0.34, text, size=size, weight=300, color=color,
-            line=1.18)
+FOOT_SIZE = 6.8       # базовый кегль сноски
+FOOT_MIN = 6.0        # ниже не опускаемся: сноска должна читаться
+
+
+def footnote(sl, text, y=B.FOOTNOTE_Y, size=None, color=B.INK_3, w=None, x=B.M):
+    """Сноска-источник: всегда одна строка, кегль подбирается под ширину полосы."""
+    w = w or (B.CW - 0.9)
+    sz = size or FOOT_SIZE
+    while sz > FOOT_MIN and text_width(text, sz, 300) > w:
+        sz -= 0.1
+    sl.text(x, y, w, 0.30, text, size=round(sz, 1), weight=300, color=color, line=1.12)
 
 
 def section_label(sl, text, x, y, w, color=B.INK, size=14.5, weight=600):
@@ -198,10 +214,10 @@ def kpi(sl, x, y, w, h, label, value, note=None, value_size=27, accent=B.YELLOW,
     sl.rect(x, y + 0.055, 0.055, h - 0.055, fill=accent)
     sl.text(x + 0.22, y + 0.22, w - 0.44, 0.24, label, size=label_size, weight=400,
             color=B.INK_3, line=1.12)
-    sl.text(x + 0.22, y + 0.46, w - 0.44, h - 0.92, value, size=value_size, weight=700,
+    sl.text(x + 0.22, y + 0.42, w - 0.44, 0.38, value, size=value_size, weight=700,
             color=B.DARK_TEXT, line=1.0, fit=True, min_size=13)
     if note:
-        ny = y + h - 0.42
+        ny = y + h - 0.38
         if note_prefix:
             pw = text_width(note_prefix, 8.6, 600)
             sl.text(x + 0.22, ny, pw + 0.04, 0.3, note_prefix, size=8.6, weight=600,
@@ -260,28 +276,40 @@ def hbars(sl, x, y, w, items, row_h=0.52, label_w=2.35, bar_h=0.16, max_value=No
         cy += row_h
 
 
-def kpi_row(sl, cards, y, h=1.22, gap=0.20, x=B.M, w=B.CW, value_size=26):
+KPI_H = 1.16          # единая высота KPI-карточек
+KPI_VALUE = 24.0      # единый кегль значения
+
+
+def kpi_row(sl, cards, y, h=None, gap=0.20, x=B.M, w=B.CW, value_size=None):
+    h = KPI_H
     n = len(cards)
+    # кегль значения зависит только от числа карточек — одинаково во всех слайдах
+    value_size = KPI_VALUE if n <= 4 else (20.0 if n == 5 else 18.0)
     cw = (w - gap * (n - 1)) / n
     for i, c in enumerate(cards):
         kpi(sl, x + i * (cw + gap), y, cw, h, c["label"], c["value"],
-            c.get("note"), value_size=c.get("value_size", value_size),
+            c.get("note"), value_size=value_size,
             note_prefix=c.get("note_prefix"), note_color=c.get("note_color"),
             label_size=c.get("label_size", 9.5))
     return y + h
 
 
 # ------------------------------------------------------------------ panels
-def panel(sl, x, y, w, h, fill=B.SURFACE, radius=0.03, line=None):
+def panel(sl, x, y, w, h, fill=B.SURFACE, radius=0.02, line=None):
     sl.rect(x, y, w, h, fill=fill, line=line, lw=0.75, radius=radius)
 
 
-def callout(sl, x, y, w, h, text, size=10.5, color=B.INK, accent=B.YELLOW,
+CALLOUT_SIZE = 9.4    # единый кегль выносок
+
+
+def callout(sl, x, y, w, h, text, size=None, color=B.INK, accent=B.YELLOW,
             align="l", weight=600, fill=B.YELLOW_FAINT):
+    """Выноска-вывод: одинаковая типографика на всех слайдах."""
+    size = CALLOUT_SIZE
     panel(sl, x, y, w, h, fill=fill, radius=0.02)
     sl.rect(x, y + 0.10, 0.05, h - 0.20, fill=accent)
-    sl.text(x + 0.26, y + 0.10, w - 0.46, h - 0.2, text, size=size, weight=weight,
-            color=color, align=align, valign="m", line=1.26, fit=True, min_size=8)
+    sl.text(x + 0.26, y + 0.09, w - 0.46, h - 0.18, text, size=size, weight=weight,
+            color=color, align=align, valign="m", line=1.24, fit=True, min_size=7.6)
 
 
 def big_statement(sl, x, y, w, h, lead, text, lead_color=B.YELLOW):

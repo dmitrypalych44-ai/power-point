@@ -121,9 +121,9 @@ def overview():
     sl.text(rx + rw - 1.30, wy + 0.52, 1.16, 0.44, "+30,8%", size=9.2, weight=700,
             color=B.YELLOW, align="r", valign="m")
 
-    sl.text(rx, wy + 1.02, rw, 0.32,
+    sl.text(rx, wy + 0.98, rw, 0.24,
             "Проектный центр — канал продаж и в сумму не входит: 1 012 млн ₽ проектных продаж 2027.",
-            size=8.0, weight=400, color=B.INK_3, line=1.2)
+            size=7.6, weight=400, color=B.INK_3, line=1.1, fit=True, min_size=6.8)
 
     C.footnote(sl, "Источники: данные заказчика и BI ЛП. *Вайтбокс 2026 — расчёт от амбиции 550 млн ₽ "
                    "и заявленных +80% г-г (≈306 млн ₽), факт в BI не зафиксирован. Вайтбокс — отдельный "
@@ -912,9 +912,9 @@ def market_construction():
             color=B.INK_2, line=1.12, fit=True, min_size=6.2)
     sl.text(cx + 0.20, y0 + 1.22, cw - 0.40, 0.18, "Доля Лемана ПРО сегодня", size=7.4,
             weight=400, color=B.INK_2)
-    sl.text(cx + 0.20, y0 + 1.34, 0.56, 0.30, "20%", size=16, weight=700, color=B.INK,
+    sl.text(cx + 0.20, y0 + 1.34, 0.52, 0.30, "20%", size=15.5, weight=700, color=B.INK,
             line=1.0)
-    sl.text(cx + 0.78, y0 + 1.36, cw - 0.98, 0.32, "цель — рост за счёт ПРО и ЖК",
+    sl.text(cx + 0.76, y0 + 1.36, cw - 0.96, 0.32, "цель — рост за счёт ПРО и ЖК",
             size=6.8, weight=400, color=B.INK_2, line=1.10, fit=True, min_size=6.0)
     sl.rect(cx + 0.20, y0 + 1.72, cw - 0.40, 0.05, fill=B.SERIES[3])
     sl.rect(cx + 0.20, y0 + 1.72, (cw - 0.40) * 0.20, 0.05, fill=B.YELLOW)
