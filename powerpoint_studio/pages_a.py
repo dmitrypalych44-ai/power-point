@@ -856,9 +856,9 @@ def stena_decor():
 def market_construction():
     sl = Slide(4)
     C.head(sl, "Рынок · Застройка",
-           "1 016 тыс. м² МКД и 1 000 тыс. м² ИЖС до 2030 года",
-           "Приоритеты на пути клиента новосёла и бригадира: оффер, наличие, "
-           "работа с ЦО и застройщиками")
+           "Рынок 29,3 млрд ₽: доля 20% и растущий рынок новосёлов",
+           "Ввод до 2030: 1 016 тыс. м² МКД и 1 000 тыс. м² ИЖС · приоритет — "
+           "путь клиента новосёла и бригадира")
     y0 = B.CONTENT_Y
 
     # слева: графитовая колонка приоритетов
@@ -894,29 +894,50 @@ def market_construction():
                 color=B.WHITE, line=1.22, fit=True, min_size=6.8)
         cy += hh + step
 
-    # середина: два показателя
+    # середина: рынок и доля + объёмы ввода
     cx = B.M + lw + 0.22
-    cw = 1.86
-    ch = (dark_h - 0.16) / 2.0
-    for i, (name, value, pct) in enumerate([("МКД", "1 016", "50%"),
-                                            ("ИЖС", "1 000", "25%")]):
-        cy = y0 + i * (ch + 0.16)
+    cw = 1.96
+
+    # карточка «Рынок и доля Лемана ПРО»
+    C.panel(sl, cx, y0, cw, 1.96, fill=B.YELLOW_FAINT)
+    sl.rect(cx, y0, cw, 0.05, fill=B.YELLOW)
+    sl.text(cx + 0.20, y0 + 0.14, cw - 0.40, 0.20, "Рынок и доля", size=8.2,
+            weight=700, color=B.INK, caps=True, tracking=0.6)
+    sl.text(cx + 0.20, y0 + 0.38, cw - 0.40, 0.18, "Объём рынка B2C", size=7.4,
+            weight=400, color=B.INK_2)
+    sl.text(cx + 0.20, y0 + 0.54, cw - 0.40, 0.42, "29,3 млрд ₽", size=21, weight=700,
+            color=B.DARK, line=1.0, fit=True, min_size=14)
+    sl.text(cx + 0.20, y0 + 0.92, cw - 0.40, 0.30,
+            "Владивосток и Артём — растущий рынок новосёлов", size=6.8, weight=400,
+            color=B.INK_2, line=1.12, fit=True, min_size=6.2)
+    sl.text(cx + 0.20, y0 + 1.22, cw - 0.40, 0.18, "Доля Лемана ПРО сегодня", size=7.4,
+            weight=400, color=B.INK_2)
+    sl.text(cx + 0.20, y0 + 1.34, 0.56, 0.30, "20%", size=16, weight=700, color=B.INK,
+            line=1.0)
+    sl.text(cx + 0.78, y0 + 1.36, cw - 0.98, 0.32, "цель — рост за счёт ПРО и ЖК",
+            size=6.8, weight=400, color=B.INK_2, line=1.10, fit=True, min_size=6.0)
+    sl.rect(cx + 0.20, y0 + 1.72, cw - 0.40, 0.05, fill=B.SERIES[3])
+    sl.rect(cx + 0.20, y0 + 1.72, (cw - 0.40) * 0.20, 0.05, fill=B.YELLOW)
+
+    # две карточки объёмов ввода
+    ch = (dark_h - 1.96 - 0.16 * 2) / 2.0
+    for i, (name, value, pct, note) in enumerate([
+            ("МКД", "1 016", "50%", "251 МКД до 2030"),
+            ("ИЖС", "1 000", "25%", "≈9 000 домов")]):
+        cy = y0 + 1.96 + 0.16 + i * (ch + 0.16)
         C.panel(sl, cx, cy, cw, ch, fill=B.SURFACE)
-        sl.text(cx, cy + 0.32, cw, 0.30, name, size=11.5, weight=400, color=B.INK_2,
-                align="c", caps=True, tracking=1.2)
-        sl.text(cx, cy + 0.68, cw, 0.78, value, size=44, weight=700, color=B.DARK,
-                align="c", line=1.0, fit=True, min_size=24)
-        sl.text(cx, cy + 1.52, cw, 0.26, "тыс. м²", size=10.0, weight=400,
-                color=B.INK_2, align="c")
-        sl.rect(cx + 0.18, cy + ch - 0.32, cw - 0.36, 0.05, fill=B.SURFACE_3)
-        sl.rect(cx + 0.18, cy + ch - 0.32, (cw - 0.36) * (0.5 if pct == "50%" else 0.25),
-                0.05, fill=B.YELLOW)
-        sl.text(cx, cy + ch - 0.26, cw, 0.24, pct + " в зоне охвата", size=7.8, weight=600,
-                color=B.YELLOW_DIM, align="c")
+        sl.text(cx + 0.18, cy + 0.08, cw - 0.36, 0.20, name, size=8.0, weight=700,
+                color=B.INK_2, caps=True, tracking=0.8)
+        sl.text(cx + 0.18, cy + 0.24, cw - 0.36, 0.34, value, size=21, weight=700,
+                color=B.DARK, line=1.0)
+        sl.text(cx + 0.18, cy + 0.58, cw - 0.36, 0.20, "тыс. м² · " + pct + " зоны",
+                size=7.2, weight=400, color=B.INK_2)
+        sl.text(cx + 0.18, cy + 0.75, cw - 0.36, 0.20, note, size=6.8, weight=400,
+                color=B.INK_3, fit=True, min_size=6.0)
 
     # справа: график-блок и два списка
-    rx = cx + cw + 0.26
-    rw = B.SLIDE_W - B.M - rx          # ≈ 6.55
+    rx = cx + cw + 0.24
+    rw = B.SLIDE_W - B.M - rx          # ≈ 6.42
 
     # верхняя полоса — график и выводы по МКД
     half = (rw - 0.24) / 2.0
