@@ -1027,6 +1027,86 @@ def market_construction():
 
 
 # ---------------------------------------------------------------- 3б. CJM
+def novoseli():
+    sl = Slide(2)
+    C.head(sl, "НОВОСЁЛЫ",
+           "30 800 новосёлов в потенциале: 24 828 уже в программе, 40% доходят до сделки",
+           "Программа «Новосёл» · регистрации с апреля 2025 · 20% охвата потенциала квартир "
+           "в зоне охвата", raw=True)
+    y0 = B.CONTENT_Y
+
+    C.kpi_row(sl, [
+        dict(label="Потенциал новосёлов", value="30 800",
+             note_prefix="клиентов", note="· 126 985 квартир"),
+        dict(label="Зарегистрировано в программе", value="24 828",
+             note_prefix="с апреля 2025", note="· 24 084 за период"),
+        dict(label="Охват потенциала", value="20%",
+             note_prefix="24 828", note="от 126 985 квартир"),
+        dict(label="С оплаченной сделкой", value="40%",
+             note_prefix="когорта 2026", note="· 3 250 в ноябре"),
+    ], y0, h=1.16, value_size=22)
+
+    y1 = y0 + 1.30
+
+    # слева: динамика регистраций
+    lw = 6.30
+    C.section_head(sl, B.M, y1, lw, "Регистрации новосёлов по месяцам, чел.", size=13.0)
+    months = [("01", 140), ("02", 312), ("03", 1_106), ("04", 1_818), ("05", 1_769),
+              ("06", 1_764), ("07", 2_155), ("08", 2_393), ("09", 3_364),
+              ("10", 6_013), ("11", 3_250)]
+    C.column_chart(sl, B.M, y1 + 0.50, lw, 2.02, [
+        dict(label="%s.26" % m, value=v, value_label="{:,}".format(v).replace(",", " "),
+             highlight=(v == 6_013)) for m, v in months
+    ], gap=0.16, bar_max_w=0.52, labels=True, values=True,
+        ticks=[0, 3_000, 6_000], tick_size=7.0,
+        tick_fmt=lambda v: "{:,}".format(int(v)).replace(",", " "))
+
+    cy = y1 + 2.78
+    sl.text(B.M, cy, lw, 0.24,
+            "Пик — октябрь 2026: 6 013 регистраций. Доля с оплаченной сделкой в когорте — 40%.",
+            size=8.8, weight=400, color=B.INK_2)
+
+    cy += 0.28
+    C.panel(sl, B.M, cy, lw, 0.58, fill=B.PANEL)
+    sl.text(B.M + 0.22, cy + 0.10, 1.95, 0.22, "Тип недвижимости", size=7.8, weight=700,
+            color=B.INK_3, caps=True, tracking=0.6)
+    sl.text(B.M + 0.22, cy + 0.33, lw - 0.44, 0.24,
+            "Новостройка 36% · вторичка 23% · ИЖС 11% · без данных 29%",
+            size=9.2, weight=600, color=B.INK)
+
+    # справа: что делаем дальше
+    rx = B.M + lw + 0.34
+    rw = B.SLIDE_W - B.M - rx
+    C.section_head(sl, rx, y1, rw, "Что делаем дальше", size=13.0)
+    sl.bullets(rx, y1 + 0.52, rw, 2.10, [
+        "Согласование выдачи купонов у застройщиков при выдаче ключей",
+        "Участие в массовых выдачах ключей с подарками для клиентов",
+        "Брендинг лифтов в новостройках",
+        "Заказ и печать каталогов программы",
+        "Брендинг машин доставки с акцией «Новосёлы»",
+    ], size=9.4, bullet="—", gap=0.10, line=1.18)
+
+    py = y1 + 2.06
+    C.panel(sl, rx, py, rw, 1.42, fill=B.YELLOW_FAINT)
+    sl.rect(rx, py, 0.06, 1.42, fill=B.YELLOW)
+    sl.text(rx + 0.24, py + 0.12, rw - 0.48, 0.22, "Сертификат новосёла", size=8.2,
+            weight=700, color=B.INK, caps=True, tracking=0.6)
+    sl.text(rx + 0.24, py + 0.36, 2.55, 0.34, "−85 000 ₽", size=19, weight=700,
+            color=B.INK)
+    sl.text(rx + 2.85, py + 0.44, rw - 3.05, 0.24, "до 100 000 ₽ с «Авангардом»",
+            size=9.0, weight=600, color=B.INK_2, fit=True, min_size=7.6)
+    sl.text(rx + 0.24, py + 0.80, rw - 0.48, 0.56,
+            "Каждая доставка — повод рассказать о программе: водители знакомят клиентов "
+            "с «Новосёлом», купон и каталог едут вместе с заказом.",
+            size=8.8, weight=400, color=B.INK_2, line=1.2, fit=True, min_size=7.4)
+
+    C.footnote(sl, "Источники: данные заказчика — отчёт «Новосёлы» (потенциал 126 985 квартир, 24 828 "
+                   "регистраций с апреля 2025, охват 20%, 40% с оплаченной сделкой, 24 084 за период, "
+                   "динамика по месяцам 2026); потенциал в клиентах — 30 800 по оценке заказчика. "
+                   "Материалы программы: купоны застройщиков, сертификат новосёла, брендинг лифтов и доставки.")
+    return sl
+
+
 def cjm():
     sl = Slide(3)
     C.head(sl, "CJM · СНИМАЕМ БОЛИ КЛИЕНТОВ",
@@ -1271,6 +1351,6 @@ def stena_roadmap():
     return sl
 
 
-PAGES = [cover, market_construction, cjm, overview, divider_worlds, whitebox_summary,
+PAGES = [cover, market_construction, novoseli, cjm, overview, divider_worlds, whitebox_summary,
          whitebox_initiatives, stena_summary, stena_actions_stolyarka, stena_actions_kraski,
          stena_actions_decor, stena_cjm, stena_plan, stena_actions_all]
