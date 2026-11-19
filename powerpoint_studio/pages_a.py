@@ -1027,12 +1027,25 @@ def market_construction():
 
 
 # ---------------------------------------------------------------- 3б. CJM
+def _mark_list(sl, x, y, w, items, size=8.8, gap=0.10, line=1.18, color=B.INK,
+               mark=B.YELLOW, text_x=0.20):
+    """Список с квадратными жёлтыми маркерами — для блока «уже сделано»."""
+    cy = y
+    for it in items:
+        sl.rect(x, cy + 0.07, 0.09, 0.09, fill=mark)
+        n = max(1, len(C.wrap(it, w - text_x, size, 400)))
+        sl.text(x + text_x, cy, w - text_x, n * size * line / 72 + 0.04, it, size=size,
+                weight=400, color=color, line=line, fit=True, min_size=7.2)
+        cy += n * size * line / 72 + gap
+    return cy
+
+
 def novoseli():
     sl = Slide(2)
     C.head(sl, "НОВОСЁЛЫ · ВЛАДИВОСТОК",
            "30 845 квартир в потенциале, 4 099 новосёлов в программе и 39% со сделкой",
            "Программа «Новосёл» · магазин 75, Владивосток · регистрации с апреля 2025 · "
-           "охват 13,29%", raw=True)
+           "охват 13,29% · демарш лидера — Нижний Новгород", raw=True)
     y0 = B.CONTENT_Y
 
     C.kpi_row(sl, [
@@ -1044,81 +1057,105 @@ def novoseli():
              note_prefix="4 099", note="от 30 845"),
         dict(label="Со сделкой", value="39,34%",
              note_prefix="1 593", note="клиента"),
-    ], y0, h=1.16, value_size=22)
+    ], y0, h=1.12)
 
-    y1 = y0 + 1.32
-    lw = 6.30
+    y1 = y0 + 1.12 + 0.16
+    gap = 0.18
+    pw = (B.CW - 2 * gap) / 3
 
-    # слева: воронка программы
-    C.section_head(sl, B.M, y1, lw, "Воронка программы, клиентов", size=13.0)
-    funnel = [
-        ("Потенциал квартир", "30 845", 30485, B.SURFACE_3, "100%"),
-        ("Зарегистрировано", "4 099", 4099, B.YELLOW, "13,29%"),
-        ("Со сделкой", "1 593", 1593, B.INK_2, "39,34% от новосёлов"),
-    ]
-    bar_x = B.M
-    bar_w = 2.90
-    cy = y1 + 0.50
-    for label, val, v, col, note in funnel:
-        sl.text(bar_x, cy, 2.05, 0.24, label, size=9.2, weight=600, color=B.INK,
-                fit=True, min_size=7.4)
-        sl.text(bar_x, cy + 0.24, 2.05, 0.20, note, size=7.6, weight=400, color=B.INK_3,
-                fit=True, min_size=6.6)
-        sl.rect(bar_x + 2.15, cy + 0.10, bar_w, 0.22, fill=B.SURFACE_2)
-        sl.rect(bar_x + 2.15, cy + 0.10, max(0.05, bar_w * v / 30485.0), 0.22, fill=col)
-        sl.text(bar_x + 2.15 + bar_w + 0.16, cy + 0.02, 1.05, 0.30, val, size=13.0,
-                weight=700, color=B.INK, align="r", fit=True, min_size=9.0)
-        cy += 0.62
+    # ---------------------------------------------------- 1. воронка и GMV
+    x = B.M
+    C.section_head(sl, x, y1, pw, "Воронка программы, клиентов", size=11.5)
+    funnel = [("Потенциал квартир", "30 845", 1.00, "100%"),
+              ("В программе", "4 099", 4099 / 30485.0, "13,29% от потенциала"),
+              ("Со сделкой", "1 593", 1593 / 30485.0, "39,34% от новосёлов")]
+    cy = y1 + 0.44
+    for label, val, frac, note in funnel:
+        sl.text(x, cy, pw - 1.05, 0.20, label, size=8.6, weight=600, color=B.INK,
+                fit=True, min_size=7.2)
+        sl.text(x + pw - 1.05, cy - 0.04, 1.05, 0.26, val, size=11.5, weight=700,
+                color=B.INK, align="r", fit=True, min_size=8.6)
+        sl.text(x, cy + 0.19, pw - 1.05, 0.18, note, size=7.2, weight=400, color=B.INK_3,
+                fit=True, min_size=6.4)
+        sl.rect(x, cy + 0.40, pw, 0.055, fill=B.SURFACE_3)
+        sl.rect(x, cy + 0.40, max(0.05, pw * frac), 0.055, fill=B.YELLOW)
+        cy += 0.46
 
-    # слева ниже: GMV новосёлов
-    gy = y1 + 2.30
-    C.section_head(sl, B.M, gy, lw, "GMV новосёлов, млн ₽", size=13.0)
-    tiles = [("1 203,4", "GMV новосёлов"), ("318,6", "GMV сделок"),
-             ("134,6", "карты лояльности")]
-    tw = (lw - 2 * 0.14) / 3
-    for i, (val, lab) in enumerate(tiles):
-        x = B.M + i * (tw + 0.14)
-        C.panel(sl, x, gy + 0.46, tw, 0.78, fill=B.PANEL)
-        sl.rect(x, gy + 0.46, 0.05, 0.78, fill=B.YELLOW if i == 0 else B.SURFACE_3)
-        sl.text(x + 0.18, gy + 0.54, tw - 0.32, 0.30, val, size=16.0, weight=700,
-                color=B.INK, fit=True, min_size=11)
-        sl.text(x + 0.18, gy + 0.88, tw - 0.32, 0.24, lab, size=8.2, weight=400,
-                color=B.INK_2, fit=True, min_size=6.8)
-    sl.text(B.M, gy + 1.28, lw, 0.24,
-            "Скидка по акции 021 — 3,3 млн ₽ · 1,21 сделки на клиента · 1,20 проектных мира",
-            size=8.6, weight=400, color=B.INK_2, fit=True, min_size=7.4)
+    # GMV — компактная плашка под воронкой
+    gy = y1 + 1.78
+    C.panel(sl, x, gy, pw, 0.76, fill=B.SURFACE)
+    sl.rect(x, gy, 0.05, 0.76, fill=B.YELLOW)
+    sl.text(x + 0.22, gy + 0.09, pw - 0.40, 0.20, "GMV новосёлов, млн ₽", size=7.6,
+            weight=700, color=B.INK_3, caps=True, tracking=0.5)
+    gmv = [("1 203,4", "новосёлы"), ("318,6", "сделки"), ("134,6", "карты лояльности")]
+    cw2 = (pw - 0.44) / 3
+    for i, (val, lab) in enumerate(gmv):
+        gx = x + 0.22 + i * cw2
+        sl.text(gx, gy + 0.30, cw2 - 0.10, 0.26, val, size=12.0, weight=700,
+                color=B.INK, fit=True, min_size=9.0)
+        sl.text(gx, gy + 0.55, cw2 - 0.10, 0.18, lab, size=7.0, weight=400,
+                color=B.INK_2, fit=True, min_size=6.2)
 
-    # справа: что делаем дальше
-    rx = B.M + lw + 0.34
-    rw = B.SLIDE_W - B.M - rx
-    C.section_head(sl, rx, y1, rw, "Что делаем дальше", size=13.0)
-    sl.bullets(rx, y1 + 0.50, rw, 1.80, [
-        "Согласование выдачи купонов у застройщиков при выдаче ключей",
-        "Участие в массовых выдачах ключей с подарками для клиентов",
-        "Брендинг лифтов в новостройках",
-        "Заказ и печать каталогов программы",
-        "Брендинг машин доставки с акцией «Новосёлы»",
-    ], size=9.4, bullet="—", gap=0.10, line=1.18)
+    # ---------------------------------------------------- 2. что уже сделано
+    x = B.M + pw + gap
+    C.section_head(sl, x, y1, pw, "Уже сделано в 2026", size=11.5)
+    _mark_list(sl, x, y1 + 0.46, pw, [
+        "Зона подключения новосёлов в магазине",
+        "Выделен специалист сопровождения B2C-клиентов-новосёлов",
+        "26 билбордов по городу с актуальными акциями",
+        "Экспозиция на Week Design с регистрацией новосёлов",
+    ], size=9.0, gap=0.16)
 
-    py = y1 + 1.92
-    C.panel(sl, rx, py, rw, 1.42, fill=B.YELLOW_FAINT)
-    sl.rect(rx, py, 0.06, 1.42, fill=B.YELLOW)
-    sl.text(rx + 0.24, py + 0.12, rw - 0.48, 0.22, "Сертификат новосёла", size=8.2,
+    py = y1 + 1.72
+    C.panel(sl, x, py, pw, 0.86, fill=B.YELLOW_FAINT)
+    sl.rect(x, py, 0.05, 0.86, fill=B.YELLOW)
+    sl.text(x + 0.22, py + 0.10, pw - 0.44, 0.20, "Сертификат новосёла", size=7.8,
             weight=700, color=B.INK, caps=True, tracking=0.6)
-    sl.text(rx + 0.24, py + 0.36, 2.55, 0.34, "−85 000 ₽", size=19, weight=700,
-            color=B.INK)
-    sl.text(rx + 2.85, py + 0.44, rw - 3.05, 0.24, "до 100 000 ₽ с «Авангардом»",
-            size=9.0, weight=600, color=B.INK_2, fit=True, min_size=7.6)
-    sl.text(rx + 0.24, py + 0.80, rw - 0.48, 0.56,
-            "Каждая доставка — повод рассказать о программе: водители знакомят клиентов "
-            "с «Новосёлом», купон и каталог едут вместе с заказом.",
-            size=8.8, weight=400, color=B.INK_2, line=1.2, fit=True, min_size=7.4)
+    sl.text(x + 0.22, py + 0.32, 1.65, 0.30, "−85 000 ₽", size=15.5, weight=700, color=B.INK)
+    sl.text(x + 1.95, py + 0.38, pw - 2.17, 0.24, "до 100 000 ₽ с «Авангардом»",
+            size=8.0, weight=600, color=B.INK_2, fit=True, min_size=6.8)
+    sl.text(x + 0.22, py + 0.62, pw - 0.44, 0.20,
+            "Купон и каталог едут с доставкой", size=7.4, weight=400, color=B.INK_3)
 
-    C.footnote(sl, "Источники: данные заказчика — сводная таблица «Новосёлы» по магазинам, Владивосток "
-                   "(потенциал 30 845 квартир, 4 099 новосёлов, охват 13,29%, 4 049 за период, 1 593 со "
-                   "сделкой, 39,34%, 1,20 проектных мира, 1,21 сделки на клиента, GMV 1 203 442 148 ₽, "
-                   "GMV сделок 318 644 032 ₽, GMV по картам лояльности 134 634 956 ₽), апрель — ноябрь 2026. "
-                   "Материалы программы: купоны застройщиков, сертификат новосёла, брендинг лифтов и доставки.")
+    # ---------------------------------------------------- 3. что делаем дальше
+    x = B.M + 2 * (pw + gap)
+    C.section_head(sl, x, y1, pw, "Что делаем дальше", size=11.5)
+    _mark_list(sl, x, y1 + 0.46, pw, [
+        "Купоны у застройщиков — при выдаче ключей",
+        "Массовые выдачи ключей с подарками новосёлам",
+        "Брендинг лифтов в новостройках",
+        "Каталоги программы — на каждую выдачу ключей",
+        "Машины доставки с акцией «Новосёлы»",
+    ], size=9.0, gap=0.20, mark=B.YELLOW_DIM)
+
+    # ---------------------------------------------------- демарш лидера
+    by = 5.98
+    C.panel(sl, B.M, by, B.CW, 0.88, fill=B.SURFACE)
+    sl.rect(B.M, by, 0.06, 0.88, fill=B.YELLOW)
+    sl.text(B.M + 0.26, by + 0.11, 2.0, 0.20, "Демарш лидера", size=7.8, weight=700,
+            color=B.YELLOW_DIM, caps=True, tracking=0.6)
+    sl.text(B.M + 0.26, by + 0.30, 2.0, 0.26, "Нижний Новгород", size=11.5, weight=700,
+            color=B.INK)
+    sl.text(B.M + 0.26, by + 0.58, 2.0, 0.20, "цель 2027 — сравняться", size=7.2,
+            weight=400, color=B.INK_3)
+
+    demo = [("Охват потенциала", "18,54%", "у нас 13,29% · +5,2 п.п."),
+            ("Конверсия в сделку", "44,58%", "у нас 39,34% · +5,2 п.п."),
+            ("GMV новосёлов", "681,7 млн ₽", "5 428 новосёлов"),
+            ("Сделок на клиента", "1,23", "проектных миров 1,19")]
+    dx = B.M + 2.46
+    dw = (B.CW - 2.46 - 0.26) / len(demo)
+    for i, (lab, val, sub) in enumerate(demo):
+        cx = dx + i * dw
+        sl.text(cx, by + 0.12, dw - 0.16, 0.20, lab, size=7.4, weight=400,
+                color=B.INK_3, caps=True, tracking=0.4, fit=True, min_size=6.4)
+        sl.text(cx, by + 0.31, dw - 0.16, 0.28, val, size=12.5, weight=700,
+                color=B.INK, fit=True, min_size=9.2)
+        sl.text(cx, by + 0.60, dw - 0.16, 0.20, sub, size=7.2, weight=400,
+                color=B.INK_2, fit=True, min_size=6.2)
+
+    C.footnote(sl, "Источники: данные заказчика — сводная таблица «Новосёлы» по магазинам, "
+                   "апрель — ноябрь 2026; Нижний Новгород — лидер по охвату и конверсии.")
     return sl
 
 
